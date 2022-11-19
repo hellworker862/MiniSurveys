@@ -1,0 +1,658 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/*Обнуление*/
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*--------------------*/
+
+:root {
+    --red-color:#FF0000;
+    --tomato-color:#FF4346;
+    --button-text-color: #FFF;
+    --header-bg-color:#293240;
+    --title-color:#0F2232;
+    --dark-text:#333F4A;
+}
+
+body {
+  background-color: #E9ECEE;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  min-height: 100%;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.container {
+    max-width: 70%;
+    width: 1100px;
+    margin: 0 auto;
+}
+
+.content {
+    flex: 1 1 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 57px;
+  background-color: var(--header-bg-color);
+  font-size: 20px;
+  padding: 0 10% 0 0;
+}
+
+.header__logo {
+  max-height: 57px;
+}
+
+.header__list {
+  display: flex;
+  align-items: center;
+}
+
+.header__li a {
+  height: 57px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  color: var(--button-text-color);
+}
+
+.header__li_active {
+  background-color: #EC1C24;
+  font-weight: 600;
+}
+
+.header__li a {
+  display: flex;
+  align-items: center;
+}
+
+.header__li a img {
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+}
+
+.title {
+  font-style: normal;
+  font-weight: 657;
+  font-size: 28px;
+  line-height: 34px;
+}
+
+.main__title {
+  margin: 74px 0 34px 0;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.personal_info {
+  position: relative;
+}
+
+.personal-info__li {
+  margin-bottom: 25px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.fio-info {
+  margin-bottom: 8px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 27px;
+}
+
+.personal_info-avatar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 135px;
+  width: 135px;
+}
+
+.personal-info_button {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--button-text-color);
+  background-color: var(--tomato-color);
+  padding: 7px 18px;
+}
+
+.radio-button {
+  display: inline-block;
+}
+
+.radio-button input[type=radio] {
+  display: none;
+}
+
+.main-body{
+  color: var(--dark-text);
+  display: flex;
+  flex-direction: column;
+}
+.main__header{
+  margin: 73px 0 28px 0;
+  height: 135px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.main-body__title h1{
+  font-weight: 657;
+  font-size: 28px;
+}
+.main__sort {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+}
+.main__radio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main__radio label{
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  border: 1px solid transparent;
+  width: 150px;
+  padding: 12px 0;
+}
+.main__radio label:hover{
+  border: 1px solid var(--header-bg-color); 
+  border-radius: -10px;
+  transition: 0.7s;
+}
+
+.main__radio:last-child{
+  padding-left: 8px;
+}
+.main__radio input[type="radio"]:checked + label{
+  border: 1px solid transparent;
+  background: var(--red-color);
+  color: var(--button-text-color);
+}
+.main__radio label{
+  text-align: center;
+}
+.main__search {
+  padding: 5px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30%;
+  max-width: 287px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #C3C7CB;
+}
+.main__search input{
+  font-size: 18px;
+  padding-left: 10px;
+  background-color: transparent;
+  flex: 1 1 auto;
+}
+.main__search img{
+  margin-left: 5px;
+  width: 23px;
+}
+.main__list {
+  max-height: 700px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.main__list::-webkit-scrollbar{
+  width: 12px;
+}
+.main__list::-webkit-scrollbar-track{
+  background: #E9ECEE;
+}
+.main__list::-webkit-scrollbar-thumb{
+  background-color: #C3C7CB;
+  border-radius: 9px;
+}
+.main__item {
+  border: 1px solid #C3C7CB;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.main__item:not(:first-child){
+  margin-top: 22px;
+}
+.main__date-closed {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  padding-left: 35px;
+  padding-top: 18px;
+}
+.main__survey {
+  padding: 14px 35px 18px 35px;
+  display: flex;
+  align-items: center;
+}
+.main__survey-img{
+  flex: 0 1 74px;
+}
+.main__survey-img img{
+  width: 74px;
+}
+.main__survey-main {
+  flex: 1 1 auto;
+  margin-left: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.main__survey-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+}
+.main__date-of-create {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 10px 0;
+}
+.main__survey-main button{
+  color: var(--button-text-color);
+  background-color: var(--tomato-color);
+  padding: 5px 30px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+}
+.main__survey-main button:hover{
+  background-color: var(--red-color);
+  transition: 0.7s;
+}
+
+.answer__radio label{
+  font-style: normal;
+  font-weight: 657;
+  font-size: 15px;
+  line-height: 18px;
+  display: inline-block;
+  cursor: pointer;
+  padding: 13px 5px;
+  text-align: center;
+  /*background-color: va*/
+  color: var(--button-text-color);
+  background-color: var(--tomato-color);
+}
+
+.radio-button input[type=radio]:checked+label {
+  background: var(--red-color);
+  color: var(--button-text-color);
+}
+
+.answer__radio label:hover{
+  color: rgb(232, 232, 232);
+}
+
+.radio-button input[type=radio]:disabled+label {
+  background: var(--tomato-color);
+  color: var(--button-text-color);
+}
+
+.answer__radio label {
+  margin-bottom: 15px;
+  width: 458px;
+}
+
+.answer__body {
+  justify-content: center;
+  display: flex;
+  margin-top: 53px;
+}
+
+.question__number {
+  font-style: normal;
+  font-weight: 539;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.question_title {
+  font-style: normal;
+  font-weight: 539;
+  font-size: 24px;
+  line-height: 29px;
+  margin-top: 82px;
+  margin-bottom: 25px;
+}
+
+.slider {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.footer{
+  padding: 25px;
+  text-align: center;
+  margin-top: 40px;
+  background-color: var(--header-bg-color);
+  color: var(--button-text-color);
+}
+
+.login {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 564px;
+  height: 398px;
+  background: #E9ECEE;
+  border: 2px solid var(--tomato-color);
+}
+
+.logo {
+  position: absolute;
+  width: 111px;
+  height: 39px;
+  left: 226px;
+  top: 32px;
+
+}
+
+.log {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 563;
+  font-size: 24px;
+  line-height: 29px;
+  position: absolute;
+  width: 312px;
+  height: 236px;
+  left: 126px;
+  top: 97px;
+  color: #333F4A;
+}
+
+.login_text {
+  position: absolute;
+  width: 312px;
+  height: 30px;
+  left: 126px;
+  top: 151px;
+}
+
+.login_password {
+  position: absolute;
+  width: 312px;
+  height: 30px;
+  left: 126px;
+  top: 204px;
+}
+
+.button-login {
+  position: absolute;
+  width: 312px;
+  height: 36px;
+  left: 126px;
+  top: 264px;
+  font-weight: 743;
+}
+
+.help {
+  position: absolute;
+  width: 312px;
+  height: 20px;
+  left: 126px;
+  top: 313px;
+  color: #333F4A;
+  font-weight: 633;
+  font-size: 13px;
+  align-items: center;
+  text-align: center;
+
+}
+
+/*______slider_picture_____*/
+.mySlides {
+  display: none
+}
+
+.mySlides img {
+  width: 100%;
+}
+
+.slider-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  vertical-align: middle;
+}
+
+.slider {
+  max-width: 800px;
+  position: relative;
+  margin: auto;
+}
+
+/* Кнопки next & previous*/
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Измените положение "next button" */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev {
+  left: 0;
+}
+
+/* Добавьте черный фоновый цвет с небольшой прозрачностью*/
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Подпись под изображением */
+.text {
+  color: #ffffff;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #ffffff;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Точки/маркеры/указатели */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #999999;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+  background-color: #111111;
+}
+
+/* Выцветание анимации */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {
+    opacity: .4
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: .4
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+/* Для маленьких экранов увеличьте размер текста */
+@media only screen and (max-width: 300px) {
+
+  .prev,
+  .next,
+  .text {
+    font-size: 11px
+  }
+}
+
+/*close_slider_picture_____*/

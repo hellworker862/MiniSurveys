@@ -12,8 +12,8 @@ using MiniSurveys.Domain.Data;
 namespace MiniSurveys.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221114084640_Initial")]
-    partial class Initial
+    [Migration("20221119161203_initialDepartment")]
+    partial class initialDepartment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -174,6 +174,18 @@ namespace MiniSurveys.Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Кадровая служба"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Отдел разработки"
+                        });
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.User", b =>
@@ -191,11 +203,10 @@ namespace MiniSurveys.Domain.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("DepartmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -208,6 +219,10 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -219,6 +234,10 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Patronymic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -226,6 +245,10 @@ namespace MiniSurveys.Domain.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -303,9 +326,13 @@ namespace MiniSurveys.Domain.Migrations
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.User", b =>
                 {
-                    b.HasOne("MiniSurveys.Domain.Modals.Department", null)
+                    b.HasOne("MiniSurveys.Domain.Modals.Department", "Department")
                         .WithMany("Users")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Department", b =>

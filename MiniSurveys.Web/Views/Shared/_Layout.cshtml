@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @await Html.PartialAsync("MetatagsPartial")
+    @await Html.PartialAsync("CssPartial")
+
+    @if(ViewBag.Title != null)
+    {
+        <title>@ViewBag.Title</title>   
+    }
+    else
+    {
+        <title>Страница</title>
+    }
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            @await Html.PartialAsync("HeaderPartial")
+
+            <div class="main">
+                <div class="container">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+        @await Html.PartialAsync("FooterPartial")
+    </div>
+@await Html.PartialAsync("ScriptsPartial")
+</body>
+</html>

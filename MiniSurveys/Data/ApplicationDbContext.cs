@@ -18,6 +18,9 @@ namespace MiniSurveys.Domain.Data
         {
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+            modelBuilder.Entity<Department>().HasData(
+                new Department { Id = 1, Name = "Кадровая служба" },
+                new Department { Id = 2, Name = "Отдел разработки", });
             base.OnModelCreating(modelBuilder);
         }
     }

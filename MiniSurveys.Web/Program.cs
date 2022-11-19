@@ -11,25 +11,21 @@ var connectionString = builder.Configuration.GetValue<string>("ConnectionString"
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
-    {
-        options.SignIn.RequireConfirmedAccount = true;
-        options.Password.RequiredLength = 5;
-        options.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
-        options.Password.RequireLowercase = false; // требуются ли символы в нижнем регистре
-        options.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
-        options.Password.RequireDigit = false; // требуются ли цифры
-        options.User.RequireUniqueEmail = true; // требуется уникальная элек. почта
-        options.SignIn.RequireConfirmedEmail = false; // обязательное подтверждение почты
-    }).AddEntityFrameworkStores<ApplicationDbContext>();
+{
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequiredLength = 5;
+    options.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
+    options.Password.RequireLowercase = false; // требуются ли символы в нижнем регистре
+    options.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
+    options.Password.RequireDigit = false; // требуются ли цифры
+    options.User.RequireUniqueEmail = true; // требуется уникальная элек. почта
+    options.SignIn.RequireConfirmedEmail = false; // обязательное подтверждение почты
+}).AddEntityFrameworkStores<ApplicationDbContext>();
 
 var app = builder.Build();
 
-//app.Run(async context =>
-//{
-//    var userManager = app.Services.GetRequiredService<UserManager<User>>();
-//    var rolesManager = app.Services.GetRequiredService<RoleManager<IdentityRole>>();
-//    await RoleInitializer.InitializeAsync(app.Services.ServicePr);
-//});
+using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+await RoleInitializer.InitializeAsync(scope.ServiceProvider);
 
 
 // Configure the HTTP request pipeline.
