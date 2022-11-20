@@ -11,5 +11,7 @@ namespace MiniSurveys.Domain.Modals
         public string Patronymic { get; init; }
 
         public Department Department { get; set; }
+
+        public string HrefAvatar { get; init; }
     }
 }

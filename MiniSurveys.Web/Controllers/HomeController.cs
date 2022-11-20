@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MiniSurveys.Web.Models;
 using System.Diagnostics;
 
@@ -15,9 +16,16 @@ namespace MiniSurveys.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if(!User.Identity.IsAuthenticated){
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                return View();
+            }
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

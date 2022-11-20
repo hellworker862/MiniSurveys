@@ -1,0 +1,41 @@
+﻿@model MiniSurveys.Web.Models.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=google">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parma interview</title>
+    <link rel="stylesheet" type="text/css" href="~/css/style.css">
+
+
+</head>
+<body>
+    <form class="author" method="post" asp-controller="Account" asp-action="Login">
+        <div class="author__body">
+            <div class="author__content">
+                <img src="~/img/logo.png" alt="Типо логотип" class="author__logo">
+                <span class="author__title">Вход</span>
+                <input asp-for="UserName" type="text" class="author__input" placeholder="Логин">
+                <span asp-validation-for="UserName"></span>
+                <input asp-for="Password" type="password" class="author__input" placeholder="Пароль">
+                <span asp-validation-for="Password"></span>
+                <div class="author__check">
+                    <input asp-for="RememberMe" id="author-check" type="checkbox">
+                    <label for="author-check">Запомнить меня?</label>
+                </div>
+                <div asp-validation-summary="ModelOnly"></div>
+                <button class="author__button">Войти</button>
+                <a href="#" class="author__link">Забыли пароль?</a>
+            </div>
+        </div>
+    </form>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</body>
+</html>

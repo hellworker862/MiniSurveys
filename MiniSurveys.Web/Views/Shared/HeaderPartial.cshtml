@@ -1,21 +1,36 @@
-﻿<header class="header">
+﻿@using Microsoft.AspNetCore.Identity
+@using MiniSurveys.Domain.Modals
+@using System.Security.Claims
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if (SignInManager.IsSignedIn(User)) 
+{
+    var user = await UserManager.FindByIdAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+    ViewBag.Name = $"{user.Name[0]}.{user.Patronymic[0]}. {user.Surname}";
+    ViewBag.Avatar = user.HrefAvatar;
+}
+
+<header class="header">
     <div class="header__logo">
-        <a href="">
+        <a asp-action="Index" asp-controller="Home">
             <img src="img/header-logo.png" alt="">
         </a>
     </div>
     <ul class="header__list">
-        <li class="header__li">
-            <a href="#">
-                <img src="img/default_avatar.png" alt="" class="avatar">
-                <span>Фамилия И.О.</span>
+        <li class="header__li header__li_active">
+            <a asp-action="Index" asp-controller="Account">
+                <img src="img/@ViewBag.Avatar" alt="" class="avatar" asp-append-version="true">
+                <span>@ViewBag.Name</span>
             </a>
         </li>
-        <li class="header__li header__li_active">
+        <li class="header__li">
             <a href="#">Опросы</a>
         </li>
         <li class="header__li">
-            <a href="#">Выход</a>
+            <form method="post" asp-controller="Account" asp-action="Logout">
+                <input type="submit" value="Выход">
+            </form>
         </li>
     </ul>
 </header>

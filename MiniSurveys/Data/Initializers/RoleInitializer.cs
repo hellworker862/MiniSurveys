@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MiniSurveys.Domain.Modals;
 
@@ -30,7 +29,7 @@ namespace MiniSurveys.Domain.Data.Initializers
             {
                 var department = context.Departments.FirstOrDefault(x => x.Name == "Отдел разработки");
                 employee.Department = department;
-                var result =  userManager.CreateAsync(employee, defaultPassword).Result;
+                var result = userManager.CreateAsync(employee, defaultPassword).Result;
 
                 if (result.Succeeded)
                 {
@@ -92,7 +91,9 @@ namespace MiniSurveys.Domain.Data.Initializers
             Surname = "Петров",
             Name = "Георгий",
             Patronymic = "Степанович",
-            Email = "kdawson@yahoo.ca"
+            Email = "kdawson@yahoo.ca",
+            EmailConfirmed = true,
+            HrefAvatar = "avatar_user1.png"
         };
 
         private static User employee2 = new User()
@@ -101,7 +102,9 @@ namespace MiniSurveys.Domain.Data.Initializers
             Surname = "Федоров",
             Name = "Тимофей",
             Patronymic = "Яковлевич",
-            Email = "mrobshaw@icloud.com"
+            Email = "mrobshaw@icloud.com",
+            EmailConfirmed = true,
+            HrefAvatar = "avatar_user2.png"
         };
         private static User employee3 = new User()
         {
@@ -109,7 +112,9 @@ namespace MiniSurveys.Domain.Data.Initializers
             Surname = "Фролов",
             Name = "Александр",
             Patronymic = "Иванович",
-            Email = "facet@yahoo.com"
+            Email = "facet@yahoo.com",
+            EmailConfirmed = true,
+            HrefAvatar = "avatar_user3.png"
         };
 
         private static User employee4 = new User()
@@ -118,7 +123,9 @@ namespace MiniSurveys.Domain.Data.Initializers
             Surname = "Медведев",
             Name = "Денис",
             Patronymic = "Миронович",
-            Email = "uncled@verizon.net"
+            Email = "uncled@verizon.net",
+            EmailConfirmed = true,
+            HrefAvatar = "avatar_user4.png"
         };
 
         private static User head1 = new User()
@@ -127,7 +134,9 @@ namespace MiniSurveys.Domain.Data.Initializers
             Surname = "Сидорова",
             Name = "Александра",
             Patronymic = "Глебовна",
-            Email = "raides@gmail.com"
+            Email = "raides@gmail.com",
+            EmailConfirmed = true,
+            HrefAvatar = "avatar_head1.png"
         };
 
         private static User admin1 = new User()
@@ -136,7 +145,9 @@ namespace MiniSurveys.Domain.Data.Initializers
             Surname = "Иванов",
             Name = "Иван",
             Patronymic = "Иванович",
-            Email = "myemail@mail.ru"
+            Email = "myemail@mail.ru",
+            EmailConfirmed = true,
+            HrefAvatar = "avatar_admin1.png"
         };
 
 
