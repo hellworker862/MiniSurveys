@@ -33,7 +33,6 @@ namespace MiniSurveys.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -41,7 +40,8 @@ namespace MiniSurveys.Web.Controllers
                 var result =
                     await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
 
-                return RedirectToAction("Index", "Account");
+                if(result.Succeeded) return RedirectToAction("Index", "Account");
+
             }
             return View(model);
         }
@@ -58,7 +58,6 @@ namespace MiniSurveys.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             // удаляем аутентификационные куки

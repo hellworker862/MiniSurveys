@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
-using MiniSurveys.Domain.Data.Initializers;
 using MiniSurveys.Domain.Modals;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetValue<string>("ConnectionString");
+string connectionString;
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+if (builder.Environment.IsDevelopment()) connectionString = builder.Configuration.GetConnectionString("DevelopmentConnection")!;
+else connectionString = builder.Configuration.GetConnectionString("ProductionConnection")!;
+
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 {
@@ -20,22 +21,28 @@ builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
     options.Password.RequireDigit = false; // требуются ли цифры
     options.User.RequireUniqueEmail = true; // требуется уникальная элек. почта
     options.SignIn.RequireConfirmedEmail = false; // обязательное подтверждение почты
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+}).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+//if (builder.Environment.IsDevelopment())
+//{
+//    builder.Services.AddDataProtection()
+//              .PersistKeysToFileSystem(new DirectoryInfo(@"ftp://minisurveys.somee.com/www.MiniSurveys.somee.com/temp-keys/"));
+//    //.PersistKeysToDbContext<ApplicationDbContext>();
+//}
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-await RoleInitializer.InitializeAsync(scope.ServiceProvider);
+//using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+//await RoleInitializer.InitializeAsync(scope.ServiceProvider);
 
-
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseDeveloperExceptionPage();    
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -49,3 +56,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+//TrustServerCertificate=true;
