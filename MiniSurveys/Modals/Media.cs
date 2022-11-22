@@ -1,10 +1,11 @@
-﻿using MiniSurveys.Domain.Modals.Enums;
+﻿using MiniSurveys.Domain.Modals.Base;
+using MiniSurveys.Domain.Modals.Enums;
 
 namespace MiniSurveys.Domain.Modals
 {
-    public class Media
+    public class Media : BaseEntity
     {
-        public string Url { get; set; }
+        public string Url { get; set; } = null!;
 
         public string? Title { get; set; }
 
