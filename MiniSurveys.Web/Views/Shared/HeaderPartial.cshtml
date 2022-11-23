@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using MiniSurveys.Domain.Modals
 @using System.Security.Claims
+@using MiniSurveys.Web.Helpers
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
@@ -19,7 +20,7 @@
     </div>
 
     <ul class="header__list">
-        <li class="header__li @Html.isActive("Account", "Index")">
+        <li class="header__li @Html.IsActive("Account", "Index")">
             <a asp-action="Index" asp-controller="Account">
                 <img src="img/@ViewBag.Avatar" alt="" class="avatar" asp-append-version="true">
                 <span>@ViewBag.Name</span>

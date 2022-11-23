@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace MiniSurveys.Web.Helpers
 {
@@ -13,7 +15,7 @@ namespace MiniSurveys.Web.Helpers
 
             var returnActive = (controller == routeController && (action == routeAction || routeAction == "Details"));
 
-            return returnActive ? "active" : "";
+            return returnActive ? "header__li_active" : "";
         }
     }
 }
