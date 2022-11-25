@@ -1,0 +1,18 @@
+﻿@using System.Globalization
+@model MiniSurveys.Domain.Modals.Survey
+
+<div class="main__item">
+    <div class="main__date-closed">
+        <span>Опрос завершится: @Model.EndTime.ToString("F", new CultureInfo("ru-Ru"))</span>
+    </div>
+    <div class="main__survey">
+        <div class="main__survey-img">
+            <img src="img/default_avatar.png" alt="">
+        </div>
+        <div class="main__survey-main">
+            <h3 class="main__survey-title">@Model.Title</h3>
+            <span class="main__date-of-create">Создано Нет данных | Изменено Нет данных</span>
+            <button>Принять участие</button>
+        </div>
+    </div>
+</div>

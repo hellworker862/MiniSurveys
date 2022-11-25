@@ -16,7 +16,7 @@ namespace MiniSurveys.Domain.Data.ModelConfigurations
             builder.Property(x => x.EndTime).IsRequired();
             builder.Property(x => x.SurveyState);
             builder.Property(x => x.IsQuestionOrder).HasDefaultValue(false);
-            builder.HasMany(x => x.Questions);
+            builder.HasMany(x => x.Questions).WithOne(x => x.Survey);
         }
     }
 }

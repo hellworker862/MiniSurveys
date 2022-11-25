@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniSurveys.Domain.Data;
 
@@ -11,9 +12,11 @@ using MiniSurveys.Domain.Data;
 namespace MiniSurveys.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221124101313_AddInitialData")]
+    partial class AddInitialData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,7 +169,7 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<int?>("MediaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuestionId")
+                    b.Property<int?>("QuestionId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -180,122 +183,6 @@ namespace MiniSurveys.Domain.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("Answers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            QuestionId = 1,
-                            Title = "&#128512"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            QuestionId = 1,
-                            Title = "&#128528"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            QuestionId = 1,
-                            Title = "&#128564"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            QuestionId = 1,
-                            Title = "&#128545"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            QuestionId = 1,
-                            Title = "&#128557"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            QuestionId = 2,
-                            Title = "С коллегами"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            QuestionId = 2,
-                            Title = "Один"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            QuestionId = 2,
-                            Title = "С семьей"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            QuestionId = 2,
-                            Title = "С друзьями"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            QuestionId = 3,
-                            Title = "Очень хорошо"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            QuestionId = 3,
-                            Title = "Хорошо"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            QuestionId = 3,
-                            Title = "Удовлетворительно"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            QuestionId = 3,
-                            Title = "Мне он не нравится"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            QuestionId = 4,
-                            Title = "Ответ 1"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            QuestionId = 4,
-                            Title = "Ответ 2"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            QuestionId = 4,
-                            Title = "Ответ 3"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            QuestionId = 5,
-                            Title = "Ответ 1"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            QuestionId = 5,
-                            Title = "Ответ 2"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            QuestionId = 5,
-                            Title = "Ответ 3"
-                        });
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Department", b =>
@@ -375,7 +262,7 @@ namespace MiniSurveys.Domain.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(-1);
 
-                    b.Property<int>("SurveyId")
+                    b.Property<int?>("SurveyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -393,36 +280,19 @@ namespace MiniSurveys.Domain.Migrations
                         {
                             Id = 1,
                             Number = 1,
-                            SurveyId = 1,
                             Title = "Как прошел ваш рабочий день?"
                         },
                         new
                         {
                             Id = 2,
                             Number = 2,
-                            SurveyId = 1,
                             Title = "С кем вы обычно ходите обедать?"
                         },
                         new
                         {
                             Id = 3,
                             Number = 3,
-                            SurveyId = 1,
                             Title = "Как вы относитесь к своему начальнику?"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Number = 1,
-                            SurveyId = 2,
-                            Title = "Как прошел ваш рабочий день?"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Number = 2,
-                            SurveyId = 2,
-                            Title = "Как прошел ваш рабочий день?"
                         });
                 });
 
@@ -445,7 +315,7 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<DateTime>("StartTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 11, 24, 16, 53, 58, 286, DateTimeKind.Local).AddTicks(3640));
+                        .HasDefaultValue(new DateTime(2022, 11, 24, 15, 13, 12, 935, DateTimeKind.Local).AddTicks(255));
 
                     b.Property<byte>("SurveyState")
                         .HasColumnType("tinyint");
@@ -458,26 +328,6 @@ namespace MiniSurveys.Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Surveys");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndTime = new DateTime(2022, 11, 26, 16, 53, 58, 285, DateTimeKind.Local).AddTicks(2377),
-                            IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 11, 24, 16, 53, 58, 285, DateTimeKind.Local).AddTicks(2366),
-                            SurveyState = (byte)2,
-                            Title = "Тест 1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EndTime = new DateTime(2022, 11, 28, 18, 53, 58, 285, DateTimeKind.Local).AddTicks(2385),
-                            IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 11, 26, 18, 53, 58, 285, DateTimeKind.Local).AddTicks(2384),
-                            SurveyState = (byte)1,
-                            Title = "Тест 2"
-                        });
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.User", b =>
@@ -626,15 +476,11 @@ namespace MiniSurveys.Domain.Migrations
                         .WithMany()
                         .HasForeignKey("MediaId");
 
-                    b.HasOne("MiniSurveys.Domain.Modals.Question", "Question")
+                    b.HasOne("MiniSurveys.Domain.Modals.Question", null)
                         .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuestionId");
 
                     b.Navigation("Media");
-
-                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Media", b =>
@@ -646,13 +492,9 @@ namespace MiniSurveys.Domain.Migrations
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Question", b =>
                 {
-                    b.HasOne("MiniSurveys.Domain.Modals.Survey", "Survey")
+                    b.HasOne("MiniSurveys.Domain.Modals.Survey", null)
                         .WithMany("Questions")
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Survey");
+                        .HasForeignKey("SurveyId");
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.User", b =>

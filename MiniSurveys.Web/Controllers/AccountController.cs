@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
@@ -22,7 +23,7 @@ namespace MiniSurveys.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public ActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -33,32 +34,36 @@ namespace MiniSurveys.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<ActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var result =
                     await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
 
-                if(result.Succeeded) return RedirectToAction("Index", "Account");
+                if (result.Succeeded)
+                    return RedirectToAction("Index", "Survey");
+                else
+                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
 
             }
             return View(model);
         }
 
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public Task<ActionResult> Index()
         {
             var currentUser = this.User;
             var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = _context.Users.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Id == int.Parse(currentUserName));
             var model = new AccountViewModel(user);
 
-            return View(model);
+            return Task.FromResult((ActionResult)View(model));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Logout()
+        public async Task<ActionResult> Logout()
         {
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();

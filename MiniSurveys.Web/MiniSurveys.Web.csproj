@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="bundleconfig.json" />
     <Content Remove="web.config" />
   </ItemGroup>
 
@@ -29,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="bundleconfig.json" />
     <None Include="web.config" />
   </ItemGroup>
 

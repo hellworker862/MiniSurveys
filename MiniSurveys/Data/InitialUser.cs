@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using MiniSurveys.Domain.Modals;
 
-namespace MiniSurveys.Domain.Data.Initializers
+namespace MiniSurveys.Domain.Data
 {
-    public static class RoleInitializer
+    public static class InitialUser
     {
         private const string defaultPassword = "qwerty123";
 
@@ -25,9 +25,22 @@ namespace MiniSurveys.Domain.Data.Initializers
             var userManager = provider.GetRequiredService<UserManager<User>>();
             var context = provider.GetRequiredService<ApplicationDbContext>();
 
-            foreach (var employee in DefaultUsers.Employees)
+            foreach (var employee in DefaultUsers.EmployeesDevDept)
             {
                 var department = context.Departments.FirstOrDefault(x => x.Name == "Отдел разработки");
+                employee.Department = department;
+                var result = userManager.CreateAsync(employee, defaultPassword).Result;
+
+                if (result.Succeeded)
+                {
+                    var employeeUser = await userManager.FindByNameAsync(employee.UserName);
+                    await userManager.AddToRoleAsync(employeeUser, RoleNames.Employee);
+                }
+            }
+
+            foreach (var employee in DefaultUsers.EmployeesTestingDept)
+            {
+                var department = context.Departments.FirstOrDefault(x => x.Name == "Отдел тестирования");
                 employee.Department = department;
                 var result = userManager.CreateAsync(employee, defaultPassword).Result;
 
@@ -51,9 +64,22 @@ namespace MiniSurveys.Domain.Data.Initializers
                 }
             }
 
-            foreach (var employee in DefaultUsers.Heads)
+            foreach (var employee in DefaultUsers.HeadsDevDept)
             {
                 var department = context.Departments.FirstOrDefault(x => x.Name == "Отдел разработки");
+                employee.Department = department;
+                var result = userManager.CreateAsync(employee, defaultPassword).Result;
+
+                if (result.Succeeded)
+                {
+                    var employeeUser = await userManager.FindByNameAsync(employee.UserName);
+                    await userManager.AddToRoleAsync(employeeUser, RoleNames.Head);
+                }
+            }
+
+            foreach (var employee in DefaultUsers.HeadsTestingDept)
+            {
+                var department = context.Departments.FirstOrDefault(x => x.Name == "Отдел тестирования");
                 employee.Department = department;
                 var result = userManager.CreateAsync(employee, defaultPassword).Result;
 
@@ -128,6 +154,28 @@ namespace MiniSurveys.Domain.Data.Initializers
             HrefAvatar = "avatar_user4.png"
         };
 
+        private static User employee5 = new User()
+        {
+            UserName = "user5",
+            Surname = "Тарасов",
+            Name = "Георгий",
+            Patronymic = "Денисович",
+            Email = "isobel.yost@gmail.com",
+            EmailConfirmed = true,
+            HrefAvatar = "avatar_user5.png"
+        };
+
+        private static User employee6 = new User()
+        {
+            UserName = "user6",
+            Surname = "Устинова",
+            Name = "Дария",
+            Patronymic = "Ивановна",
+            Email = "xfahey@gmail.com",
+            EmailConfirmed = true,
+            HrefAvatar = "avatar_user6.webp"
+        };
+
         private static User head1 = new User()
         {
             UserName = "head1",
@@ -137,6 +185,17 @@ namespace MiniSurveys.Domain.Data.Initializers
             Email = "raides@gmail.com",
             EmailConfirmed = true,
             HrefAvatar = "avatar_head1.png"
+        };
+
+        private static User head2 = new User()
+        {
+            UserName = "head2",
+            Surname = "Субботин",
+            Name = "Ян",
+            Patronymic = "Тимофеевич",
+            Email = "brody51@barrows.com",
+            EmailConfirmed = true,
+            HrefAvatar = "avatar_head2.png"
         };
 
         private static User admin1 = new User()
@@ -151,7 +210,7 @@ namespace MiniSurveys.Domain.Data.Initializers
         };
 
 
-        public static IEnumerable<User> Employees
+        public static IEnumerable<User> EmployeesDevDept
         {
             get
             {
@@ -162,11 +221,28 @@ namespace MiniSurveys.Domain.Data.Initializers
             }
         }
 
-        public static IEnumerable<User> Heads
+        public static IEnumerable<User> EmployeesTestingDept
+        {
+            get
+            {
+                yield return employee5;
+                yield return employee6;
+            }
+        }
+
+        public static IEnumerable<User> HeadsDevDept
         {
             get
             {
                 yield return head1;
+            }
+        }
+
+        public static IEnumerable<User> HeadsTestingDept
+        {
+            get
+            {
+                yield return head2;
             }
         }
 

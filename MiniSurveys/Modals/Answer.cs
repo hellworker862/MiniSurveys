@@ -12,5 +12,9 @@ namespace MiniSurveys.Domain.Modals
         public string? Title { get; set; }
 
         public Media? Media { get; set; }
+
+        public Question Question { get; set; }
+
+        public int QuestionId { get; set; }
     }
 }

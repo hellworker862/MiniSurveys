@@ -10,8 +10,8 @@ namespace MiniSurveys.Web.Helpers
         {
             var routeData = htmlHelper.ViewContext.RouteData;
 
-            var routeAction = routeData.Values["action"].ToString();
-            var routeController = routeData.Values["controller"].ToString();
+            var routeAction = routeData.Values["action"]!.ToString();
+            var routeController = routeData.Values["controller"]!.ToString();
 
             var returnActive = (controller == routeController && (action == routeAction || routeAction == "Details"));
 

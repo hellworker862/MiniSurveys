@@ -13,6 +13,7 @@ namespace MiniSurveys.Domain.Data.ModelConfigurations
             builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Title).HasMaxLength(512);
             builder.Property(x => x.Number).HasDefaultValue(-1);
+            builder.HasMany(x => x.Answers).WithOne(x => x.Question);
             builder.HasMany(x => x.Media);
         }
     }

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<MiniSurveys.Domain.Modals.Survey>
+
+@{
+    ViewBag.Title = "Опросы";
+}
+
+<div class="main-body">
+    <form class="main__header" data-ajax="true" method="get" data-ajax-method="get" data-ajax-update="#survey-list" data-ajax-mode='replace' data-ajax-url="@Url.Action("SurveyListPartial", "Survey")">
+        <div class="main-body__title title">
+            <h1>Меню опросов</h1>
+        </div>
+        <div class="main__sort">
+            <div class="main__radio radio-button">
+                <input checked name="isActive" id="1" class="radio-button__input" type="radio" value="true">
+                <label for="1">Активный</label>
+            </div>
+            <div class="main__radio radio-button">
+                <input name="isActive" id="2" class="radio-button__input" type="radio" value="false">
+                <label for="2">Завершенные</label>
+            </div>
+        </div>
+        <div class="main__search">
+            <input type="text" id="search">
+            <img src="img/search.svg" alt="">
+        </div>
+    </form>
+    <div id="survey-list" class="main__list">
+        @await Html.PartialAsync("SurveyListPartial", Model);
+    </div>
+</div>

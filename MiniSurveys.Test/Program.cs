@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
-using MiniSurveys.Domain.Data.Initializers;
 using MiniSurveys.Domain.Modals;
 
 var builder = WebApplication.CreateBuilder(args);

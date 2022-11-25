@@ -1,10 +1,5 @@
 ﻿using MiniSurveys.Domain.Modals.Base;
 using MiniSurveys.Domain.Modals.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MiniSurveys.Domain.Modals
 {
@@ -18,7 +13,7 @@ namespace MiniSurveys.Domain.Modals
 
         public DateTime EndTime { get; set; }
 
-        public bool IsQuestionOrder { get;set; } = false;
+        public bool IsQuestionOrder { get; set; } = false;
 
         public IEnumerable<Question> Questions { get; set; }
     }
