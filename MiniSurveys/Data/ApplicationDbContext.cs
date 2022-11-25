@@ -228,6 +228,15 @@ namespace MiniSurveys.Domain.Data
                     StartTime = DateTime.Now.AddDays(2).AddHours(2),
                     EndTime = DateTime.Now.AddDays(4).AddHours(2),
                 },
+
+                new Survey()
+                {
+                    Id = 3,
+                    Title = "Тест 0",
+                    StartTime = DateTime.Now.AddDays(-4).AddHours(-2),
+                    EndTime = DateTime.Now.AddDays(-2).AddHours(-2),
+                    SurveyState = SurveyStateTypeEnum.Finished,
+                }
             };
             #endregion
 

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
+using MiniSurveys.Web.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString;
@@ -33,15 +34,18 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-//using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-//await InitialUser.InitializeAsync(scope.ServiceProvider);
+using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+await InitialUser.InitializeAsync(scope.ServiceProvider);
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-app.UseDeveloperExceptionPage();
+
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
+app.UseHsts();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

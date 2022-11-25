@@ -30,17 +30,7 @@ namespace MiniSurveys.Web.Controllers
             return View(searchResult);
         }
 
-        [Route("[controller]/{id}")]
-        public async Task<ActionResult> GetSurvey(int id)
-        {
-            var survey = await _context.Surveys.Include(x => x.Questions).ThenInclude(n => n.Answers).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-
-            if (survey != null)
-                return View(survey);
-            else
-                return BadRequest().;
-        }
-
+        [Route("[controller]/{action}")]
         [HttpGet]
         public async Task<ActionResult> GetSurveyListPartial(bool isActive, string stringSearch)
         {
@@ -52,6 +42,18 @@ namespace MiniSurveys.Web.Controllers
                 searchResult = await _context.Surveys.Where(x => x.SurveyState == SurveyStateTypeEnum.Finished && EF.Functions.Like(x.Title, $"%{stringSearch}%")).AsNoTracking().ToArrayAsync();
 
             return PartialView("SurveyListPartial", searchResult);
+        }
+
+        [Route("[controller]/{id}")]
+        [HttpGet]
+        public async Task<ActionResult> GetSurvey(int id)
+        {
+            var survey = await _context.Surveys.Include(x => x.Questions).ThenInclude(n => n.Answers).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+
+            if (survey != null)
+                return View(survey);
+            else
+                return NotFound();
         }
     }
 }

@@ -840,3 +840,43 @@ img {
     margin-left: 15px;
     color: var(--button-text-color);
 }
+.error__body {
+    border: 1px solid transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.error__content {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.error__title {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--title-color);
+}
+
+h1.error__title {
+    font-size: 168px;
+    color: #EC1C24;
+}
+
+.error__text {
+    font-size: 18px;
+    line-height: 17px;
+}
+
+.error__img {
+    border-radius: 50%;
+    width: 220px;
+    height: 220px;
+}
+
+.error__row:last-child {
+    margin-top: 20px;
+    margin-left: 15px;
+}

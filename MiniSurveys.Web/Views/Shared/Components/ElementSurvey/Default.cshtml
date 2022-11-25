@@ -1,9 +1,14 @@
 ﻿@using System.Globalization
+@using MiniSurveys.Domain.Modals.Enums
 @model MiniSurveys.Domain.Modals.Survey
+
+@{
+    string state = Model.SurveyState == SurveyStateTypeEnum.Finished ? "завершен" : "завершится";
+}
 
 <div class="main__item">
     <div class="main__date-closed">
-        <span>Опрос завершится: @Model.EndTime.ToString("F", new CultureInfo("ru-Ru"))</span>
+        <span>Опрос @state: @Model.EndTime.ToString("F", new CultureInfo("ru-Ru"))</span>
     </div>
     <div class="main__survey">
         <div class="main__survey-img">

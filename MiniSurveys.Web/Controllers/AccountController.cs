@@ -57,11 +57,15 @@ namespace MiniSurveys.Web.Controllers
             var currentUser = this.User;
             var currentUserName = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user = _context.Users.Include(x => x.Department).AsNoTracking().FirstOrDefault(x => x.Id == int.Parse(currentUserName));
+
+            if (user == null) return Task.FromResult((ActionResult)NotFound("Пользователь не найден"));
+
             var model = new AccountViewModel(user);
 
             return Task.FromResult((ActionResult)View(model));
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> Logout()
         {
