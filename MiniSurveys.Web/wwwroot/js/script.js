@@ -1,42 +1,20 @@
 var slideIndex = 1;
 
-const dotLinks = document.querySelectorAll('.dot');
-const prevLinks = document.querySelectorAll('.prev');
-const nextLinks = document.querySelectorAll('.next');
+$('.dot').on('click', function () {
+    const number = this.id.replace("picture_", '');
+    currentSlide(number);
+});
 
-if(dotLinks.length > 0) {
-    for(let index = 0; index < dotLinks.length; index++) {
-        const dotLink = dotLinks[index];
-        dotLink.addEventListener("click", function(e) {
-            const number = this.id.replace("picture",'');
-            currentSlide(number);
-        });
-    }
-}
+$('.prev').on('click', function () {
+    plusSlides(-1);
+});
 
-if(nextLinks.length > 0) {
-    for(let index = 0; index < nextLinks.length; index++) {
-        const nextLink = nextLinks[index];
-        nextLink.addEventListener("click", function(e) {
-            plusSlides(1);
-        });
-    }
-}
-
-if(prevLinks.length > 0) {
-    for(let index = 0; index < prevLinks.length; index++) {
-        const prevLink = prevLinks[index];
-        prevLink.addEventListener("click", function(e) {
-            plusSlides(-1);
-        });
-    }
-}
+$('.next').on('click', function () {
+    plusSlides(1);
+});
 
 const slides = document.getElementsByClassName("mySlides");
 
-//if (slides) {
-//    showSlides(slideIndex);
-//}
 
 function plusSlides(n) {
     showSlides(slideIndex += n);
@@ -89,4 +67,55 @@ $('#search').bind('input', function () {
             surveyList.innerHTML = html;
         }
     });
+});
+
+$(document).ready(function(){
+
+$('#button_rigth').on('click', function () {
+    goToQuestion(true);
+});
+
+$('#button_left').on('click', function () {
+    goToQuestion(false);
+});
+
+function goToQuestion(is_next) {
+
+    const answers = Array.from(document.querySelectorAll('.radio-button__input')).map(x => x.checked);
+    console.log(answers);
+
+    $.ajax({
+        type: "GET",
+        url: "/Survey/GetQuestion",
+        traditional: true,
+        data: {
+            isNext: is_next,
+            answers: answers,
+        },
+        success: function (html) {
+            $('.question').html(html);
+
+            $('#button_rigth').on('click', function () {
+                goToQuestion(true);
+            });
+            $('#button_left').on('click', function () {
+                goToQuestion(false);
+            });
+
+            $('.dot').on('click', function () {
+                const number = this.id.replace("picture_", '');
+                currentSlide(number);
+            });
+
+            $('.prev').on('click', function () {
+                plusSlides(-1);
+            });
+
+            $('.next').on('click', function () {
+                plusSlides(1);
+            });
+        }
+    });
+    event.preventDefault();
+}
 });

@@ -186,35 +186,36 @@ namespace MiniSurveys.Domain.Migrations
                         {
                             Id = 1,
                             QuestionId = 1,
-                            Title = "&#128512"
+                            Title = "😀"
                         },
                         new
                         {
                             Id = 2,
                             QuestionId = 1,
-                            Title = "&#128528"
+                            Title = "😐"
                         },
                         new
                         {
                             Id = 3,
                             QuestionId = 1,
-                            Title = "&#128564"
+                            Title = "😴"
                         },
                         new
                         {
                             Id = 4,
                             QuestionId = 1,
-                            Title = "&#128545"
+                            Title = "😡"
                         },
                         new
                         {
                             Id = 5,
                             QuestionId = 1,
-                            Title = "&#128557"
+                            Title = "😭"
                         },
                         new
                         {
                             Id = 6,
+                            MediaId = 4,
                             QuestionId = 2,
                             Title = "С коллегами"
                         },
@@ -360,6 +361,39 @@ namespace MiniSurveys.Domain.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("Medias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            QuestionId = 3,
+                            Title = "Ёжик в тумане. Мультфильм HD (1975г.)",
+                            Type = (byte)2,
+                            Url = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/6gS1Bp4LZLc\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            QuestionId = 3,
+                            Title = "Фото ёжика 1",
+                            Type = (byte)1,
+                            Url = "https://proprikol.ru/wp-content/uploads/2021/12/kartinki-ezhika-na-avu-32.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            QuestionId = 3,
+                            Title = "Фото ёжика 2",
+                            Type = (byte)1,
+                            Url = "https://bugaga.ru/uploads/posts/2016-04/1461680876_ezhik-vampir-11.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Title = "С коллегами",
+                            Type = (byte)1,
+                            Url = "https://www.b17.ru/foto/uploaded/upl_1637170559_396979_p74dn.jpg"
+                        });
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Question", b =>
@@ -445,7 +479,7 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<DateTime>("StartTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 11, 26, 1, 39, 4, 796, DateTimeKind.Local).AddTicks(5163));
+                        .HasDefaultValue(new DateTime(2022, 12, 2, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(7989));
 
                     b.Property<byte>("SurveyState")
                         .HasColumnType("tinyint");
@@ -463,27 +497,27 @@ namespace MiniSurveys.Domain.Migrations
                         new
                         {
                             Id = 1,
-                            EndTime = new DateTime(2022, 11, 28, 1, 39, 4, 794, DateTimeKind.Local).AddTicks(6107),
+                            EndTime = new DateTime(2022, 12, 4, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(1642),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 11, 26, 1, 39, 4, 794, DateTimeKind.Local).AddTicks(6058),
+                            StartTime = new DateTime(2022, 12, 2, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(1629),
                             SurveyState = (byte)2,
                             Title = "Тест 1"
                         },
                         new
                         {
                             Id = 2,
-                            EndTime = new DateTime(2022, 11, 30, 3, 39, 4, 794, DateTimeKind.Local).AddTicks(6127),
+                            EndTime = new DateTime(2022, 12, 6, 16, 33, 22, 310, DateTimeKind.Local).AddTicks(1650),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 11, 28, 3, 39, 4, 794, DateTimeKind.Local).AddTicks(6126),
+                            StartTime = new DateTime(2022, 12, 4, 16, 33, 22, 310, DateTimeKind.Local).AddTicks(1649),
                             SurveyState = (byte)1,
                             Title = "Тест 2"
                         },
                         new
                         {
                             Id = 3,
-                            EndTime = new DateTime(2022, 11, 23, 23, 39, 4, 794, DateTimeKind.Local).AddTicks(6130),
+                            EndTime = new DateTime(2022, 11, 30, 12, 33, 22, 310, DateTimeKind.Local).AddTicks(1652),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 11, 21, 23, 39, 4, 794, DateTimeKind.Local).AddTicks(6129),
+                            StartTime = new DateTime(2022, 11, 28, 12, 33, 22, 310, DateTimeKind.Local).AddTicks(1651),
                             SurveyState = (byte)3,
                             Title = "Тест 0"
                         });
@@ -648,9 +682,11 @@ namespace MiniSurveys.Domain.Migrations
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Media", b =>
                 {
-                    b.HasOne("MiniSurveys.Domain.Modals.Question", null)
+                    b.HasOne("MiniSurveys.Domain.Modals.Question", "Question")
                         .WithMany("Media")
                         .HasForeignKey("QuestionId");
+
+                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Question", b =>

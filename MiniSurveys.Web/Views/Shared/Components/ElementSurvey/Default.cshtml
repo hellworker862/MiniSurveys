@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+@using MiniSurveys.Web.Helpers
 @using MiniSurveys.Domain.Modals.Enums
 @model MiniSurveys.Domain.Modals.Survey
 
@@ -8,7 +9,14 @@
 
 <div class="main__item">
     <div class="main__date-closed">
-        <span>Опрос @state: @Model.EndTime.ToString("F", new CultureInfo("ru-Ru"))</span>
+        @if (Model.SurveyState != SurveyStateTypeEnum.NoActive)
+        {
+            <span>Опрос @state: @Model.EndTime.ToString("F", new CultureInfo("ru-Ru"))</span>
+        }
+        else
+        {
+            <span>Опрос начнется: @Model.StartTime.ToString("F", new CultureInfo("ru-Ru"))</span>
+        }
     </div>
     <div class="main__survey">
         <div class="main__survey-img">
@@ -17,7 +25,13 @@
         <div class="main__survey-main">
             <h3 class="main__survey-title">@Model.Title</h3>
             <span class="main__date-of-create">Создано Нет данных | Изменено Нет данных</span>
-            <button>Принять участие</button>
+            @if(Model.SurveyState != SurveyStateTypeEnum.Finished){
+                <a asp-action="Survey" asp-controller="Survey" asp-route-id="@Model.Id" class="@Html.isActiveSurvey(Model.SurveyState)">Принять участие</a>
+            }
+            else
+            {
+                <a asp-action="Survey" asp-controller="Survey" asp-route-id="@Model.Id">Посмотреть результаты</a>
+            }
         </div>
     </div>
 </div>

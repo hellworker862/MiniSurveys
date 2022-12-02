@@ -1,42 +1,20 @@
 var slideIndex = 1;
 
-const dotLinks = document.querySelectorAll('.dot');
-const prevLinks = document.querySelectorAll('.prev');
-const nextLinks = document.querySelectorAll('.next');
+$('.dot').on('click', function () {
+    const number = this.id.replace("picture_", '');
+    currentSlide(number);
+});
 
-if(dotLinks.length > 0) {
-    for(let index = 0; index < dotLinks.length; index++) {
-        const dotLink = dotLinks[index];
-        dotLink.addEventListener("click", function(e) {
-            const number = this.id.replace("picture",'');
-            currentSlide(number);
-        });
-    }
-}
+$('.prev').on('click', function () {
+    plusSlides(-1);
+});
 
-if(nextLinks.length > 0) {
-    for(let index = 0; index < nextLinks.length; index++) {
-        const nextLink = nextLinks[index];
-        nextLink.addEventListener("click", function(e) {
-            plusSlides(1);
-        });
-    }
-}
-
-if(prevLinks.length > 0) {
-    for(let index = 0; index < prevLinks.length; index++) {
-        const prevLink = prevLinks[index];
-        prevLink.addEventListener("click", function(e) {
-            plusSlides(-1);
-        });
-    }
-}
+$('.next').on('click', function () {
+    plusSlides(1);
+});
 
 const slides = document.getElementsByClassName("mySlides");
 
-//if (slides) {
-//    showSlides(slideIndex);
-//}
 
 function plusSlides(n) {
     showSlides(slideIndex += n);

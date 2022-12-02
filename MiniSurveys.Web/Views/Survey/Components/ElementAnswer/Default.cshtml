@@ -1,0 +1,30 @@
+﻿@using MiniSurveys.Domain.Modals.Enums
+@model MiniSurveys.Web.Models.Survey.AnswerViewModel
+
+@{
+    string check;
+    if(Model.isVote) check = "checked";
+    else check = "";
+}
+
+<li class="answer__li">
+    <div class="radio-button answer__radio">
+        <input id="answer_@Model.Number" type="radio" value="@Model.Number" class="radio-button__input" name="answer" @Html.Raw(check)>
+        @if(Model.IsTitle)
+        {
+            <label for="answer_@Model.Number">@Model.Title
+                @if(Model.IsMedia)
+                {
+                    switch(Model.Media.Type){
+                        case TypeMediaEnum.Image:
+                            <img class="answer__img" src="@Model.Media!.Url" alt="@Model.Media.Title">
+                            break;
+                        case TypeMediaEnum.Video:
+                            @Model.Media!.Url
+                            break;
+                    }
+                }
+            </label>
+        }
+    </div>
+</li>

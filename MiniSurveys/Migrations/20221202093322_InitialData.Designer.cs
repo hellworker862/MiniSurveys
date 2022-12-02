@@ -12,8 +12,8 @@ using MiniSurveys.Domain.Data;
 namespace MiniSurveys.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221124101313_AddInitialData")]
-    partial class AddInitialData
+    [Migration("20221202093322_InitialData")]
+    partial class InitialData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,7 +169,7 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<int?>("MediaId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("QuestionId")
+                    b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -183,6 +183,123 @@ namespace MiniSurveys.Domain.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("Answers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            QuestionId = 1,
+                            Title = "😀"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            QuestionId = 1,
+                            Title = "😐"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            QuestionId = 1,
+                            Title = "😴"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            QuestionId = 1,
+                            Title = "😡"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            QuestionId = 1,
+                            Title = "😭"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            MediaId = 4,
+                            QuestionId = 2,
+                            Title = "С коллегами"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            QuestionId = 2,
+                            Title = "Один"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            QuestionId = 2,
+                            Title = "С семьей"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            QuestionId = 2,
+                            Title = "С друзьями"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            QuestionId = 3,
+                            Title = "Очень хорошо"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            QuestionId = 3,
+                            Title = "Хорошо"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            QuestionId = 3,
+                            Title = "Удовлетворительно"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            QuestionId = 3,
+                            Title = "Мне он не нравится"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            QuestionId = 4,
+                            Title = "Ответ 1"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            QuestionId = 4,
+                            Title = "Ответ 2"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            QuestionId = 4,
+                            Title = "Ответ 3"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            QuestionId = 5,
+                            Title = "Ответ 1"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            QuestionId = 5,
+                            Title = "Ответ 2"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            QuestionId = 5,
+                            Title = "Ответ 3"
+                        });
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Department", b =>
@@ -247,6 +364,39 @@ namespace MiniSurveys.Domain.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("Medias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            QuestionId = 3,
+                            Title = "Ёжик в тумане. Мультфильм HD (1975г.)",
+                            Type = (byte)2,
+                            Url = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/6gS1Bp4LZLc\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            QuestionId = 3,
+                            Title = "Фото ёжика 1",
+                            Type = (byte)1,
+                            Url = "https://proprikol.ru/wp-content/uploads/2021/12/kartinki-ezhika-na-avu-32.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            QuestionId = 3,
+                            Title = "Фото ёжика 2",
+                            Type = (byte)1,
+                            Url = "https://bugaga.ru/uploads/posts/2016-04/1461680876_ezhik-vampir-11.jpg"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Title = "С коллегами",
+                            Type = (byte)1,
+                            Url = "https://www.b17.ru/foto/uploaded/upl_1637170559_396979_p74dn.jpg"
+                        });
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Question", b =>
@@ -262,7 +412,7 @@ namespace MiniSurveys.Domain.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(-1);
 
-                    b.Property<int?>("SurveyId")
+                    b.Property<int>("SurveyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -280,19 +430,36 @@ namespace MiniSurveys.Domain.Migrations
                         {
                             Id = 1,
                             Number = 1,
+                            SurveyId = 1,
                             Title = "Как прошел ваш рабочий день?"
                         },
                         new
                         {
                             Id = 2,
                             Number = 2,
+                            SurveyId = 1,
                             Title = "С кем вы обычно ходите обедать?"
                         },
                         new
                         {
                             Id = 3,
                             Number = 3,
+                            SurveyId = 1,
                             Title = "Как вы относитесь к своему начальнику?"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Number = 1,
+                            SurveyId = 2,
+                            Title = "Как прошел ваш рабочий день?"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Number = 2,
+                            SurveyId = 2,
+                            Title = "Как прошел ваш рабочий день?"
                         });
                 });
 
@@ -315,7 +482,7 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<DateTime>("StartTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 11, 24, 15, 13, 12, 935, DateTimeKind.Local).AddTicks(255));
+                        .HasDefaultValue(new DateTime(2022, 12, 2, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(7989));
 
                     b.Property<byte>("SurveyState")
                         .HasColumnType("tinyint");
@@ -328,6 +495,35 @@ namespace MiniSurveys.Domain.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Surveys");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EndTime = new DateTime(2022, 12, 4, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(1642),
+                            IsQuestionOrder = false,
+                            StartTime = new DateTime(2022, 12, 2, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(1629),
+                            SurveyState = (byte)2,
+                            Title = "Тест 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EndTime = new DateTime(2022, 12, 6, 16, 33, 22, 310, DateTimeKind.Local).AddTicks(1650),
+                            IsQuestionOrder = false,
+                            StartTime = new DateTime(2022, 12, 4, 16, 33, 22, 310, DateTimeKind.Local).AddTicks(1649),
+                            SurveyState = (byte)1,
+                            Title = "Тест 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            EndTime = new DateTime(2022, 11, 30, 12, 33, 22, 310, DateTimeKind.Local).AddTicks(1652),
+                            IsQuestionOrder = false,
+                            StartTime = new DateTime(2022, 11, 28, 12, 33, 22, 310, DateTimeKind.Local).AddTicks(1651),
+                            SurveyState = (byte)3,
+                            Title = "Тест 0"
+                        });
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.User", b =>
@@ -476,25 +672,35 @@ namespace MiniSurveys.Domain.Migrations
                         .WithMany()
                         .HasForeignKey("MediaId");
 
-                    b.HasOne("MiniSurveys.Domain.Modals.Question", null)
+                    b.HasOne("MiniSurveys.Domain.Modals.Question", "Question")
                         .WithMany("Answers")
-                        .HasForeignKey("QuestionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Media");
+
+                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Media", b =>
                 {
-                    b.HasOne("MiniSurveys.Domain.Modals.Question", null)
+                    b.HasOne("MiniSurveys.Domain.Modals.Question", "Question")
                         .WithMany("Media")
                         .HasForeignKey("QuestionId");
+
+                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Question", b =>
                 {
-                    b.HasOne("MiniSurveys.Domain.Modals.Survey", null)
+                    b.HasOne("MiniSurveys.Domain.Modals.Survey", "Survey")
                         .WithMany("Questions")
-                        .HasForeignKey("SurveyId");
+                        .HasForeignKey("SurveyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Survey");
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.User", b =>

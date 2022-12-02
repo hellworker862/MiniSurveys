@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
-using MiniSurveys.Web.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString;
@@ -30,16 +29,27 @@ builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 //    //.PersistKeysToDbContext<ApplicationDbContext>();
 //}
 
+builder.Services.AddCors();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".MiniSurveys.Session";
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-await InitialUser.InitializeAsync(scope.ServiceProvider);
+app.UseSession();
+
+//using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+//await InitialUser.InitializeAsync(scope.ServiceProvider);
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Error/{0}");
     app.UseHsts();
 }
 
@@ -50,6 +60,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors(builder => builder.AllowAnyOrigin()
+                              .AllowAnyHeader());
 
 app.UseAuthentication();
 app.UseAuthorization();

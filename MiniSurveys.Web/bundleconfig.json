@@ -3,7 +3,8 @@
     "outputFileName": "wwwroot/js/script.js",
     "inputFiles": [
       "wwwroot/js/slider_pictures.js",
-      "wwwroot/js/survey-list.js"
+      "wwwroot/js/survey-list.js",
+      "wwwroot/js/survey.js"
     ]
   }
 ]

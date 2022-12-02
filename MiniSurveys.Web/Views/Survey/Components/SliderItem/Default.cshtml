@@ -1,0 +1,20 @@
+﻿@using MiniSurveys.Domain.Modals.Enums
+@model MiniSurveys.Web.Models.Survey.MediaViewModel
+
+@{
+    var visible = Model.Number == 1 ? "display: block;" : "";
+}
+
+<div class="mySlides fade" style="@visible">
+    <div class="numbertext">@Model.Number / @Model.MaxNumber</div>
+    @switch(Model.Type)
+    {
+        case TypeMediaEnum.Image:
+            <img src="@Model.Url" title="@Model.Title">
+            <div class="text">@Model.Title</div>
+            break;
+        case TypeMediaEnum.Video:
+            @Html.Raw(Model.Url)
+            break;
+    }
+</div>

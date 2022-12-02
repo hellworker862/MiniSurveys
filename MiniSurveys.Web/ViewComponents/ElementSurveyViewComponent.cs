@@ -3,7 +3,7 @@ using MiniSurveys.Domain.Modals;
 
 namespace MiniSurveys.Web.ViewComponents
 {
-    public class ElementSurvey : ViewComponent
+    public class ElementSurveyViewComponent : ViewComponent
     {
         public Task<IViewComponentResult> InvokeAsync(Survey survey)
         {

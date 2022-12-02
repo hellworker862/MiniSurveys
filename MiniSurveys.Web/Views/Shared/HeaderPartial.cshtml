@@ -20,12 +20,24 @@
     </div>
 
     <ul class="header__list">
-        <li class="header__li @Html.IsActive("Account", "Index")">
+        <li class="header__li @Html.IsActiveLiHeader("Account", "Index")">
             <a asp-action="Index" asp-controller="Account">
-                <img src="img/@ViewBag.Avatar" alt="" class="avatar" asp-append-version="true">
+                <img src="~/img/@ViewBag.Avatar" alt="" class="avatar" asp-append-version="true">
                 <span>@ViewBag.Name</span>
             </a>
         </li>
+
+        @if (this.User.IsInRole("HR"))
+        {
+            <li class="header__li dropdown">
+                <span class="dropbtn">Управление</span>
+                <div class="dropdown-content">
+                    <a href="#" class="@Html.IsActiveLiHeader("Account", "Index")">Управление пользователями</a>
+                    <a href="#" class="@Html.IsActiveLiHeader("Account", "Index")">Управление опросами</a>
+                </div>
+            </li>
+        }
+
         <li class="header__li">
             <form method="post" asp-controller="Account" asp-action="Logout">
                 <input type="submit" value="Выход">

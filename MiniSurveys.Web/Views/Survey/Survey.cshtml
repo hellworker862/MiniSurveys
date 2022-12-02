@@ -1,0 +1,7 @@
+﻿@model MiniSurveys.Web.Models.Survey.SurveyViewModel
+
+<h1 class="main__title title">Прохождение опроса</h1>
+
+<div class="question">
+    @await Html.PartialAsync("QuestionPartial", Model);
+</div>
