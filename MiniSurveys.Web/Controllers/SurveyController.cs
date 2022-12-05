@@ -6,7 +6,7 @@ using MiniSurveys.Domain.Modals;
 using MiniSurveys.Domain.Modals.Enums;
 using MiniSurveys.Web.Helpers;
 using MiniSurveys.Web.Models.Survey;
-using System.Collections;
+using System.Security.Claims;
 
 namespace MiniSurveys.Web.Controllers
 {
@@ -51,10 +51,11 @@ namespace MiniSurveys.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> Survey(int id)
         {
+            string nameKey = $"survey_{this.User.FindFirst(ClaimTypes.NameIdentifier).Value}";
 
-            if (HttpContext.Session.Keys.Contains("survey"))
+            if (HttpContext.Session.Keys.Contains(nameKey))
             {
-                var model = HttpContext.Session.Get<SurveyViewModel>("survey");
+                var model = HttpContext.Session.Get<SurveyViewModel>(nameKey);
                 return View(model);
             }
 
@@ -69,7 +70,7 @@ namespace MiniSurveys.Web.Controllers
             if (survey != null)
             {
                 var viewModel = new SurveyViewModel(survey);
-                HttpContext.Session.Set<SurveyViewModel>("survey", viewModel);
+                HttpContext.Session.Set<SurveyViewModel>(nameKey, viewModel);
                 return View(viewModel);
             }
             else
@@ -82,7 +83,9 @@ namespace MiniSurveys.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> GetQuestion(bool isNext, IEnumerable<bool> answers)
         {
-            var model = HttpContext.Session.Get<SurveyViewModel>("survey");
+            string nameKey = $"survey_{this.User.FindFirst(ClaimTypes.NameIdentifier).Value}";
+
+            var model = HttpContext.Session.Get<SurveyViewModel>(nameKey);
 
             for (int i = 0; i < answers.Count(); i++)
             {
@@ -104,7 +107,7 @@ namespace MiniSurveys.Web.Controllers
                     model.Back();
                 }
             }
-            HttpContext.Session.Set<SurveyViewModel>("survey", model);
+            HttpContext.Session.Set<SurveyViewModel>(nameKey, model);
 
             return await Task.FromResult(PartialView("QuestionPartial", model));
         }

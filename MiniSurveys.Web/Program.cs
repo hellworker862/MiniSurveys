@@ -44,8 +44,8 @@ var app = builder.Build();
 
 app.UseSession();
 
-//using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-//await InitialUser.InitializeAsync(scope.ServiceProvider);
+using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+await InitialUser.InitializeAsync(scope.ServiceProvider);
 
 if (!app.Environment.IsDevelopment())
 {
