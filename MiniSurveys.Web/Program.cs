@@ -39,6 +39,7 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddServerSideBlazor();
 
 var app = builder.Build();
 
@@ -70,5 +71,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Survey}/{action=Index}/{id?}");
+
+app.MapRazorPages();
+app.MapBlazorHub();
 
 app.Run();

@@ -32,7 +32,7 @@
             <li class="header__li dropdown">
                 <span class="dropbtn">Управление</span>
                 <div class="dropdown-content">
-                    <a href="#" class="@Html.IsActiveLiHeader("Account", "Index")">Управление пользователями</a>
+                    <a asp-action="Users" asp-controller="Admin" class="@Html.IsActiveLiHeader("Admin", "Users")">Управление пользователями</a>
                     <a asp-action="Index" asp-controller="Admin" class="@Html.IsActiveLiHeader("Admin", "Index")">Управление опросами</a>
                 </div>
             </li>
