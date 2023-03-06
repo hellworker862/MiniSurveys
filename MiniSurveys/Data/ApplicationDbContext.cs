@@ -22,6 +22,8 @@ namespace MiniSurveys.Domain.Data
 
         public DbSet<Media> Medias { get; set; }
 
+        public DbSet<Result> Results { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var media = new List<Media>()

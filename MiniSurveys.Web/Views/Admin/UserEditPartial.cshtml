@@ -1,0 +1,49 @@
+﻿@model MiniSurveys.Web.Models.UserView.UserEditViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="user__header">
+    <span class="user__title">Редактирование</span>
+</div>
+<form class="user__body" asp-action="UserEditPartial" enctype="multipart/form-data" onsubmit="return jQueryAjaxPost(this);">
+    <div class="user__item">
+        <label asp-for="Name" for="user-name"></label>
+        <input asp-for="Name" id="user-name" type="text">
+    </div>
+    <div class="user__item">
+        <label asp-for="Surname" for="user-surname"></label>
+        <input asp-for="Surname" id="user-surname" type="text">
+    </div>
+    <div class="user__item">
+        <label asp-for="Patronymic" for="user-middlename"></label>
+        <input asp-for="Patronymic" id="user-middlename" type="text">
+    </div>
+    <div class="user__item">
+        <label asp-for="Email" for="user-email"></label>
+        <input asp-for="Email" id="user-email" type="email">
+    </div>
+    <div class="user__item">
+        <label asp-for="Phone" for="user-number"></label>
+        <input asp-for="Phone" id="user-number" type="number">
+    </div>
+    <div class="user__item">
+        <label asp-for="Departments" for="user-division"></label>
+        <select asp-for="Department.Id" asp-items="@Model.Departments" name="Departments">
+        </select>
+    </div>
+    <div class="user__item">
+        <label asp-for="Roles" for="user-role"></label>
+        <select asp-for="Role.Name" asp-items="@Model.Roles" id="user-role" name="">
+        </select>
+    </div>
+    <div class="user__item">
+        <label asp-for="UserName" for="user-login"></label>
+        <input asp-for="UserName" id="user-login" type="text">
+    </div>
+    <div class="user__button">
+        <button onclick="popupClose()" class="user__button-cancel">Отмена</button>
+        <input type="submit" class="user__button-save" value="Сохранить">
+    </div>
+</form>

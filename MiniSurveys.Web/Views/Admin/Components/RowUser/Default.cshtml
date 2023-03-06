@@ -1,7 +1,8 @@
-﻿@model MiniSurveys.Web.Models.UserViewModel
+﻿@using MiniSurveys.Web.Models.UserView
+@model UserViewModel
 
 <tr>
-    <td>@Model.UserName</td>
+    <td id="userName">@Model.UserName</td>
     <td>@Model.Name</td>
     <td>@Model.Surname</td>
     <td>@Model.Patronymic</td>
@@ -10,7 +11,9 @@
     <td>@Model.Department.Name</td>
     <td>@Model.Role</td>
     <td class="td__img">
-        <button><img src="~/img/settings.svg" alt=""></button>
-        <button><img src="~/img/ilusha.svg" alt=""></button>
+        <a onclick="showInPopup('@Url.Action("UserEditPartial","Admin",new {userName=Model.UserName},Context.Request.Scheme)')"><img src="~/img/settings.svg" alt=""></a>
+        <form asp-action="UserDelete" asp-controller="Admin" asp-route-id="@Model.UserName" onsubmit="return jQueryAjaxDelete('@Model.UserName')">
+            <input type="submit" value="" style="background:url(/img/ilusha.svg) no-repeat; height:14px; width:15px;">
+        </form>
     </td>
 </tr>

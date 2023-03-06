@@ -1,4 +1,5 @@
-﻿@model MiniSurveys.Web.Models.AccountViewModel
+﻿@using MiniSurveys.Web.Models.Account
+@model AccountViewModel
 @{
     ViewBag.Title = "Личный кабинет";
 }
@@ -13,6 +14,5 @@
             <li class="personal-info__li email-info">@Model.Email</li>
         </ul>
         <img src="~/img/@Model.HrefAvatar" alt="Аватар пользователя" class="personal_info-avatar avatar">
-        <button class="personal-info_button">Сменить пароль</button>
     </div>
 </div>

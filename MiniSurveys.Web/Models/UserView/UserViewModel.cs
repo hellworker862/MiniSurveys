@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MiniSurveys.Domain.Modals;
+using System.ComponentModel;
 
-namespace MiniSurveys.Web.Models
+namespace MiniSurveys.Web.Models.UserView
 {
     public class UserViewModel
     {

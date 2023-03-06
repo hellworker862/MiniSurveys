@@ -1,6 +1,6 @@
 ﻿using MiniSurveys.Domain.Modals;
 
-namespace MiniSurveys.Web.Models
+namespace MiniSurveys.Web.Models.Account
 {
     public class AccountViewModel
     {

@@ -4,14 +4,14 @@ namespace MiniSurveys.Domain.Modals
 {
     public class User : IdentityUser<int>
     {
-        public string Surname { get; init; }
+        public string Surname { get; set; }
 
-        public string Name { get; init; }
+        public string Name { get; set; }
 
-        public string Patronymic { get; init; }
+        public string Patronymic { get; set; }
 
         public Department Department { get; set; }
 
-        public string HrefAvatar { get; init; }
+        public string HrefAvatar { get; set; }
     }
 }

@@ -1,10 +1,19 @@
 ﻿@using System.Globalization
+@using MiniSurveys.Domain.Modals
 @using MiniSurveys.Web.Helpers
 @using MiniSurveys.Domain.Modals.Enums
 @model MiniSurveys.Domain.Modals.Survey
+@inject MiniSurveys.Domain.Data.ApplicationDbContext context
+@inject Microsoft.AspNetCore.Identity.UserManager<User> userManager;
 
 @{
     string state = Model.SurveyState == SurveyStateTypeEnum.Finished ? "завершен" : "завершится";
+}
+
+@{
+    var user = await userManager.GetUserAsync(User);
+    var t = context.Results.FirstOrDefault(x => x.UserId == user.Id && x.SurveyId == Model.Id);
+    var s = 1;
 }
 
 <div class="main__item">
@@ -25,12 +34,13 @@
         <div class="main__survey-main">
             <h3 class="main__survey-title">@Model.Title</h3>
             <span class="main__date-of-create">Создано Нет данных | Изменено Нет данных</span>
-            @if(Model.SurveyState != SurveyStateTypeEnum.Finished){
+            @if (Model.SurveyState != SurveyStateTypeEnum.Finished && t == null)
+            {
                 <a asp-action="Survey" asp-controller="Survey" asp-route-id="@Model.Id" class="@Html.isActiveSurvey(Model.SurveyState)">Принять участие</a>
             }
             else
             {
-                <a asp-action="Survey" asp-controller="Survey" asp-route-id="@Model.Id">Посмотреть результаты</a>
+                <a asp-action="Results" asp-controller="Survey" asp-route-id="@Model.Id">Посмотреть результаты</a>
             }
         </div>
     </div>

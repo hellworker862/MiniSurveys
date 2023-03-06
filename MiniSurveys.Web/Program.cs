@@ -6,7 +6,7 @@ using MiniSurveys.Domain.Modals;
 var builder = WebApplication.CreateBuilder(args);
 string connectionString;
 
-if (builder.Environment.IsDevelopment()) connectionString = builder.Configuration.GetConnectionString("DevelopmentConnection")!;
+if (builder.Environment.IsDevelopment()) connectionString = builder.Configuration.GetConnectionString("ProductionConnection")!;
 else connectionString = builder.Configuration.GetConnectionString("ProductionConnection")!;
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
@@ -21,13 +21,6 @@ builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
     options.User.RequireUniqueEmail = true; // требуется уникальная элек. почта
     options.SignIn.RequireConfirmedEmail = false; // обязательное подтверждение почты
 }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-
-//if (builder.Environment.IsDevelopment())
-//{
-//    builder.Services.AddDataProtection()
-//              .PersistKeysToFileSystem(new DirectoryInfo(@"ftp://minisurveys.somee.com/www.MiniSurveys.somee.com/temp-keys/"));
-//    //.PersistKeysToDbContext<ApplicationDbContext>();
-//}
 
 builder.Services.AddCors();
 
@@ -71,8 +64,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Survey}/{action=Index}/{id?}");
-
-app.MapRazorPages();
-app.MapBlazorHub();
 
 app.Run();

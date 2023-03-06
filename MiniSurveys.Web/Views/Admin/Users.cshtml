@@ -1,34 +1,24 @@
-﻿@model IEnumerable<MiniSurveys.Web.Models.UserViewModel>
+﻿@using MiniSurveys.Web.Models.UserView
+@model IEnumerable<UserViewModel>
 
 <div class="main-body main__users">
     <div class="main-body__title title">
         <h1>Управление пользователями</h1>
     </div>
     <div class="main__searchandbutton ultrauser__searchandbutton">
-        <button class="main__add">+ Добавить</button>
+        <button class="main__add" onclick="showInPopup('@Url.Action("UserCreatePartial","Admin", null, Context.Request.Scheme)')">+ Добавить</button>
         <div class="main__search">
-            <input type="text">
+            <input type="text" id="search-users">
             <img src="../img/search.svg" alt="">
         </div>
     </div>
-    <div class="main__table">
-        <table>
-            <tr>
-                <th>Логин</th>
-                <th>Имя</th>
-                <th>Фамилия</th>
-                <th>Отчество</th>
-                <th>E-mail</th>
-                <th>Телефон</th>
-                <th>Подразделение</th>
-                <th>Роль</th>
-                <th><img src="../img/pridor.svg" alt=""></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                @await Component.InvokeAsync("RowUser", item)
-            }
-        </table>
+    <div id="users-id" class="main__table">
+        @await Html.PartialAsync("UserListPartial", Model)
+    </div>
+    <div class="popup">
+        <div class="popup-body">
+            <div class="popup-content">
+            </div>
+        </div>  
     </div>
 </div>

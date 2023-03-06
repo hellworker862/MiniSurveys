@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MiniSurveys.Web.Models;
-using MiniSurveys.Web.Models.Survey;
+using MiniSurveys.Web.Models.UserView;
 
 namespace MiniSurveys.Web.ViewComponents
 {

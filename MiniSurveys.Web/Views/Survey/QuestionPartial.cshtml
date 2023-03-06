@@ -8,14 +8,14 @@
         <span>@Model.Questions.Count()</span>
         <span>&nbsp;вопрос</span>
     </div>
-    @if(!String.IsNullOrWhiteSpace(Model.GetQuestion().Title))
+    @if (!String.IsNullOrWhiteSpace(Model.GetQuestion().Title))
     {
         <div class="question_title title">@Model.GetQuestion().Title</div>
     }
 </div>
 <div class="answer">
     <form class="answer__body">
-        @if(Model.GetQuestion().IsMedia)
+        @if (Model.GetQuestion().IsMedia)
         {
             <div class="slider">
                 @foreach (var item in Model.GetQuestion().Media)
@@ -32,11 +32,11 @@
             <div class="slider-menu">
                 @for (int i = 1; i <= Model.GetQuestion().Media.Count; i++)
                 {
-                    if(i == 1)
+                    if (i == 1)
                     {
                         <span class="dot active" id="picture_@i"></span>
                     }
-                    else 
+                    else
                     {
                         <span class="dot" id="picture_@i"></span>
                     }
@@ -44,7 +44,7 @@
             </div>
         }
         <ul class="answer__list">
-            @foreach(var item in Model.GetQuestion().Answers)
+            @foreach (var item in Model.GetQuestion().Answers)
             {
                 @await Component.InvokeAsync("ElementAnswer", item)
             }
@@ -53,9 +53,16 @@
             <button class="answer__button" id="button_left" @Html.isDisableButton(!Model.isBack())>
                 <img src="~/img/ArrowLeft.svg" alt="">
             </button>
-            <button class="answer__button" id="button_rigth">
-                <img src="~/img/ArrowRigth.svg" alt="">
-            </button>
+            @if(Model.CurrentQuestion == Model.Questions.Count())
+            {
+                <a href="/Save" class="answer__button">Отправить</a>
+            }
+            else
+            {
+                <button class="answer__button" id="button_rigth">
+                    <img src="~/img/ArrowRigth.svg" alt="">
+                </button>
+            }
         </div>
     </form>
 </div>

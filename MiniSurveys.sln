@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniSurveys.Domain", "MiniS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniSurveys.Web", "MiniSurveys.Web\MiniSurveys.Web.csproj", "{559AA2EA-BD46-4E71-93DA-4723C1352689}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniSurveys.RazorLibrary", "MiniSurveys.RazorLibrary\MiniSurveys.RazorLibrary.csproj", "{24B9BE95-6D1D-4685-8A1B-E7662F971D3D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{559AA2EA-BD46-4E71-93DA-4723C1352689}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{559AA2EA-BD46-4E71-93DA-4723C1352689}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{559AA2EA-BD46-4E71-93DA-4723C1352689}.Release|Any CPU.Build.0 = Release|Any CPU
-		{24B9BE95-6D1D-4685-8A1B-E7662F971D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{24B9BE95-6D1D-4685-8A1B-E7662F971D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{24B9BE95-6D1D-4685-8A1B-E7662F971D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{24B9BE95-6D1D-4685-8A1B-E7662F971D3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

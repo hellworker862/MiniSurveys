@@ -1,12 +1,12 @@
 ﻿using MiniSurveys.Domain.Modals.Enums;
 
-namespace MiniSurveys.Web.Models
+namespace MiniSurveys.Web.Models.Survey
 {
     public class SurveyMenuViewModel
     {
         public SurveyMenuViewModel(SurveyStateTypeEnum? surveyState, string? stringSearch)
         {
-            if(surveyState != null) SurveyState = surveyState;
+            if (surveyState != null) SurveyState = surveyState;
             StringSearch = stringSearch;
         }
 

@@ -4,7 +4,10 @@
     "inputFiles": [
       "wwwroot/js/slider_pictures.js",
       "wwwroot/js/survey-list.js",
-      "wwwroot/js/survey.js"
+      "wwwroot/js/survey.js",
+      "wwwroot/js/popup.js",
+      "wwwroot/js/users.js",
+      "wwwroot/js/results.js"
     ]
   }
 ]

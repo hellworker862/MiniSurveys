@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
-using MiniSurveys.Web.Models;
+using MiniSurveys.Web.Models.Account;
 using System.Security.Claims;
 
 namespace MiniSurveys.Web.Controllers

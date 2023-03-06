@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MiniSurveys.Web.Models
+namespace MiniSurveys.Web.Models.Account
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage ="Поле логин обязательно для заполнения.")]
+        [Required(ErrorMessage = "Поле логин обязательно для заполнения.")]
         [Display(Name = "Логин")]
         public string UserName { get; set; }
 

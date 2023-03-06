@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
 using MiniSurveys.Domain.Modals.Enums;
 using MiniSurveys.Web.Helpers;
+using MiniSurveys.Web.Models;
 using MiniSurveys.Web.Models.Survey;
 using System.Security.Claims;
 
@@ -14,10 +16,12 @@ namespace MiniSurveys.Web.Controllers
     public class SurveyController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public SurveyController(ApplicationDbContext context)
+        public SurveyController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -110,6 +114,70 @@ namespace MiniSurveys.Web.Controllers
             HttpContext.Session.Set<SurveyViewModel>(nameKey, model);
 
             return await Task.FromResult(PartialView("QuestionPartial", model));
+        }
+
+        [Route("/Save")]
+        [Route("/Survey/Save")]
+        [HttpGet]
+        public async Task<ActionResult> Save()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            string nameKey = $"survey_{this.User.FindFirst(ClaimTypes.NameIdentifier).Value}";
+
+            var model = HttpContext.Session.Get<SurveyViewModel>(nameKey);
+
+            var result = new Result()
+            {
+                UserId = user.Id,
+                SurveyId = model.Id,
+                DateTimeEnd = DateTime.Now,
+            };
+
+            HttpContext.Session.Clear();
+
+            _context.Results.Add(result);
+            _context.SaveChanges();
+
+            return Redirect("/");
+        }
+
+        public ActionResult Results(int id)
+        {
+            return View(id);
+        }
+
+        [Route("[controller]/{action}")]
+        [HttpGet]
+        public async Task<ActionResult> GetResult(int id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            int ot1 = _context.Results.Where(o => o.SurveyId == id && o.User.Department.Name == "Отдел разработки").Select(o => o.User).Count();
+            int ot2 = _context.Results.Where(o => o.SurveyId == id && o.User.Department.Name == "Отдел тестирования").Select(o => o.User).Count();
+            int ot3 = _context.Results.Where(o => o.SurveyId == id && o.User.Department.Name == "Кадровая служба").Select(o => o.User).Count();
+
+            var model = new ResultViewModel()
+            {
+                Data =  new int[]
+                {
+                    ot1,
+                    ot2,
+                    ot3,
+                },
+
+                Title = new string[]
+                {
+                    "Отдел разработки",
+                    "Отдел тестирования",
+                    "Кадровая служба"
+                }
+
+            };
+
+            var json = Json(model);
+
+            return json;
         }
     }
 }
