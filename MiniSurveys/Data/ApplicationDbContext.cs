@@ -257,7 +257,6 @@ namespace MiniSurveys.Domain.Data
                     Title = "Тест 1",
                     StartTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(2),
-                    SurveyState = SurveyStateTypeEnum.Active,
                 },
 
                 new Survey
@@ -274,7 +273,6 @@ namespace MiniSurveys.Domain.Data
                     Title = "Тест 0",
                     StartTime = DateTime.Now.AddDays(-4).AddHours(-2),
                     EndTime = DateTime.Now.AddDays(-2).AddHours(-2),
-                    SurveyState = SurveyStateTypeEnum.Finished,
                 },
             };
             #endregion

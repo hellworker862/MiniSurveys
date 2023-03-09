@@ -30,9 +30,9 @@ namespace MiniSurveys.Web.Controllers
             IEnumerable<Survey> searchResult;
 
             if (isActive)
-                searchResult = await _context.Surveys.Where(x => x.SurveyState != SurveyStateTypeEnum.Finished && EF.Functions.Like(x.Title, $"%{stringSearch}%")).AsNoTracking().ToArrayAsync();
+                searchResult = await _context.Surveys.Where(x => x.EndTime > DateTime.Now && EF.Functions.Like(x.Title, $"%{stringSearch}%")).AsNoTracking().ToArrayAsync();
             else
-                searchResult = await _context.Surveys.Where(x => x.SurveyState == SurveyStateTypeEnum.Finished && EF.Functions.Like(x.Title, $"%{stringSearch}%")).AsNoTracking().ToArrayAsync();
+                searchResult = await _context.Surveys.Where(x => x.EndTime <= DateTime.Now && EF.Functions.Like(x.Title, $"%{stringSearch}%")).AsNoTracking().ToArrayAsync();
 
             return View(searchResult);
         }
@@ -44,9 +44,9 @@ namespace MiniSurveys.Web.Controllers
             IEnumerable<Survey> searchResult;
 
             if (isActive)
-                searchResult = await _context.Surveys.Where(x => x.SurveyState != SurveyStateTypeEnum.Finished && EF.Functions.Like(x.Title, $"%{stringSearch}%")).AsNoTracking().ToArrayAsync();
+                searchResult = await _context.Surveys.Where(x => x.EndTime > DateTime.Now && EF.Functions.Like(x.Title, $"%{stringSearch}%")).AsNoTracking().ToArrayAsync();
             else
-                searchResult = await _context.Surveys.Where(x => x.SurveyState == SurveyStateTypeEnum.Finished && EF.Functions.Like(x.Title, $"%{stringSearch}%")).AsNoTracking().ToArrayAsync();
+                searchResult = await _context.Surveys.Where(x => x.EndTime <= DateTime.Now && EF.Functions.Like(x.Title, $"%{stringSearch}%")).AsNoTracking().ToArrayAsync();
 
             return PartialView("SurveyListPartial", searchResult);
         }
@@ -116,7 +116,6 @@ namespace MiniSurveys.Web.Controllers
             return await Task.FromResult(PartialView("QuestionPartial", model));
         }
 
-        [Route("/Save")]
         [Route("/Survey/Save")]
         [HttpGet]
         public async Task<ActionResult> Save()

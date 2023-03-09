@@ -505,10 +505,7 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<DateTime>("StartTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 12, 16, 4, 50, 9, 482, DateTimeKind.Local).AddTicks(7272));
-
-                    b.Property<byte>("SurveyState")
-                        .HasColumnType("tinyint");
+                        .HasDefaultValue(new DateTime(2023, 3, 9, 12, 25, 27, 886, DateTimeKind.Local).AddTicks(3269));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -523,28 +520,25 @@ namespace MiniSurveys.Domain.Migrations
                         new
                         {
                             Id = 1,
-                            EndTime = new DateTime(2022, 12, 18, 4, 50, 9, 480, DateTimeKind.Local).AddTicks(84),
+                            EndTime = new DateTime(2023, 3, 11, 12, 25, 27, 884, DateTimeKind.Local).AddTicks(8630),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 12, 16, 4, 50, 9, 480, DateTimeKind.Local).AddTicks(70),
-                            SurveyState = (byte)2,
+                            StartTime = new DateTime(2023, 3, 9, 12, 25, 27, 884, DateTimeKind.Local).AddTicks(8616),
                             Title = "Тест 1"
                         },
                         new
                         {
                             Id = 2,
-                            EndTime = new DateTime(2022, 12, 20, 6, 50, 9, 480, DateTimeKind.Local).AddTicks(102),
+                            EndTime = new DateTime(2023, 3, 13, 14, 25, 27, 884, DateTimeKind.Local).AddTicks(8639),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 12, 18, 6, 50, 9, 480, DateTimeKind.Local).AddTicks(100),
-                            SurveyState = (byte)1,
+                            StartTime = new DateTime(2023, 3, 11, 14, 25, 27, 884, DateTimeKind.Local).AddTicks(8638),
                             Title = "Тест 2"
                         },
                         new
                         {
                             Id = 3,
-                            EndTime = new DateTime(2022, 12, 14, 2, 50, 9, 480, DateTimeKind.Local).AddTicks(104),
+                            EndTime = new DateTime(2023, 3, 7, 10, 25, 27, 884, DateTimeKind.Local).AddTicks(8642),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 12, 12, 2, 50, 9, 480, DateTimeKind.Local).AddTicks(103),
-                            SurveyState = (byte)3,
+                            StartTime = new DateTime(2023, 3, 5, 10, 25, 27, 884, DateTimeKind.Local).AddTicks(8641),
                             Title = "Тест 0"
                         });
                 });

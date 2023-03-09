@@ -31,9 +31,17 @@ namespace MiniSurveys.Web.Models.UserView
             var roleClass = await roleManager.FindByNameAsync(role);
             model.Role = roleClass;
             var roles = roleManager.Roles;
-            model.Roles = new SelectList(roles, nameof(model.Role.Name), nameof(model.Role.Name), model.Role.Name);
+            model.RolesSelectList = new List<SelectListItem>();
+            foreach (var item in roles)
+            {
+                model.RolesSelectList.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            }
             var departments = context.Departments;
-            model.Departments = new SelectList(departments, nameof(model.Department.Id), nameof(model.Department.Name), model.Department.Id);
+            model.DepartmentsSelectList = new List<SelectListItem>();
+            foreach (var item in departments)
+            {
+                model.DepartmentsSelectList.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            }
 
             return model;
         }
@@ -62,12 +70,10 @@ namespace MiniSurveys.Web.Models.UserView
         [DisplayName("Роль")]
         public IdentityRole<int> Role { get; set; }
 
-        [DisplayName("Роль")]
-        public SelectList Roles { get; set; }
+        [DisplayName("Роли")]
+        public List<SelectListItem> RolesSelectList { get; set; }
 
-        [DisplayName("Подразделение")]
-        public SelectList Departments { get; set; }
-
-        public string DepartmentName { get; set; }
+        [DisplayName("Подразделения")]
+        public List<SelectListItem> DepartmentsSelectList { get; set; }
     }
 }

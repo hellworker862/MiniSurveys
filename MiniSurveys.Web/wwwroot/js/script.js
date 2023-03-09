@@ -300,7 +300,7 @@ jQueryAjaxPostCreate = form => {
 };
 
 jQueryAjaxDelete = form => {
-    if (confirm('Do you want to delete?')) {
+    if (confirm('Вы действительно хотите удалить?')) {
         try {
             $.ajax({
                 type: 'POST',

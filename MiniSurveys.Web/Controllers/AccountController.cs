@@ -39,12 +39,16 @@ namespace MiniSurveys.Web.Controllers
             if (ModelState.IsValid)
             {
                 var result =
-                    await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
+                    await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
 
                 if (result.Succeeded)
-                    return RedirectToAction("Index", "Survey");
+                {
+                        return RedirectToAction("Index", "Survey");
+                }
                 else
+                {
                     ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                }
 
             }
             return View(model);

@@ -12,8 +12,8 @@ using MiniSurveys.Domain.Data;
 namespace MiniSurveys.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221202093322_InitialData")]
-    partial class InitialData
+    [Migration("20230309072528_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -463,6 +463,32 @@ namespace MiniSurveys.Domain.Migrations
                         });
                 });
 
+            modelBuilder.Entity("MiniSurveys.Domain.Modals.Result", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateTimeEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SurveyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SurveyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Results");
+                });
+
             modelBuilder.Entity("MiniSurveys.Domain.Modals.Survey", b =>
                 {
                     b.Property<int>("Id")
@@ -482,10 +508,7 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<DateTime>("StartTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 12, 2, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(7989));
-
-                    b.Property<byte>("SurveyState")
-                        .HasColumnType("tinyint");
+                        .HasDefaultValue(new DateTime(2023, 3, 9, 12, 25, 27, 886, DateTimeKind.Local).AddTicks(3269));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -500,28 +523,25 @@ namespace MiniSurveys.Domain.Migrations
                         new
                         {
                             Id = 1,
-                            EndTime = new DateTime(2022, 12, 4, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(1642),
+                            EndTime = new DateTime(2023, 3, 11, 12, 25, 27, 884, DateTimeKind.Local).AddTicks(8630),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 12, 2, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(1629),
-                            SurveyState = (byte)2,
+                            StartTime = new DateTime(2023, 3, 9, 12, 25, 27, 884, DateTimeKind.Local).AddTicks(8616),
                             Title = "Тест 1"
                         },
                         new
                         {
                             Id = 2,
-                            EndTime = new DateTime(2022, 12, 6, 16, 33, 22, 310, DateTimeKind.Local).AddTicks(1650),
+                            EndTime = new DateTime(2023, 3, 13, 14, 25, 27, 884, DateTimeKind.Local).AddTicks(8639),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 12, 4, 16, 33, 22, 310, DateTimeKind.Local).AddTicks(1649),
-                            SurveyState = (byte)1,
+                            StartTime = new DateTime(2023, 3, 11, 14, 25, 27, 884, DateTimeKind.Local).AddTicks(8638),
                             Title = "Тест 2"
                         },
                         new
                         {
                             Id = 3,
-                            EndTime = new DateTime(2022, 11, 30, 12, 33, 22, 310, DateTimeKind.Local).AddTicks(1652),
+                            EndTime = new DateTime(2023, 3, 7, 10, 25, 27, 884, DateTimeKind.Local).AddTicks(8642),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2022, 11, 28, 12, 33, 22, 310, DateTimeKind.Local).AddTicks(1651),
-                            SurveyState = (byte)3,
+                            StartTime = new DateTime(2023, 3, 5, 10, 25, 27, 884, DateTimeKind.Local).AddTicks(8641),
                             Title = "Тест 0"
                         });
                 });
@@ -701,6 +721,25 @@ namespace MiniSurveys.Domain.Migrations
                         .IsRequired();
 
                     b.Navigation("Survey");
+                });
+
+            modelBuilder.Entity("MiniSurveys.Domain.Modals.Result", b =>
+                {
+                    b.HasOne("MiniSurveys.Domain.Modals.Survey", "Survey")
+                        .WithMany()
+                        .HasForeignKey("SurveyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MiniSurveys.Domain.Modals.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Survey");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.User", b =>

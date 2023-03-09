@@ -7,8 +7,6 @@ namespace MiniSurveys.Domain.Modals
     {
         public string Title { get; set; }
 
-        public SurveyStateTypeEnum SurveyState { get; set; } = SurveyStateTypeEnum.NoActive;
-
         public DateTime StartTime { get; init; }
 
         public DateTime EndTime { get; set; }

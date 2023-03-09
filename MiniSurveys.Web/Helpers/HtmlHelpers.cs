@@ -19,9 +19,9 @@ namespace MiniSurveys.Web.Helpers
             return returnActive ? "header__li_active" : "";
         }
 
-        public static string isActiveSurvey(this IHtmlHelper htmlHelper, SurveyStateTypeEnum type)
+        public static string isActiveSurvey(this IHtmlHelper htmlHelper, DateTime date)
         {
-            if (type != SurveyStateTypeEnum.Active) return "link-disable";
+            if (date > DateTime.Now) return "link-disable";
             else return String.Empty;
         }
 

@@ -29,13 +29,13 @@
         <input asp-for="Phone" id="user-number" type="number">
     </div>
     <div class="user__item">
-        <label asp-for="Departments" for="user-division"></label>
-        <select asp-for="Department.Id" asp-items="@Model.Departments" name="Departments">
+        <label asp-for="DepartmentsSelectList" for="user-division"></label>
+        <select asp-for="Department.Id" asp-items="@Model.DepartmentsSelectList">
         </select>
     </div>
     <div class="user__item">
-        <label asp-for="Roles" for="user-role"></label>
-        <select asp-for="Role.Name" asp-items="@Model.Roles" id="user-role" name="">
+        <label asp-for="RolesSelectList" for="user-role"></label>
+        <select asp-for="Role.Id" asp-items="@Model.RolesSelectList" id="user-role">
         </select>
     </div>
     <div class="user__item">

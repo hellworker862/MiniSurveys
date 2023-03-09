@@ -12,6 +12,7 @@ else connectionString = builder.Configuration.GetConnectionString("DevelopmentCo
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 {
+    options.Lockout.AllowedForNewUsers = false;
     options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequiredLength = 5;
     options.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
