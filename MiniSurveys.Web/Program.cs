@@ -6,8 +6,8 @@ using MiniSurveys.Domain.Modals;
 var builder = WebApplication.CreateBuilder(args);
 string connectionString;
 
-if (builder.Environment.IsDevelopment()) connectionString = builder.Configuration.GetConnectionString("ProductionConnection")!;
-else connectionString = builder.Configuration.GetConnectionString("ProductionConnection")!;
+if (builder.Environment.IsDevelopment()) connectionString = builder.Configuration.GetConnectionString("DevelopmentConnection")!;
+else connectionString = builder.Configuration.GetConnectionString("DevelopmentConnection")!;
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>

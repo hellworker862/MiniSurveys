@@ -578,7 +578,7 @@ main {
     }
 
 .answer__body {
-    max-width: 458px;
+    /* max-width: 458px; */
     width: 100%;
     align-items: center;
     justify-content: center;
@@ -588,6 +588,7 @@ main {
 }
 
 .answer__list {
+    max-width: 458px;
     align-items: center;
     display: flex;
     flex-direction: column;
