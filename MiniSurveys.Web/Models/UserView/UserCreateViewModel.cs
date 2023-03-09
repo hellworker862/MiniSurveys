@@ -28,14 +28,23 @@ namespace MiniSurveys.Web.Models.UserView
         public static async Task<UserCreateViewModel> Initialize(UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager, ApplicationDbContext context)
         {
             var model = new UserCreateViewModel();
-
             model.Role = await roleManager.FindByNameAsync(RoleNames.Employee);
             var roles = roleManager.Roles;
-            model.Roles = new SelectList(roles, nameof(model.Role.Name), nameof(model.Role.Name), model.Role.Name);
+            model.RolesSelectList = new List<SelectListItem>();
+
+            foreach (var item in roles)
+            {
+                model.RolesSelectList.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            }
 
             model.Department = context.Departments.FirstOrDefault(x => x.Name == "Отдел разработки");
             var departments = context.Departments;
-            model.Departments = new SelectList(departments, nameof(model.Department.Id), nameof(model.Department.Name), model.Department.Id);
+            model.DepartmentsSelectList = new List<SelectListItem>();
+
+            foreach (var item in departments)
+            {
+                model.DepartmentsSelectList.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            }
 
             return model;
         }
@@ -64,11 +73,11 @@ namespace MiniSurveys.Web.Models.UserView
         [DisplayName("Роль")]
         public IdentityRole<int> Role { get; set; }
 
-        [DisplayName("Роль")]
-        public SelectList Roles { get; set; }
+        [DisplayName("Роли")]
+        public List<SelectListItem> RolesSelectList { get; set; }
 
-        [DisplayName("Подразделение")]
-        public SelectList Departments { get; set; }
+        [DisplayName("Подразделения")]
+        public List<SelectListItem> DepartmentsSelectList { get; set; }
 
         [DisplayName("Пароль")]
         public string Password { get; set; }

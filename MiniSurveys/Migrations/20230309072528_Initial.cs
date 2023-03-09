@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MiniSurveys.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialData : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,8 +48,7 @@ namespace MiniSurveys.Domain.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
-                    SurveyState = table.Column<byte>(type: "tinyint", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 12, 2, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(7989)),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 3, 9, 12, 25, 27, 886, DateTimeKind.Local).AddTicks(3269)),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsQuestionOrder = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -223,6 +222,33 @@ namespace MiniSurveys.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Results",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DateTimeEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    SurveyId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Results", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Results_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Results_Surveys_SurveyId",
+                        column: x => x.SurveyId,
+                        principalTable: "Surveys",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Medias",
                 columns: table => new
                 {
@@ -286,12 +312,12 @@ namespace MiniSurveys.Domain.Migrations
 
             migrationBuilder.InsertData(
                 table: "Surveys",
-                columns: new[] { "Id", "EndTime", "StartTime", "SurveyState", "Title" },
+                columns: new[] { "Id", "EndTime", "StartTime", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 12, 4, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(1642), new DateTime(2022, 12, 2, 14, 33, 22, 310, DateTimeKind.Local).AddTicks(1629), (byte)2, "Тест 1" },
-                    { 2, new DateTime(2022, 12, 6, 16, 33, 22, 310, DateTimeKind.Local).AddTicks(1650), new DateTime(2022, 12, 4, 16, 33, 22, 310, DateTimeKind.Local).AddTicks(1649), (byte)1, "Тест 2" },
-                    { 3, new DateTime(2022, 11, 30, 12, 33, 22, 310, DateTimeKind.Local).AddTicks(1652), new DateTime(2022, 11, 28, 12, 33, 22, 310, DateTimeKind.Local).AddTicks(1651), (byte)3, "Тест 0" }
+                    { 1, new DateTime(2023, 3, 11, 12, 25, 27, 884, DateTimeKind.Local).AddTicks(8630), new DateTime(2023, 3, 9, 12, 25, 27, 884, DateTimeKind.Local).AddTicks(8616), "Тест 1" },
+                    { 2, new DateTime(2023, 3, 13, 14, 25, 27, 884, DateTimeKind.Local).AddTicks(8639), new DateTime(2023, 3, 11, 14, 25, 27, 884, DateTimeKind.Local).AddTicks(8638), "Тест 2" },
+                    { 3, new DateTime(2023, 3, 7, 10, 25, 27, 884, DateTimeKind.Local).AddTicks(8642), new DateTime(2023, 3, 5, 10, 25, 27, 884, DateTimeKind.Local).AddTicks(8641), "Тест 0" }
                 });
 
             migrationBuilder.InsertData(
@@ -405,6 +431,16 @@ namespace MiniSurveys.Domain.Migrations
                 name: "IX_Questions_SurveyId",
                 table: "Questions",
                 column: "SurveyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Results_SurveyId",
+                table: "Results",
+                column: "SurveyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Results_UserId",
+                table: "Results",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -427,6 +463,9 @@ namespace MiniSurveys.Domain.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Results");
 
             migrationBuilder.DropTable(
                 name: "Medias");

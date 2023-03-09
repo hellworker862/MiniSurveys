@@ -7,7 +7,7 @@
 @inject Microsoft.AspNetCore.Identity.UserManager<User> userManager;
 
 @{
-    string state = Model.SurveyState == SurveyStateTypeEnum.Finished ? "завершен" : "завершится";
+    string state = Model.EndTime <= DateTime.Now ? "завершен" : "завершится";
 }
 
 @{
@@ -18,7 +18,7 @@
 
 <div class="main__item">
     <div class="main__date-closed">
-        @if (Model.SurveyState != SurveyStateTypeEnum.NoActive)
+        @if (Model.StartTime < DateTime.Now)
         {
             <span>Опрос @state: @Model.EndTime.ToString("F", new CultureInfo("ru-Ru"))</span>
         }
@@ -34,9 +34,9 @@
         <div class="main__survey-main">
             <h3 class="main__survey-title">@Model.Title</h3>
             <span class="main__date-of-create">Создано Нет данных | Изменено Нет данных</span>
-            @if (Model.SurveyState != SurveyStateTypeEnum.Finished && t == null)
+            @if (Model.EndTime > DateTime.Now && t == null)
             {
-                <a asp-action="Survey" asp-controller="Survey" asp-route-id="@Model.Id" class="@Html.isActiveSurvey(Model.SurveyState)">Принять участие</a>
+                <a asp-action="Survey" asp-controller="Survey" asp-route-id="@Model.Id" class="@Html.isActiveSurvey(Model.StartTime)">Принять участие</a>
             }
             else
             {
