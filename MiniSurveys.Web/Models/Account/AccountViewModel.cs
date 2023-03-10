@@ -4,7 +4,7 @@ namespace MiniSurveys.Web.Models.Account
 {
     public class AccountViewModel
     {
-        private string defaultAvatar = "default_avatar.png";
+        private string defaultAvatar = "avatar_default.png";
 
         public string Fio { get; set; }
 

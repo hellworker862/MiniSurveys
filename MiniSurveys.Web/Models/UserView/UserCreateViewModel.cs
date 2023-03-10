@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
 using System.ComponentModel;
-using System.Data;
 
 namespace MiniSurveys.Web.Models.UserView
 {
@@ -12,17 +11,6 @@ namespace MiniSurveys.Web.Models.UserView
         public UserCreateViewModel()
         {
 
-        }
-
-        public UserCreateViewModel(User user)
-        {
-            UserName = user.UserName;
-            Name = user.Name;
-            Surname = user.Surname;
-            Patronymic = user.Patronymic;
-            Email = user.Email;
-            Phone = user.PhoneNumber;
-            Department = user.Department;
         }
 
         public static async Task<UserCreateViewModel> Initialize(UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager, ApplicationDbContext context)
@@ -81,5 +69,8 @@ namespace MiniSurveys.Web.Models.UserView
 
         [DisplayName("Пароль")]
         public string Password { get; set; }
+
+        [DisplayName("Аватарака")]
+        public IFormFile Avatar { get; set; }
     }
 }

@@ -143,7 +143,7 @@ namespace MiniSurveys.Web.Controllers
                 Email = model.Email,
                 PhoneNumber = model.Phone,
                 EmailConfirmed = true,
-                HrefAvatar = "avatar_user5.png",
+                HrefAvatar = "avatar_default.png",
                 UserName = model.UserName,
             };
 

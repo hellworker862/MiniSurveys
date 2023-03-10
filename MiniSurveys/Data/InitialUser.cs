@@ -11,6 +11,7 @@ namespace MiniSurveys.Domain.Data
         public static async Task InitializeAsync(IServiceProvider provider)
         {
             var roleManager = provider.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
             foreach (var roleName in RoleNames.AllRoles)
             {
                 var role = roleManager.FindByNameAsync(roleName).Result;
@@ -119,7 +120,7 @@ namespace MiniSurveys.Domain.Data
             Patronymic = "Степанович",
             Email = "kdawson@yahoo.ca",
             EmailConfirmed = true,
-            HrefAvatar = "avatar_user1.png"
+            HrefAvatar = "avatar_user1.jpg"
         };
 
         private static User employee2 = new User()
@@ -130,7 +131,7 @@ namespace MiniSurveys.Domain.Data
             Patronymic = "Яковлевич",
             Email = "mrobshaw@icloud.com",
             EmailConfirmed = true,
-            HrefAvatar = "avatar_user2.png"
+            HrefAvatar = "avatar_user2.jpg"
         };
         private static User employee3 = new User()
         {
@@ -140,7 +141,7 @@ namespace MiniSurveys.Domain.Data
             Patronymic = "Иванович",
             Email = "facet@yahoo.com",
             EmailConfirmed = true,
-            HrefAvatar = "avatar_user3.png"
+            HrefAvatar = "avatar_user3.jpg"
         };
 
         private static User employee4 = new User()
@@ -151,7 +152,7 @@ namespace MiniSurveys.Domain.Data
             Patronymic = "Миронович",
             Email = "uncled@verizon.net",
             EmailConfirmed = true,
-            HrefAvatar = "avatar_user4.png"
+            HrefAvatar = "avatar_user4.jpg"
         };
 
         private static User employee5 = new User()
@@ -162,7 +163,7 @@ namespace MiniSurveys.Domain.Data
             Patronymic = "Денисович",
             Email = "isobel.yost@gmail.com",
             EmailConfirmed = true,
-            HrefAvatar = "avatar_user5.png"
+            HrefAvatar = "avatar_user5.jpg"
         };
 
         private static User employee6 = new User()
@@ -173,7 +174,7 @@ namespace MiniSurveys.Domain.Data
             Patronymic = "Ивановна",
             Email = "xfahey@gmail.com",
             EmailConfirmed = true,
-            HrefAvatar = "avatar_user6.webp"
+            HrefAvatar = "avatar_user6.png"
         };
 
         private static User head1 = new User()
@@ -184,7 +185,7 @@ namespace MiniSurveys.Domain.Data
             Patronymic = "Глебовна",
             Email = "raides@gmail.com",
             EmailConfirmed = true,
-            HrefAvatar = "avatar_head1.png"
+            HrefAvatar = "avatar_head1.jpg"
         };
 
         private static User head2 = new User()
@@ -195,7 +196,7 @@ namespace MiniSurveys.Domain.Data
             Patronymic = "Тимофеевич",
             Email = "brody51@barrows.com",
             EmailConfirmed = true,
-            HrefAvatar = "avatar_head2.png"
+            HrefAvatar = "avatar_head2.jpg"
         };
 
         private static User admin1 = new User()
@@ -206,7 +207,7 @@ namespace MiniSurveys.Domain.Data
             Patronymic = "Иванович",
             Email = "myemail@mail.ru",
             EmailConfirmed = true,
-            HrefAvatar = "avatar_admin1.png"
+            HrefAvatar = "avatar_admin1.jpg"
         };
 
 
