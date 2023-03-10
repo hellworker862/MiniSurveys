@@ -35,7 +35,7 @@
     </div>
     <div class="user__item">
         <label asp-for="RolesSelectList" for="user-role"></label>
-        <select asp-for="Role.Id" asp-items="@Model.RolesSelectList" id="user-role">
+        <select asp-for="Role.Id" asp-items="Model.RolesSelectList" id="user-role">
         </select>
     </div>
     <div class="user__item">
@@ -47,6 +47,15 @@
         <label asp-for="Password" for="user-login"></label>
         <input asp-for="Password" id="user-login" type="password" value="qwerty123">
     </div>
+
+    <div class="user__item">
+        <div class="user__item-img">
+            <label for="user-login">Аватар</label>
+            <label for="user-login"></label>
+        </div>
+        <button id="user-login">Выбрать</button>
+    </div>
+
     <div class="user__button">
         <button onclick="popupClose()" class="user__button-cancel">Отмена</button>
         <input type="submit" class="user__button-save" value="Сохранить">
