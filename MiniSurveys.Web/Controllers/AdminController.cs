@@ -17,12 +17,14 @@ namespace MiniSurveys.Web.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole<int>> _roleManager;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public AdminController(ApplicationDbContext context, UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager)
+        public AdminController(ApplicationDbContext context, UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager, IWebHostEnvironment appEnvironment)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
+            _appEnvironment = appEnvironment;
         }
 
         [HttpGet]
@@ -100,15 +102,24 @@ namespace MiniSurveys.Web.Controllers
                 user.Patronymic = model.Patronymic;
                 user.Email = model.Email;
                 user.PhoneNumber = model.Phone;
+                user.HrefAvatar = model.Avatar.FileName;
 
                 await _userManager.UpdateAsync(user);
 
                 var selectRole = _roleManager.Roles.FirstOrDefault(x => x.Id == model.Role.Id)?.Name;
                 var userRole = (await _userManager.GetRolesAsync(user)).ElementAt(0);
+
                 if (selectRole != null && userRole != selectRole)
                 {
                     await _userManager.AddToRoleAsync(user, selectRole);
                     await _userManager.RemoveFromRoleAsync(user, userRole);
+                }
+
+                string path = "/img/UsersImages/" + model.Avatar.FileName;
+
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await model.Avatar.CopyToAsync(fileStream);
                 }
             }
 
@@ -143,7 +154,7 @@ namespace MiniSurveys.Web.Controllers
                 Email = model.Email,
                 PhoneNumber = model.Phone,
                 EmailConfirmed = true,
-                HrefAvatar = "avatar_default.png",
+                HrefAvatar = model.Avatar.FileName ?? "avatar_default.png",
                 UserName = model.UserName,
             };
 
@@ -156,6 +167,12 @@ namespace MiniSurveys.Web.Controllers
                 var employeeUser = await _userManager.FindByNameAsync(newUser.UserName);
                 var selectRole = _roleManager.Roles.FirstOrDefault(x => x.Id == model.Role.Id)?.Name;
                 await _userManager.AddToRoleAsync(employeeUser, selectRole);
+
+                string path = "/img/UsersImages/" + model.Avatar.FileName;
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await model.Avatar.CopyToAsync(fileStream);
+                }
             }
 
             var results = await _context.Users.Include(x => x.Department).Where(x => x.LockoutEnabled == false).AsNoTracking().ToListAsync();

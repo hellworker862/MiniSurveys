@@ -116,7 +116,7 @@ namespace MiniSurveys.Web.Controllers
             return await Task.FromResult(PartialView("QuestionPartial", model));
         }
 
-        [Route("/Survey/Save")]
+        [Route("/Save")]
         [HttpGet]
         public async Task<ActionResult> Save()
         {

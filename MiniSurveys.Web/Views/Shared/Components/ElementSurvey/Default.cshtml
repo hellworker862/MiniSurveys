@@ -12,6 +12,7 @@
 
 @{
     var user = await userManager.GetUserAsync(User);
+    var role = (await userManager.GetRolesAsync(user)).ElementAt(0);
     var t = context.Results.FirstOrDefault(x => x.UserId == user.Id && x.SurveyId == Model.Id);
     var s = 1;
 }
@@ -38,7 +39,8 @@
             {
                 <a asp-action="Survey" asp-controller="Survey" asp-route-id="@Model.Id" class="@Html.isActiveSurvey(Model.StartTime)">Принять участие</a>
             }
-            else
+            
+            @if (Model.EndTime <= DateTime.Now | t != null | (role == "HR" && Model.StartTime <= DateTime.Now))
             {
                 <a asp-action="Results" asp-controller="Survey" asp-route-id="@Model.Id">Посмотреть результаты</a>
             }

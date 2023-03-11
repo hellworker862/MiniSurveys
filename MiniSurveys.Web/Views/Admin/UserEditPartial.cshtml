@@ -44,11 +44,8 @@
     </div>
 
     <div class="user__item">
-        <div class="user__item-img">
-            <label for="user-login">Аватар</label>
-            <label for="user-login"></label>
-        </div>
-        <button id="user-login">Выбрать</button>
+        <label asp-for="Avatar" for="user-avatar"></label>
+        <input asp-for="Avatar" id="user-avatar" type="file" class="form-control" />
     </div>
 
     <div class="user__button">

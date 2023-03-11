@@ -5,9 +5,9 @@
 }
 
 <div class="user__header">
-    <span class="user__title">Редактирование</span>
+    <span class="user__title">Создание</span>
 </div>
-<form class="user__body" asp-action="UserCreatePartial" enctype="multipart/form-data" onsubmit="return jQueryAjaxPostCreate(this);">
+<form class="user__body" asp-action="UserCreatePartial" method="post" enctype="multipart/form-data" onsubmit="return jQueryAjaxPostCreate(this);">
     <div class="user__item">
         <label asp-for="Name" for="user-name"></label>
         <input asp-for="Name" id="user-name" type="text">
@@ -44,16 +44,13 @@
     </div>
 
     <div class="user__item">
-        <label asp-for="Password" for="user-login"></label>
-        <input asp-for="Password" id="user-login" type="password" value="qwerty123">
+        <label asp-for="Password" for="user-password"></label>
+        <input asp-for="Password" id="user-password" type="password" value="qwerty123">
     </div>
 
     <div class="user__item">
-        <div class="user__item-img">
-            <label for="user-login">Аватар</label>
-            <label for="user-login"></label>
-        </div>
-        <button id="user-login">Выбрать</button>
+        <label asp-for="Avatar" for="user-avatar"></label>
+        <input asp-for="Avatar" id="user-avatar" type="file" class="form-control" />
     </div>
 
     <div class="user__button">

@@ -75,5 +75,8 @@ namespace MiniSurveys.Web.Models.UserView
 
         [DisplayName("Подразделения")]
         public List<SelectListItem> DepartmentsSelectList { get; set; }
+
+        [DisplayName("Изображение")]
+        public IFormFile Avatar { get; set; }
     }
 }

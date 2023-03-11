@@ -70,7 +70,7 @@ namespace MiniSurveys.Web.Models.UserView
         [DisplayName("Пароль")]
         public string Password { get; set; }
 
-        [DisplayName("Аватарака")]
+        [DisplayName("Изображение")]
         public IFormFile Avatar { get; set; }
     }
 }

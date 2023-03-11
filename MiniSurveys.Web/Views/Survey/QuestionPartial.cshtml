@@ -53,6 +53,7 @@
             <button class="answer__button" id="button_left" @Html.isDisableButton(!Model.isBack())>
                 <img src="~/img/ArrowLeft.svg" alt="">
             </button>
+
             @if(Model.CurrentQuestion == Model.Questions.Count())
             {
                 <a href="/Save" class="answer__button">Отправить</a>
