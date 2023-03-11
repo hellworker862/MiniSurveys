@@ -35,15 +35,17 @@
         <div class="main__survey-main">
             <h3 class="main__survey-title">@Model.Title</h3>
             <span class="main__date-of-create">Создано Нет данных | Изменено Нет данных</span>
-            @if (Model.EndTime > DateTime.Now && t == null)
-            {
-                <a asp-action="Survey" asp-controller="Survey" asp-route-id="@Model.Id" class="@Html.isActiveSurvey(Model.StartTime)">Принять участие</a>
-            }
-            
-            @if (Model.EndTime <= DateTime.Now | t != null | (role == "HR" && Model.StartTime <= DateTime.Now))
-            {
-                <a asp-action="Results" asp-controller="Survey" asp-route-id="@Model.Id">Посмотреть результаты</a>
-            }
+            <div class="main__superbutton">
+                @if (Model.EndTime > DateTime.Now && t == null)
+                {
+                    <a asp-action="Survey" asp-controller="Survey" asp-route-id="@Model.Id" class="@Html.isActiveSurvey(Model.StartTime)">Принять участие</a>
+                }
+                
+                @if (Model.EndTime <= DateTime.Now | t != null | (role == "HR" && Model.StartTime <= DateTime.Now))
+                {
+                    <a asp-action="Results" asp-controller="Survey" asp-route-id="@Model.Id">Посмотреть результаты</a>
+                }
+            </div>
         </div>
     </div>
 </div>

@@ -1161,6 +1161,15 @@ h1.error__title {
     border-radius: 9px;
 }
 
+.main__superbutton{
+    display: flex;
+    align-items: center;
+}
+
+.main__superbutton a:last-child{
+    margin-left: 10px;
+}
+
 td.td__img {
     display: flex;
     align-items: center;
