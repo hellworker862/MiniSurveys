@@ -8,7 +8,7 @@ namespace MiniSurveys.Web.Models.Survey
         {
             Id = answer.Id;
             Title = answer.Title;
-            if(answer.Media != null)
+            if (answer.Media != null)
                 Media = new MediaViewModel(answer.Media);
             Number = number;
         }

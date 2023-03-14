@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Abstractions;
-using MiniSurveys.Web.Models;
-using System.Diagnostics;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MiniSurveys.Web.Controllers
 {

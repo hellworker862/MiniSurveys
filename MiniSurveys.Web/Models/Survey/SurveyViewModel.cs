@@ -1,6 +1,4 @@
-﻿using MiniSurveys.Domain.Modals;
-
-namespace MiniSurveys.Web.Models.Survey
+﻿namespace MiniSurveys.Web.Models.Survey
 {
     public class SurveyViewModel
     {

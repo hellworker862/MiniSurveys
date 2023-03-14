@@ -43,7 +43,7 @@ namespace MiniSurveys.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                        return RedirectToAction("Index", "Survey");
+                    return RedirectToAction("Index", "Survey");
                 }
                 else
                 {

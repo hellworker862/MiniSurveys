@@ -13,16 +13,13 @@ namespace MiniSurveys.Domain.Data
         }
 
         public DbSet<Department> Departments { get; set; }
-
         public DbSet<Survey> Surveys { get; set; }
-
         public DbSet<Question> Questions { get; set; }
-
         public DbSet<Answer> Answers { get; set; }
-
         public DbSet<Media> Medias { get; set; }
-
-        public DbSet<Result> Results { get; set; }
+        public DbSet<SurveyResult> SurveyResults { get; set; }
+        public DbSet<QuestionResult> QuestionResults { get; set; }
+        public DbSet<AnswerResult> AnswerResults { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

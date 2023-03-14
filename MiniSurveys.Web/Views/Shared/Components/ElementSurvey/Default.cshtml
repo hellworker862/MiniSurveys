@@ -13,7 +13,7 @@
 @{
     var user = await userManager.GetUserAsync(User);
     var role = (await userManager.GetRolesAsync(user)).ElementAt(0);
-    var t = context.Results.FirstOrDefault(x => x.UserId == user.Id && x.SurveyId == Model.Id);
+    var t = context.SurveyResults.FirstOrDefault(x => x.UserId == user.Id && x.SurveyId == Model.Id);
     var s = 1;
 }
 

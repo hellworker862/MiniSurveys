@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using MiniSurveys.Domain.Modals.Enums;
 
 namespace MiniSurveys.Web.Helpers
 {

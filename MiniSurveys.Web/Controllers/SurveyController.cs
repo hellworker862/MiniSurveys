@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
-using MiniSurveys.Domain.Modals.Enums;
 using MiniSurveys.Web.Helpers;
 using MiniSurveys.Web.Models;
 using MiniSurveys.Web.Models.Survey;
@@ -126,16 +125,16 @@ namespace MiniSurveys.Web.Controllers
 
             var model = HttpContext.Session.Get<SurveyViewModel>(nameKey);
 
-            var result = new Result()
+            var result = new SurveyResult()
             {
                 UserId = user.Id,
                 SurveyId = model.Id,
-                DateTimeEnd = DateTime.Now,
+                DateTime = DateTime.Now,
             };
 
             HttpContext.Session.Clear();
 
-            _context.Results.Add(result);
+            _context.SurveyResults.Add(result);
             _context.SaveChanges();
 
             return Redirect("/");
@@ -152,13 +151,13 @@ namespace MiniSurveys.Web.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            int ot1 = _context.Results.Where(o => o.SurveyId == id && o.User.Department.Name == "Отдел разработки").Select(o => o.User).Count();
-            int ot2 = _context.Results.Where(o => o.SurveyId == id && o.User.Department.Name == "Отдел тестирования").Select(o => o.User).Count();
-            int ot3 = _context.Results.Where(o => o.SurveyId == id && o.User.Department.Name == "Кадровая служба").Select(o => o.User).Count();
+            int ot1 = _context.SurveyResults.Where(o => o.SurveyId == id && o.User.Department.Name == "Отдел разработки").Select(o => o.User).Count();
+            int ot2 = _context.SurveyResults.Where(o => o.SurveyId == id && o.User.Department.Name == "Отдел тестирования").Select(o => o.User).Count();
+            int ot3 = _context.SurveyResults.Where(o => o.SurveyId == id && o.User.Department.Name == "Кадровая служба").Select(o => o.User).Count();
 
             var model = new ResultViewModel()
             {
-                Data =  new int[]
+                Data = new int[]
                 {
                     ot1,
                     ot2,

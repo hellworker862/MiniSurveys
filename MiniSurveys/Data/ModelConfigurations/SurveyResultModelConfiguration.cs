@@ -4,9 +4,9 @@ using MiniSurveys.Domain.Modals;
 
 namespace MiniSurveys.Domain.Data.ModelConfigurations
 {
-    public class Results : IEntityTypeConfiguration<Result>
+    public class SurveyResultModelConfiguration : IEntityTypeConfiguration<SurveyResult>
     {
-        public void Configure(EntityTypeBuilder<Result> builder)
+        public void Configure(EntityTypeBuilder<SurveyResult> builder)
         {
             builder.HasKey(x => x.Id);
 

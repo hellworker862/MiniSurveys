@@ -1,11 +1,6 @@
 ﻿using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
 using MiniSurveys.Domain.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MiniSurveys.Domain.Services
 {

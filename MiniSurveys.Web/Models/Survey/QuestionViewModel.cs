@@ -1,5 +1,4 @@
 ﻿using MiniSurveys.Domain.Modals;
-using System.Linq;
 
 namespace MiniSurveys.Web.Models.Survey
 {
@@ -13,7 +12,7 @@ namespace MiniSurveys.Web.Models.Survey
             Id = question.Id;
             Title = question.Title;
             Number = question.Number;
-            if(question.Media != null)
+            if (question.Media != null)
                 Media = question.Media.Select(x => new MediaViewModel(x, ++j, question.Media.Count)).ToArray();
             Answers = question.Answers.Select(x => new AnswerViewModel(x, ++i));
         }

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
-using MiniSurveys.Domain.Modals.Enums;
 using MiniSurveys.Web.Helpers;
 using MiniSurveys.Web.Models.UserView;
 using System.Data;

@@ -1,5 +1,4 @@
 ﻿using MiniSurveys.Domain.Modals.Base;
-using MiniSurveys.Domain.Modals.Enums;
 
 namespace MiniSurveys.Domain.Modals
 {
