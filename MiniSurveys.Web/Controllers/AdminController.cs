@@ -101,7 +101,7 @@ namespace MiniSurveys.Web.Controllers
                 user.Patronymic = model.Patronymic;
                 user.Email = model.Email;
                 user.PhoneNumber = model.Phone;
-                user.HrefAvatar = model.Avatar.FileName;
+                user.HrefAvatar = model.Avatar != null ? model.Avatar.FileName : user.HrefAvatar;
 
                 await _userManager.UpdateAsync(user);
 
@@ -114,11 +114,14 @@ namespace MiniSurveys.Web.Controllers
                     await _userManager.RemoveFromRoleAsync(user, userRole);
                 }
 
-                string path = "/img/UsersImages/" + model.Avatar.FileName;
-
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                if(model.Avatar != null)
                 {
-                    await model.Avatar.CopyToAsync(fileStream);
+                    string path = "/img/UsersImages/" + model.Avatar.FileName;
+
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await model.Avatar.CopyToAsync(fileStream);
+                    }
                 }
             }
 
