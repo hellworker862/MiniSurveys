@@ -7,6 +7,7 @@ using MiniSurveys.Domain.Modals;
 using MiniSurveys.Web.Helpers;
 using MiniSurveys.Web.Models;
 using MiniSurveys.Web.Models.Survey;
+using Newtonsoft.Json;
 using System.Security.Claims;
 
 namespace MiniSurveys.Web.Controllers
@@ -115,9 +116,9 @@ namespace MiniSurveys.Web.Controllers
             return await Task.FromResult(PartialView("QuestionPartial", model));
         }
 
-        [Route("/Save")]
+        [Route("[controller]/{action}")]
         [HttpGet]
-        public async Task<ActionResult> Save()
+        public async Task<ActionResult> Save(IEnumerable<bool> answers)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -125,11 +126,41 @@ namespace MiniSurveys.Web.Controllers
 
             var model = HttpContext.Session.Get<SurveyViewModel>(nameKey);
 
+            for (int i = 0; i < answers.Count(); i++)
+            {
+                if (answers.ElementAt(i) == true)
+                    model!.GetQuestion().OnVote(i);
+            }
+
+            List<QuestionResult> questionResults = new List<QuestionResult>();
+
+            foreach (QuestionViewModel question in model.Questions)
+            {
+                List<AnswerResult> answerResults = new List<AnswerResult>();
+
+                foreach (AnswerViewModel answer in question.Answers)
+                {
+                    if (answer.isVote)
+                        answerResults.Add(new AnswerResult()
+                        {
+                            AnswerId = answer.Id,
+                        });
+                }
+
+                var tmp = new QuestionResult()
+                {
+                    QuestionId = question.Id,
+                    AnswerResults = answerResults,
+                };
+                questionResults.Add(tmp);
+            }
+
             var result = new SurveyResult()
             {
                 UserId = user.Id,
                 SurveyId = model.Id,
                 DateTime = DateTime.Now,
+                QuestionResults = questionResults,
             };
 
             HttpContext.Session.Clear();
@@ -137,45 +168,55 @@ namespace MiniSurveys.Web.Controllers
             _context.SurveyResults.Add(result);
             _context.SaveChanges();
 
-            return Redirect("/");
+            return base.Content("/");
         }
 
-        public ActionResult Results(int id)
+        public async Task<ActionResult> ResultsAsync(int id)
         {
-            return View(id);
+            User user = await _userManager.GetUserAsync(User);
+            user = _context.Users.Include(u => u.Department).Single(u => u.Id == user.Id);
+            string roles = (await _userManager.GetRolesAsync(user)).ElementAt(0);
+            var allDepartmentItem = new Department() { Name = "По всем отделам", Id = 0 };
+            var allDepartments = _context.Departments.AsNoTracking().ToArray();
+            var surveyName = _context.Surveys.Single(s => s.Id == id).Title;
+
+            ICollection<Department> departments = roles switch
+            {
+                RoleNames.Employee => new List<Department>() { allDepartmentItem },
+                RoleNames.Head => new List<Department>() { allDepartmentItem, allDepartments.Single(d => d.Id == user.Department.Id) },
+                RoleNames.Administrator => new List<Department>(allDepartments) { allDepartmentItem },
+            };
+            departments = departments.OrderBy(d => d.Id).ToArray();
+
+            var model = new ResultViewModel(departments, surveyName, id);
+
+            return View(model);
         }
 
         [Route("[controller]/{action}")]
         [HttpGet]
-        public async Task<ActionResult> GetResult(int id)
+        public async Task<ActionResult> GetResult(int id, int fillter)
         {
-            var user = await _userManager.GetUserAsync(User);
-
-            int ot1 = _context.SurveyResults.Where(o => o.SurveyId == id && o.User.Department.Name == "Отдел разработки").Select(o => o.User).Count();
-            int ot2 = _context.SurveyResults.Where(o => o.SurveyId == id && o.User.Department.Name == "Отдел тестирования").Select(o => o.User).Count();
-            int ot3 = _context.SurveyResults.Where(o => o.SurveyId == id && o.User.Department.Name == "Кадровая служба").Select(o => o.User).Count();
-
-            var model = new ResultViewModel()
+            var surveyResult = fillter switch
             {
-                Data = new int[]
-                {
-                    ot1,
-                    ot2,
-                    ot3,
-                },
-
-                Title = new string[]
-                {
-                    "Отдел разработки",
-                    "Отдел тестирования",
-                    "Кадровая служба"
-                }
-
+                0 => _context.SurveyResults.Include(s => s.QuestionResults)
+                                           .ThenInclude(q => q.Question)
+                                           .Include(q => q.QuestionResults)
+                                           .ThenInclude(q => q.AnswerResults)
+                                           .ThenInclude(a => a.Answer)
+                                           .Single(s => s.Id == id),
+                _ => _context.SurveyResults.Include(s => s.QuestionResults)
+                                           .ThenInclude(q => q.Question)
+                                           .Include(q => q.QuestionResults)
+                                           .ThenInclude(q => q.AnswerResults)
+                                           .ThenInclude(a => a.Answer)
+                                           .Single(s => s.Id == id && s.User.Department.Id == fillter),
             };
 
-            var json = Json(model);
+            var model = new ResultData(surveyResult);
 
-            return json;
+
+            return Json(model);
         }
     }
 }

@@ -1,8 +1,18 @@
-﻿@model int
+﻿@model ResultViewModel
 
-<h1 id="@Model" class="main__title title">Результаты по тесту</h1>
-
-<div id="chart-container">
-    <canvas id="myChart">
-    </canvas>
+<h1 class="main__title title">@Model.SurveyName</h1>
+<div class="result">
+    <div class="result__header">
+        <form action="" class="result__fillter" id="@Model.Id">
+            <select asp-for="SelectedDepartment.Value" asp-items="Model.DepartmentsSelectList" id="combobox">
+            </select>
+            <input type="button" value="Применить">
+        </form>
+        <div class="result__excel-button">
+            <input type="button" value="Импорт в Excel">
+        </div>
+    </div>
+    <div class="result__main">
+        <canvas id="myChart"></canvas>
+    </div>
 </div>

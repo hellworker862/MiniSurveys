@@ -1,9 +1,27 @@
-﻿namespace MiniSurveys.Web.Models
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using MiniSurveys.Domain.Modals;
+
+namespace MiniSurveys.Web.Models
 {
     public class ResultViewModel
     {
-        public IEnumerable<int> Data { get; set; }
+        public ResultViewModel(ICollection<Department> departments, string surveyName, int id)
+        {
+            DepartmentsSelectList = new List<SelectListItem>();
 
-        public IEnumerable<string> Title { get; set; }
+            foreach (Department item in departments)
+            {
+                DepartmentsSelectList.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+
+            SelectedDepartment = DepartmentsSelectList.ElementAt(0);
+            SurveyName = surveyName;
+            Id = id;
+        }
+
+        public int Id { get; set; }
+        public string SurveyName { get; set; }
+        public SelectListItem SelectedDepartment { get; set; }
+        public List<SelectListItem> DepartmentsSelectList { get; set; }
     }
 }

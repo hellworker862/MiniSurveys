@@ -79,9 +79,26 @@ $(document).ready(function () {
         goToQuestion(false);
     });
 
-    $('#button_end').on('click', function () {
-        End();
+    $('#button_save').on('click', function () {
+        Save();
     });
+
+    function Save() {
+        const answers = Array.from(document.querySelectorAll('.radio-button__input')).map(x => x.checked);
+
+        $.ajax({
+            type: "GET",
+            url: "/Survey/Save",
+            traditional: true,
+            data: {
+                answers: answers,
+            },
+            success: function (html) {
+                window.location.replace(html);
+            }
+        });
+        event.preventDefault();
+    }
 
     function goToQuestion(is_next) {
 
@@ -121,6 +138,10 @@ $(document).ready(function () {
 
                 $('.next').on('click', function () {
                     plusSlides(1);
+                });
+
+                $('#button_save').on('click', function () {
+                    Save();
                 });
             }
         });
@@ -323,7 +344,8 @@ jQueryAjaxDelete = form => {
 };
 $(document).ready(function () {
     const myChart = document.getElementById('myChart');
-    const id = document.querySelector(".main__title").id;
+    const id = document.querySelector(".result__fillter").id;
+    const fillter = document.querySelector(".result__fillter").value;
 
     if (myChart) {
         $.ajax({
@@ -332,14 +354,16 @@ $(document).ready(function () {
             traditional: true,
             data: {
                 id: id,
+                fillter: fillter
             },
             success: function (model) {
                 console.log(model)
+                console.log(model.questions[0].answers);
                 const data = {
                     labels: model.title,
                     datasets: [{
                         label: "Количество",
-                        data: model.data,
+                        data: model.questions[0].answers,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(255, 159, 64, 0.2)',

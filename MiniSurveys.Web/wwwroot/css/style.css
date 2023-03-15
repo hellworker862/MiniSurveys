@@ -1430,3 +1430,53 @@ body>div:not(.wrapper) {
 center {
     display: none;
 }
+
+.result {
+}
+
+.result__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.result__fillter {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+    .result__fillter select {
+        color: var(--dark-text);
+        background-color: transparent;
+        border: 1px solid var(--header-bg-color);
+        padding: 8px 10px;
+        width: 364px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .result__fillter input {
+        color: var(--button-text-color);
+        background-color: var(--red-color);
+        margin-top: 10px;
+        padding: 8px 12px;
+        width: 200px;
+        font-style: normal;
+        font-weight: 527;
+        font-size: 14px;
+    }
+
+.result__excel-button input {
+    color: var(--button-text-color);
+    background-color: var(--red-color);
+    font-style: normal;
+    font-weight: 527;
+    font-size: 14px;
+    padding: 8px 30px;
+}
+
+.result__main {
+}

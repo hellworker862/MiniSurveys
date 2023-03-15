@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     const myChart = document.getElementById('myChart');
-    const id = document.querySelector(".main__title").id;
+    const id = document.querySelector(".result__fillter").id;
+    const fillter = document.querySelector(".result__fillter").value;
 
     if (myChart) {
         $.ajax({
@@ -9,14 +10,16 @@
             traditional: true,
             data: {
                 id: id,
+                fillter: fillter
             },
             success: function (model) {
                 console.log(model)
+                console.log(model.questions[0].answers);
                 const data = {
                     labels: model.title,
                     datasets: [{
                         label: "Количество",
-                        data: model.data,
+                        data: model.questions[0].answers,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(255, 159, 64, 0.2)',

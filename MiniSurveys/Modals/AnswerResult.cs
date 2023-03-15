@@ -7,5 +7,10 @@ namespace MiniSurveys.Domain.Modals
         public int Id { get; set; }
         public Answer Answer { get; set; } = null!;
         public int AnswerId { get; set; }
+
+        public override string ToString()
+        {
+            return Answer?.Title;
+        }
     }
 }

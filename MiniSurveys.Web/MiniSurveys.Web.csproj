@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Base\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 

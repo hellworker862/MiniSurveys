@@ -8,9 +8,26 @@ $(document).ready(function () {
         goToQuestion(false);
     });
 
-    $('#button_end').on('click', function () {
-        End();
+    $('#button_save').on('click', function () {
+        Save();
     });
+
+    function Save() {
+        const answers = Array.from(document.querySelectorAll('.radio-button__input')).map(x => x.checked);
+
+        $.ajax({
+            type: "GET",
+            url: "/Survey/Save",
+            traditional: true,
+            data: {
+                answers: answers,
+            },
+            success: function (html) {
+                window.location.replace(html);
+            }
+        });
+        event.preventDefault();
+    }
 
     function goToQuestion(is_next) {
 
@@ -50,6 +67,10 @@ $(document).ready(function () {
 
                 $('.next').on('click', function () {
                     plusSlides(1);
+                });
+
+                $('#button_save').on('click', function () {
+                    Save();
                 });
             }
         });
