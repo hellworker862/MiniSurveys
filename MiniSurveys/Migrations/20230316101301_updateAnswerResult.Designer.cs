@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniSurveys.Domain.Data;
 
@@ -11,9 +12,11 @@ using MiniSurveys.Domain.Data;
 namespace MiniSurveys.Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230316101301_updateAnswerResult")]
+    partial class updateAnswerResult
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -494,7 +497,7 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SurveyResultId")
+                    b.Property<int?>("SurveyResultId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -525,7 +528,7 @@ namespace MiniSurveys.Domain.Migrations
                     b.Property<DateTime>("StartTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 3, 16, 15, 16, 26, 727, DateTimeKind.Local).AddTicks(4464));
+                        .HasDefaultValue(new DateTime(2023, 3, 16, 15, 13, 0, 979, DateTimeKind.Local).AddTicks(7597));
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -540,25 +543,25 @@ namespace MiniSurveys.Domain.Migrations
                         new
                         {
                             Id = 1,
-                            EndTime = new DateTime(2023, 3, 18, 15, 16, 26, 725, DateTimeKind.Local).AddTicks(7051),
+                            EndTime = new DateTime(2023, 3, 18, 15, 13, 0, 978, DateTimeKind.Local).AddTicks(3313),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2023, 3, 16, 15, 16, 26, 725, DateTimeKind.Local).AddTicks(7039),
+                            StartTime = new DateTime(2023, 3, 16, 15, 13, 0, 978, DateTimeKind.Local).AddTicks(3298),
                             Title = "Тест 1"
                         },
                         new
                         {
                             Id = 2,
-                            EndTime = new DateTime(2023, 3, 20, 17, 16, 26, 725, DateTimeKind.Local).AddTicks(7058),
+                            EndTime = new DateTime(2023, 3, 20, 17, 13, 0, 978, DateTimeKind.Local).AddTicks(3322),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2023, 3, 18, 17, 16, 26, 725, DateTimeKind.Local).AddTicks(7057),
+                            StartTime = new DateTime(2023, 3, 18, 17, 13, 0, 978, DateTimeKind.Local).AddTicks(3321),
                             Title = "Тест 2"
                         },
                         new
                         {
                             Id = 3,
-                            EndTime = new DateTime(2023, 3, 14, 13, 16, 26, 725, DateTimeKind.Local).AddTicks(7060),
+                            EndTime = new DateTime(2023, 3, 14, 13, 13, 0, 978, DateTimeKind.Local).AddTicks(3324),
                             IsQuestionOrder = false,
-                            StartTime = new DateTime(2023, 3, 12, 13, 16, 26, 725, DateTimeKind.Local).AddTicks(7059),
+                            StartTime = new DateTime(2023, 3, 12, 13, 13, 0, 978, DateTimeKind.Local).AddTicks(3323),
                             Title = "Тест 0"
                         });
                 });
@@ -793,15 +796,11 @@ namespace MiniSurveys.Domain.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MiniSurveys.Domain.Modals.SurveyResult", "SurveyResult")
+                    b.HasOne("MiniSurveys.Domain.Modals.SurveyResult", null)
                         .WithMany("QuestionResults")
-                        .HasForeignKey("SurveyResultId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("SurveyResultId");
 
                     b.Navigation("Question");
-
-                    b.Navigation("SurveyResult");
                 });
 
             modelBuilder.Entity("MiniSurveys.Domain.Modals.SurveyResult", b =>

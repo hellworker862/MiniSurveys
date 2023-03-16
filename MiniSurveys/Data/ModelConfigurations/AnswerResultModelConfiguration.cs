@@ -12,6 +12,7 @@ namespace MiniSurveys.Domain.Data.ModelConfigurations
 
             builder.Property(x => x.Id).IsRequired();
             builder.HasOne(x => x.Answer);
+            builder.HasOne(x => x.QuestionResult).WithMany(q => q.AnswerResults).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

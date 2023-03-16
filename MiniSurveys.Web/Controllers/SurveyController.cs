@@ -7,7 +7,6 @@ using MiniSurveys.Domain.Modals;
 using MiniSurveys.Web.Helpers;
 using MiniSurveys.Web.Models;
 using MiniSurveys.Web.Models.Survey;
-using Newtonsoft.Json;
 using System.Security.Claims;
 
 namespace MiniSurveys.Web.Controllers
@@ -197,12 +196,36 @@ namespace MiniSurveys.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> GetResult(int id, int fillter)
         {
-            //var surveyResult = fillter switch
-            //{
-            //    _ => _context.SurveyResults.Include(s => s.QuestionResults)
-            //                                .ThenInclude(s => s.AnswerResults).Single(x => x.Id == id),
-                
-            //};
+            var questions = await _context.Questions.Where(q => q.SurveyId == id).Include(q => q.Answers).ToListAsync();
+            var questionResultDatas = new List<QuestionResultData>();
+
+            foreach (Question question in questions)
+            {
+                var answers = new List<ChartItem>();
+
+                foreach (Answer answer in question.Answers)
+                {
+                    var count = fillter switch
+                    {
+                        0 => _context.AnswerResults.Where(a => a.AnswerId == answer.Id).Count(),
+                        _ => _context.AnswerResults.Where(a => a.AnswerId == answer.Id && a.QuestionResult.SurveyResult.User.Department.Id == fillter).Count(),
+                    };
+
+                    answers.Add(new ChartItem
+                    {
+                        Title = answer.Title,
+                        Value = count,
+                    });
+                }
+
+                var tmp = new QuestionResultData
+                {
+                    Title = question.Title,
+                    Answers = answers,
+                };
+
+                questionResultDatas.Add(tmp);
+            }
 
             int testedUsers = fillter switch
             {
@@ -214,7 +237,7 @@ namespace MiniSurveys.Web.Controllers
                 0 => _context.Users.Count(),
                 _ => _context.Users.Where(x => x.Department.Id == fillter).Count(),
             };
-            var model = new ResultData(allUsers, testedUsers);
+            var model = new ResultData(allUsers, testedUsers, questionResultDatas);
 
             return Json(model);
         }
