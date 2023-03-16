@@ -63,23 +63,13 @@ $(document).ready(function () {
                                 },
                                 color: '#fff',
                                 font: {
+                                    family: 'Montserrat',
                                     size: 18,
                                     weight: 'bold',
                                 }
                             },
                             title: {
-                                display: true,
-                                text: 'Количество опрошенных',
-                                padding: {
-                                    top: 30,
-                                    bottom: 0
-                                },
-                                position: 'top',
-                                align: 'start',
-                                font: {
-                                    size: 20,
-                                    weight: 'bold',
-                                }
+                                display: false,
                             },
                             legend: {
                                 position: 'left',
@@ -134,7 +124,6 @@ function renderChartBar(ctx, data, barGraph, number) {
         labels: data.answers.map(x => x.title),
         datasets: [{
             label: " Количество",
-            maxBarThickness: 100,
             data: data.answers.map(x => x.value),
             backgroundColor: [
                 '#EC1C24',
@@ -160,9 +149,11 @@ function renderChartBar(ctx, data, barGraph, number) {
                 position: 'top',
                 align: 'start',
                 font: {
+                    family: 'Montserrat',
                     size: 20,
                     weight: 'bold',
-                }
+                },
+                color: '#0F2232',
             },
             subtitle: {
                 display: true,
@@ -174,9 +165,11 @@ function renderChartBar(ctx, data, barGraph, number) {
                 position: 'top',
                 align: 'start',
                 font: {
+                    family: 'Montserrat',
                     size: 16,
                     weight: 'bold',
-                }
+                },
+                color: '#0F2232',
             },
         },
         scales: {

@@ -1166,7 +1166,7 @@ h1.error__title {
     align-items: center;
 }
 
-.main__superbutton a:last-child{
+.main__superbutton a:not(:first-child){
     margin-left: 10px;
 }
 
@@ -1479,4 +1479,28 @@ center {
 }
 
 .result__main {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+
+.result__main-header {
+    margin-left: 10%;
+    width: 80%;
+}
+
+    .result__main-header h3 {
+        color: #0F2232; 
+        margin-top: 30px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+.result__diagramma {
+    width: 60%;
+}
+
+.result__gistogramma {
+    width: 80%;
 }
