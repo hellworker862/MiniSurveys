@@ -6,7 +6,7 @@
         <form action="" class="result__fillter" id="@Model.Id">
             <select asp-for="SelectedDepartment.Value" asp-items="Model.DepartmentsSelectList" id="combobox">
             </select>
-            <input type="button" value="Применить">
+            <input type="button" value="Применить" id="button-apply">
         </form>
         <div class="result__excel-button">
             <input type="button" value="Импорт в Excel">

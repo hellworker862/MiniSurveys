@@ -9,59 +9,74 @@ namespace MiniSurveys.Web.Models.Survey
 
         }
 
-        public ResultData(SurveyResult surveyResult)
+        public ResultData(int allUsers, int testedUsers)
         {
-            var data = surveyResult.QuestionResults.GroupBy(x => x.QuestionId)
-                .Select(x => new 
-                {
-                    Answers = x.SelectMany(x => x.AnswerResults).ToList(),
-                    Title = x.Single().Question.Title,
-                }).ToList();
-
-            Questions = data.Select(x => new QuestionResultData(x.Title, x.Answers)).ToList();
+            //var data = surveyResult
+            AllUsers = new ChartItem(allUsers - testedUsers, "Не прошедшие");
+            TestedUsers = new ChartItem(testedUsers, "Прошедшие");
+            //Questions = data.Select(x => new QuestionResultData(x.Title, x.Answers)).ToList();
         }
 
-        public List<QuestionResultData> Questions { get; set; }
+        public ChartItem AllUsers { get; set; }
+        public ChartItem TestedUsers { get; set; }    
+
+        //public List<QuestionResultData> Questions { get; set; }
     }
 
-    public class QuestionResultData
+    public class ChartItem
     {
-        public QuestionResultData()
+        public ChartItem()
         {
 
         }
-
-        public QuestionResultData(string title, ICollection<AnswerResult> answerResults)
+        public ChartItem(int value, string title)
         {
+            Value = value;
             Title = title;
-            var data = answerResults.GroupBy(x => x.AnswerId);
-            Answers = data.Select(x => new AnswerResultData(x.Key.ToString(), x.Count())).ToList();
         }
 
+        public int Value { get; set; }
         public string Title { get; set; }
-        public List<AnswerResultData> Answers { get; set; }
     }
 
-    public class AnswerResultData
-    {
-        public AnswerResultData()
-        {
+    //public class QuestionResultData
+    //{
+    //    public QuestionResultData()
+    //    {
 
-        }
+    //    }
 
-        public AnswerResultData(string title, int count)
-        {
-            Title = title;
-            Count = count;
+    //    public QuestionResultData(string title, ICollection<AnswerResult> answerResults)
+    //    {
+    //        Title = title;
+    //        var data = answerResults.GroupBy(x => x.AnswerId);
+    //        Answers = data.Select(x => new AnswerResultData(x.Key.ToString(), x.Count())).ToList();
+    //    }
 
-        }
+    //    public string Title { get; set; }
+    //    public List<AnswerResultData> Answers { get; set; }
+    //}
 
-        public string Title { get; set; }
-        public int Count { get; set; }
+    //public class AnswerResultData
+    //{
+    //    public AnswerResultData()
+    //    {
 
-        public override string ToString()
-        {
-            return Title;
-        }
-    }
+    //    }
+
+    //    public AnswerResultData(string title, int count)
+    //    {
+    //        Title = title;
+    //        Count = count;
+
+    //    }
+
+    //    public string Title { get; set; }
+    //    public int Count { get; set; }
+
+    //    public override string ToString()
+    //    {
+    //        return Title;
+    //    }
+    //}
 }

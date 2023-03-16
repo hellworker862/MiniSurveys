@@ -197,24 +197,24 @@ namespace MiniSurveys.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> GetResult(int id, int fillter)
         {
-            var surveyResult = fillter switch
+            //var surveyResult = fillter switch
+            //{
+            //    _ => _context.SurveyResults.Include(s => s.QuestionResults)
+            //                                .ThenInclude(s => s.AnswerResults).Single(x => x.Id == id),
+                
+            //};
+
+            int testedUsers = fillter switch
             {
-                0 => _context.SurveyResults.Include(s => s.QuestionResults)
-                                           .ThenInclude(q => q.Question)
-                                           .Include(q => q.QuestionResults)
-                                           .ThenInclude(q => q.AnswerResults)
-                                           .ThenInclude(a => a.Answer)
-                                           .Single(s => s.Id == id),
-                _ => _context.SurveyResults.Include(s => s.QuestionResults)
-                                           .ThenInclude(q => q.Question)
-                                           .Include(q => q.QuestionResults)
-                                           .ThenInclude(q => q.AnswerResults)
-                                           .ThenInclude(a => a.Answer)
-                                           .Single(s => s.Id == id && s.User.Department.Id == fillter),
+                0 => _context.SurveyResults.Where(x => x.SurveyId == id).Count(),
+                _ => _context.SurveyResults.Where(x => x.SurveyId == id && x.User.Department.Id == fillter).Count(),
             };
-
-            var model = new ResultData(surveyResult);
-
+            int allUsers = fillter switch
+            {
+                0 => _context.Users.Count(),
+                _ => _context.Users.Where(x => x.Department.Id == fillter).Count(),
+            };
+            var model = new ResultData(allUsers, testedUsers);
 
             return Json(model);
         }
