@@ -100,6 +100,5 @@ jQueryAjaxDelete = form => {
         }
     }
 
-    //prevent default form submit event
     return false;
 };

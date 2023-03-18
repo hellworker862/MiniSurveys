@@ -28,7 +28,7 @@ namespace MiniSurveys.Domain.Data
 
             foreach (var employee in DefaultUsers.EmployeesDevDept)
             {
-                var department = context.Departments.FirstOrDefault(x => x.Name == "Отдел разработки");
+                var department = context.Departments.FirstOrDefault(x => x.Name == DepartmentNames.Dev);
                 employee.Department = department;
                 var result = userManager.CreateAsync(employee, defaultPassword).Result;
 
@@ -41,7 +41,7 @@ namespace MiniSurveys.Domain.Data
 
             foreach (var employee in DefaultUsers.EmployeesTestingDept)
             {
-                var department = context.Departments.FirstOrDefault(x => x.Name == "Отдел тестирования");
+                var department = context.Departments.FirstOrDefault(x => x.Name == DepartmentNames.Test);
                 employee.Department = department;
                 var result = userManager.CreateAsync(employee, defaultPassword).Result;
 
@@ -54,7 +54,7 @@ namespace MiniSurveys.Domain.Data
 
             foreach (var employee in DefaultUsers.Admins)
             {
-                var department = context.Departments.FirstOrDefault(x => x.Name == "Кадровая служба");
+                var department = context.Departments.FirstOrDefault(x => x.Name == DepartmentNames.Hr);
                 employee.Department = department;
                 var result = userManager.CreateAsync(employee, defaultPassword).Result;
 
@@ -67,7 +67,7 @@ namespace MiniSurveys.Domain.Data
 
             foreach (var employee in DefaultUsers.HeadsDevDept)
             {
-                var department = context.Departments.FirstOrDefault(x => x.Name == "Отдел разработки");
+                var department = context.Departments.FirstOrDefault(x => x.Name == DepartmentNames.Dev);
                 employee.Department = department;
                 var result = userManager.CreateAsync(employee, defaultPassword).Result;
 
@@ -80,7 +80,7 @@ namespace MiniSurveys.Domain.Data
 
             foreach (var employee in DefaultUsers.HeadsTestingDept)
             {
-                var department = context.Departments.FirstOrDefault(x => x.Name == "Отдел тестирования");
+                var department = context.Departments.FirstOrDefault(x => x.Name == DepartmentNames.Test);
                 employee.Department = department;
                 var result = userManager.CreateAsync(employee, defaultPassword).Result;
 
@@ -106,6 +106,23 @@ namespace MiniSurveys.Domain.Data
                 yield return Administrator;
                 yield return Employee;
                 yield return Head;
+            }
+        }
+    }
+
+    public static class DepartmentNames
+    {
+        public const string Dev = "Отдел разработки";
+        public const string Test = "Отдел тестирования";
+        public const string Hr = "Кадровая служба";
+
+        public static IEnumerable<string> AllDepartments
+        {
+            get
+            {
+                yield return Dev;
+                yield return Test;
+                yield return Hr;
             }
         }
     }

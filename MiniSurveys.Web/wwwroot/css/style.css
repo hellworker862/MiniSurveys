@@ -1504,3 +1504,7 @@ center {
 .result__gistogramma {
     width: 80%;
 }
+
+.display-none {
+    display: none;
+}

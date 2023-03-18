@@ -2,16 +2,17 @@
 
 <h1 class="main__title title">@Model.SurveyName</h1>
 <div class="result">
-    <div class="result__header">
-        <form action="" class="result__fillter" id="@Model.Id">
+    <form class="result__header" asp-controller="Survey" asp-action="ExportToExcel">
+        <div action="" class="result__fillter" id="@Model.Id">
             <select asp-for="SelectedDepartment.Value" asp-items="Model.DepartmentsSelectList" id="combobox">
             </select>
-            <input type="button" value="Применить" id="button-apply">
-        </form>
-        <div class="result__excel-button">
-            <input type="button" value="Импорт в Excel">
+            <input type="button" value="Применить" id="button-apply"></input>
         </div>
-    </div>
+        <input class="display-none" asp-for="Id" id="user-surname" type="text">
+        <div class="result__excel-button">
+            <input type="submit" value="Импорт в Excel" id="button-export">
+        </div>
+    </form>
     <div class="result__main-header">
         <h3>Количество прошедших</h3>
     </div>

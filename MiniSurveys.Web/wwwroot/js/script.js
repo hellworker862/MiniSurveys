@@ -339,7 +339,6 @@ jQueryAjaxDelete = form => {
         }
     }
 
-    //prevent default form submit event
     return false;
 };
 var pieChart;
@@ -361,10 +360,30 @@ $(document).ready(function () {
         CreateChart();
     });
 
+    //$('#button-export').on('click', function () {
+    //    ExportToExcel();
+    //});
+
+    //function ExportToExcel() {
+    //    const id = document.querySelector(".result__fillter").id;
+    //    const fillter = $("#combobox").val();
+
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/Survey/ExportToExcel",
+    //        traditional: true,
+    //        data: {
+    //            id: id,
+    //            fillter: fillter
+    //        },
+    //        success: function () {
+    //        }
+    //    });
+    //}
+
     function CreateChart() {
         const id = document.querySelector(".result__fillter").id;
         const fillter = $("#combobox").val();
-        console.log(fillter);
 
         if (myChart1) {
             $.ajax({
