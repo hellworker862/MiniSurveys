@@ -241,5 +241,12 @@ namespace MiniSurveys.Web.Controllers
 
             return Json(model);
         }
+
+        [Route("[controller]/{action}")]
+        [HttpGet]
+        public async Task<ActionResult> ExportToExcel(int id, int fillter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
