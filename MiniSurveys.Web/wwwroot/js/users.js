@@ -21,9 +21,9 @@ showInPopup = (url) => {
         success: function (res) {
             $('.popup-body .popup-content').html(res);
             popupOpen($('.popup'));
-            $(function () {
+            $(document).ready(function ($) {
                 $("#user-number").mask("+7(999) 999-9999");
-            }
+            });
         }
     })
 };
@@ -45,9 +45,9 @@ jQueryAjaxPost = form => {
         },
         error: function (err) {
             $('.popup-body .popup-content').html(err.responseText);
-            $(function () {
+            $(document).ready(function ($) {
                 $("#user-number").mask("+7(999) 999-9999");
-            }
+            });
         }
     })
 
@@ -71,9 +71,9 @@ jQueryAjaxPostCreate = form => {
         },
         error: function (err) {
             $('.popup-body .popup-content').html(err.responseText);
-            $(function () {
-                $("#user-number").mask("+7(999) 999-9999");
-            }
+            $(document).ready(function ($) {
+                    $("#user-number").mask("+7(999) 999-9999");
+            });
         }
     })
 
