@@ -11,22 +11,27 @@
     <div class="user__item">
         <label asp-for="Name" for="user-name"></label>
         <input asp-for="Name" id="user-name" type="text">
+        <span asp-validation-for="Name"></span>
     </div>
     <div class="user__item">
         <label asp-for="Surname" for="user-surname"></label>
         <input asp-for="Surname" id="user-surname" type="text">
+        <span asp-validation-for="Surname"></span>
     </div>
     <div class="user__item">
         <label asp-for="Patronymic" for="user-middlename"></label>
         <input asp-for="Patronymic" id="user-middlename" type="text">
+        <span asp-validation-for="Patronymic"></span>
     </div>
     <div class="user__item">
         <label asp-for="Email" for="user-email"></label>
         <input asp-for="Email" id="user-email" type="email">
+        <span asp-validation-for="Email"></span>
     </div>
     <div class="user__item">
         <label asp-for="Phone" for="user-number"></label>
         <input asp-for="Phone" id="user-number" type="number">
+        <span asp-validation-for="Phone"></span>
     </div>
     <div class="user__item">
         <label asp-for="DepartmentsSelectList" for="user-division"></label>
@@ -41,16 +46,19 @@
     <div class="user__item">
         <label asp-for="UserName" for="user-login"></label>
         <input asp-for="UserName" id="user-login" type="text">
+        <span asp-validation-for="UserName"></span>
     </div>
 
     <div class="user__item">
         <label asp-for="Password" for="user-password"></label>
         <input asp-for="Password" id="user-password" type="password" value="qwerty123">
+        <span asp-validation-for="Password"></span>
     </div>
 
     <div class="user__item">
         <label asp-for="Avatar" for="user-avatar"></label>
         <input asp-for="Avatar" id="user-avatar" type="file" class="form-control" />
+        <span asp-validation-for="Avatar"></span>
     </div>
 
     <div class="user__button">
@@ -58,3 +66,4 @@
         <input type="submit" class="user__button-save" value="Сохранить">
     </div>
 </form>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>

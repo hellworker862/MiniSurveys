@@ -237,8 +237,6 @@ document.addEventListener('keydown', function (e) {
         popupClose(popupActive);
     }
 });
-
-
 const usersList = document.querySelector('#users-id');
 
 $('#search-users').bind('input', function () {
@@ -262,13 +260,12 @@ showInPopup = (url) => {
         success: function (res) {
             $('.popup-body .popup-content').html(res);
             popupOpen($('.popup'));
+            $("#user-number").mask("+7(999) 999-9999");
         }
     })
 };
 
 jQueryAjaxPost = form => {
-    const t = new FormData(form);
-    console.log(t.get("Name"))
     $.ajax({
         type: 'POST',
         url: "/Admin/UserEditPartial/",
@@ -282,11 +279,10 @@ jQueryAjaxPost = form => {
                 $('.popup-body .popup-content').html('');
                 popupClose();
             }
-            else
-                $('.popup-body .popup-content').html(res.html);
         },
         error: function (err) {
-            console.log(err)
+            $('.popup-body .popup-content').html(err.responseText);
+            $("#user-number").mask("+7(999) 999-9999");
         }
     })
 
@@ -294,8 +290,6 @@ jQueryAjaxPost = form => {
 };
 
 jQueryAjaxPostCreate = form => {
-    const t = new FormData(form);
-    console.log(t.get("Name"))
     $.ajax({
         type: 'POST',
         url: "/Admin/UserCreatePartial/",
@@ -309,11 +303,10 @@ jQueryAjaxPostCreate = form => {
                 $('.popup-body .popup-content').html('');
                 popupClose();
             }
-            else
-                $('.popup-body .popup-content').html(res.html);
         },
         error: function (err) {
-            console.log(err)
+            $('.popup-body .popup-content').html(err.responseText);
+            $("#user-number").mask("+7(999) 999-9999");
         }
     })
 

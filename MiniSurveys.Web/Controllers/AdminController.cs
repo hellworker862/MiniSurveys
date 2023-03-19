@@ -92,49 +92,55 @@ namespace MiniSurveys.Web.Controllers
         [Route("[controller]/{action}")]
         public async Task<ActionResult> UserEditPartial(UserEditViewModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName);
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                user.Name = model.Name;
-                user.Department = _context.Departments.FirstOrDefault(x => x.Id == model.Department.Id);
-                user.Surname = model.Surname;
-                user.Patronymic = model.Patronymic;
-                user.Email = model.Email;
-                user.PhoneNumber = model.Phone;
-                user.HrefAvatar = model.Avatar != null ? model.Avatar.FileName : user.HrefAvatar;
-
-                await _userManager.UpdateAsync(user);
-
-                var selectRole = _roleManager.Roles.FirstOrDefault(x => x.Id == model.Role.Id)?.Name;
-                var userRole = (await _userManager.GetRolesAsync(user)).ElementAt(0);
-
-                if (selectRole != null && userRole != selectRole)
+                var user = await _userManager.FindByNameAsync(model.UserName);
+                if (user != null)
                 {
-                    await _userManager.AddToRoleAsync(user, selectRole);
-                    await _userManager.RemoveFromRoleAsync(user, userRole);
-                }
+                    user.Name = model.Name;
+                    user.Department = _context.Departments.FirstOrDefault(x => x.Id == model.Department.Id);
+                    user.Surname = model.Surname;
+                    user.Patronymic = model.Patronymic;
+                    user.Email = model.Email;
+                    user.PhoneNumber = model.Phone;
+                    user.HrefAvatar = model.Avatar != null ? model.Avatar.FileName : user.HrefAvatar;
 
-                if(model.Avatar != null)
-                {
-                    string path = "/img/UsersImages/" + model.Avatar.FileName;
+                    await _userManager.UpdateAsync(user);
 
-                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    var selectRole = _roleManager.Roles.FirstOrDefault(x => x.Id == model.Role.Id)?.Name;
+                    var userRole = (await _userManager.GetRolesAsync(user)).ElementAt(0);
+
+                    if (selectRole != null && userRole != selectRole)
                     {
-                        await model.Avatar.CopyToAsync(fileStream);
+                        await _userManager.AddToRoleAsync(user, selectRole);
+                        await _userManager.RemoveFromRoleAsync(user, userRole);
+                    }
+
+                    if (model.Avatar != null)
+                    {
+                        string path = "/img/UsersImages/" + model.Avatar.FileName;
+
+                        using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                        {
+                            await model.Avatar.CopyToAsync(fileStream);
+                        }
                     }
                 }
+
+                var results = await _context.Users.Include(x => x.Department).Where(x => x.LockoutEnabled == false).AsNoTracking().ToListAsync();
+                List<UserViewModel> models = new List<UserViewModel>();
+                foreach (var item in results)
+                {
+                    models.Add(await UserViewModel.Initialize(item, _userManager));
+                }
+
+                var tt = Json(new { isValid = true, html = await JsonHelpers.RenderRazorViewToString(this, "UserListPartial", models) });
+
+                return tt;
             }
+            model.InitializeSelectList(_roleManager, _context);
 
-            var results = await _context.Users.Include(x => x.Department).Where(x => x.LockoutEnabled == false).AsNoTracking().ToListAsync();
-            List<UserViewModel> models = new List<UserViewModel>();
-            foreach (var item in results)
-            {
-                models.Add(await UserViewModel.Initialize(item, _userManager));
-            }
-
-            var tt = Json(new { isValid = true, html = await JsonHelpers.RenderRazorViewToString(this, "UserListPartial", models) });
-
-            return tt;
+            return PartialView("UserEditPartial", model);
         }
 
         [HttpGet]
@@ -148,45 +154,51 @@ namespace MiniSurveys.Web.Controllers
         [Route("[controller]/{action}")]
         public async Task<ActionResult> UserCreatePartial(UserCreateViewModel model)
         {
-            var newUser = new User()
+            if (ModelState.IsValid)
             {
-                Name = model.Name,
-                Surname = model.Surname,
-                Patronymic = model.Patronymic,
-                Email = model.Email,
-                PhoneNumber = model.Phone,
-                EmailConfirmed = true,
-                HrefAvatar = model.Avatar.FileName ?? "avatar_default.png",
-                UserName = model.UserName,
-            };
-
-            var department = _context.Departments.FirstOrDefault(x => x.Id == model.Department.Id);
-            newUser.Department = department;
-            var result = _userManager.CreateAsync(newUser, model.Password).Result;
-
-            if (result.Succeeded)
-            {
-                var employeeUser = await _userManager.FindByNameAsync(newUser.UserName);
-                var selectRole = _roleManager.Roles.FirstOrDefault(x => x.Id == model.Role.Id)?.Name;
-                await _userManager.AddToRoleAsync(employeeUser, selectRole);
-
-                string path = "/img/UsersImages/" + model.Avatar.FileName;
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                var newUser = new User()
                 {
-                    await model.Avatar.CopyToAsync(fileStream);
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    Patronymic = model.Patronymic,
+                    Email = model.Email,
+                    PhoneNumber = model.Phone,
+                    EmailConfirmed = true,
+                    HrefAvatar = model.Avatar.FileName ?? "avatar_default.png",
+                    UserName = model.UserName,
+                };
+
+                var department = _context.Departments.FirstOrDefault(x => x.Id == model.Department.Id);
+                newUser.Department = department;
+                var result = _userManager.CreateAsync(newUser, model.Password).Result;
+
+                if (result.Succeeded)
+                {
+                    var employeeUser = await _userManager.FindByNameAsync(newUser.UserName);
+                    var selectRole = _roleManager.Roles.FirstOrDefault(x => x.Id == model.Role.Id)?.Name;
+                    await _userManager.AddToRoleAsync(employeeUser, selectRole);
+
+                    string path = "/img/UsersImages/" + model.Avatar.FileName;
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await model.Avatar.CopyToAsync(fileStream);
+                    }
                 }
+
+                var results = await _context.Users.Include(x => x.Department).Where(x => x.LockoutEnabled == false).AsNoTracking().ToListAsync();
+                List<UserViewModel> models = new List<UserViewModel>();
+                foreach (var item in results)
+                {
+                    models.Add(await UserViewModel.Initialize(item, _userManager));
+                }
+
+                var tt = Json(new { isValid = true, html = await JsonHelpers.RenderRazorViewToString(this, "UserListPartial", models) });
+
+                return tt;
             }
+            model.InitializeSelectList(_roleManager, _context);
 
-            var results = await _context.Users.Include(x => x.Department).Where(x => x.LockoutEnabled == false).AsNoTracking().ToListAsync();
-            List<UserViewModel> models = new List<UserViewModel>();
-            foreach (var item in results)
-            {
-                models.Add(await UserViewModel.Initialize(item, _userManager));
-            }
-
-            var tt = Json(new { isValid = true, html = await JsonHelpers.RenderRazorViewToString(this, "UserListPartial", models) });
-
-            return tt;
+            return PartialView("UserCreatePartial", model);
         }
 
         [HttpPost]

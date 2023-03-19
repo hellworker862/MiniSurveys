@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace MiniSurveys.Web.Models.UserView
 {
@@ -46,22 +48,44 @@ namespace MiniSurveys.Web.Models.UserView
             return model;
         }
 
+        public void InitializeSelectList(RoleManager<IdentityRole<int>> roleManager, ApplicationDbContext context)
+        {
+            var roles = roleManager.Roles;
+            RolesSelectList = new List<SelectListItem>();
+            foreach (var item in roles)
+            {
+                RolesSelectList.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            }
+            var departments = context.Departments;
+            DepartmentsSelectList = new List<SelectListItem>();
+            foreach (var item in departments)
+            {
+                DepartmentsSelectList.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            }
+        }
+
         [DisplayName("Логин")]
+        [Required(ErrorMessage = "Не указан логин")]
         public string UserName { get; set; }
 
         [DisplayName("Имя")]
+        [Required(ErrorMessage = "Не указано имя")]
         public string Name { get; set; }
 
         [DisplayName("Фамилия")]
+        [Required(ErrorMessage = "Не указана фамилия")]
         public string Surname { get; set; }
 
         [DisplayName("Отчетсво")]
+        [Required(ErrorMessage = "Не указано отчество")]
         public string Patronymic { get; set; }
 
         [DisplayName("E-mail")]
+        [Required(ErrorMessage = "Не указана эл.почта")]
         public string Email { get; set; }
 
         [DisplayName("Телефон")]
+        [Required(ErrorMessage = "Не указан телефон")]
         public string Phone { get; set; }
 
         [DisplayName("Подразделение")]
@@ -77,6 +101,6 @@ namespace MiniSurveys.Web.Models.UserView
         public List<SelectListItem> DepartmentsSelectList { get; set; }
 
         [DisplayName("Изображение")]
-        public IFormFile Avatar { get; set; }
+        public IFormFile? Avatar { get; set; } = null;
     }
 }
