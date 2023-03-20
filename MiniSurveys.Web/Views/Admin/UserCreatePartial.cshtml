@@ -37,10 +37,8 @@
         <span asp-validation-for="Email"></span>
     </div>
     <div class="user__item">
-        <div class="user__item-input">
-            <label asp-for="Phone" for="user-number"></label>
-            <input asp-for="Phone" id="user-number" type="number">
-            </div>
+        <label asp-for="Phone" for="user-number"></label>
+        <input asp-for="Phone" id="user-number" type="number">
         <span asp-validation-for="Phone"></span>
     </div>
     <div class="user__item">
@@ -86,4 +84,3 @@
         <input type="submit" class="user__button-save" value="Сохранить">
     </div>
 </form>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>

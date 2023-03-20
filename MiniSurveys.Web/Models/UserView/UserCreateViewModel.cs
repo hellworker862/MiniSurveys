@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
@@ -71,6 +73,7 @@ namespace MiniSurveys.Web.Models.UserView
         public string Patronymic { get; set; }
 
         [DisplayName("E-mail")]
+        [EmailAddress]
         [Required(ErrorMessage = "Не указана эл.почта")]
         public string Email { get; set; }
 
@@ -79,15 +82,19 @@ namespace MiniSurveys.Web.Models.UserView
         public string Phone { get; set; }
 
         [DisplayName("Подразделение")]
+        [ValidateNever]
         public Department Department { get; set; }
 
         [DisplayName("Роль")]
+        [ValidateNever]
         public IdentityRole<int> Role { get; set; }
 
         [DisplayName("Роли")]
+        [ValidateNever]
         public List<SelectListItem> RolesSelectList { get; set; }
 
         [DisplayName("Подразделения")]
+        [ValidateNever]
         public List<SelectListItem> DepartmentsSelectList { get; set; }
 
         [DisplayName("Пароль")]
