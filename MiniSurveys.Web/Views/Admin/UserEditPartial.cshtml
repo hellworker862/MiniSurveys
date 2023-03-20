@@ -9,49 +9,67 @@
 </div>
 <form class="user__body" asp-action="UserEditPartial" enctype="multipart/form-data" onsubmit="return jQueryAjaxPost(this);">
     <div class="user__item">
+        <div class="user__item-input">
         <label asp-for="Name" for="user-name"></label>
         <input asp-for="Name" id="user-name" type="text">
+        </div>
         <span asp-validation-for="Name"></span>
     </div>
     <div class="user__item">
+        <div class="user__item-input">
         <label asp-for="Surname" for="user-surname"></label>
         <input asp-for="Surname" id="user-surname" type="text">
+        </div>
         <span asp-validation-for="Surname"></span>
     </div>
     <div class="user__item">
+        <div class="user__item-input">
         <label asp-for="Patronymic" for="user-middlename"></label>
         <input asp-for="Patronymic" id="user-middlename" type="text">
+        </div>
         <span asp-validation-for="Patronymic"></span>
     </div>
     <div class="user__item">
+        <div class="user__item-input">
         <label asp-for="Email" for="user-email"></label>
         <input asp-for="Email" id="user-email" type="email">
+        </div>
         <span asp-validation-for="Email"></span>
     </div>
     <div class="user__item">
+        <div class="user__item-input">
         <label asp-for="Phone" for="user-number"></label>
         <input asp-for="Phone" id="user-number" type="text">
+        </div>
         <span asp-validation-for="Phone"></span>
     </div>
     <div class="user__item">
+        <div class="user__item-input">
         <label asp-for="DepartmentsSelectList" for="user-division"></label>
         <select asp-for="Department.Id" asp-items="@Model.DepartmentsSelectList">
         </select>
+        </div>
     </div>
     <div class="user__item">
+        <div class="user__item-input">
         <label asp-for="RolesSelectList" for="user-role"></label>
         <select asp-for="Role.Id" asp-items="Model.RolesSelectList" id="user-role">
         </select>
+        </div>
     </div>
     <div class="user__item">
+        <div class="user__item-input">
         <label asp-for="UserName" for="user-login"></label>
         <input asp-for="UserName" id="user-login" type="text">
+        </div>
         <span asp-validation-for="UserName"></span>
     </div>
 
     <div class="user__item">
+        <div class="user__item-input">
         <label asp-for="Avatar" for="user-avatar"></label>
         <input asp-for="Avatar" id="user-avatar" type="file" class="form-control" />
+        </div>
         <span asp-validation-for="Avatar"></span>
     </div>
 

@@ -963,12 +963,13 @@ img {
 .user__item {
     margin-right: 85px;
     display: flex;
+    flex-direction:column;
     justify-content: right;
-    align-items: center;
+    align-items: end;
 }
 
 .user__item:not(:first-child) {
-    margin-top: 27px;
+    margin-top: 20px;
 }
 
 .user__item label {
@@ -1003,6 +1004,16 @@ img {
     padding: 5px 14px;
     line-height: 17px;
     margin-left: 12px;
+}
+
+.user__item span {
+    color: var(--tomato-color);
+}
+
+.user__item-input{
+    display:flex;
+    flex-direction: row;
+    align-items:center;
 }
 
 .user__button {
