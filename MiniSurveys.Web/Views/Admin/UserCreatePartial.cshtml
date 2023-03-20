@@ -37,8 +37,10 @@
         <span asp-validation-for="Email"></span>
     </div>
     <div class="user__item">
-        <label asp-for="Phone" for="user-number"></label>
-        <input asp-for="Phone" id="user-number" type="number">
+        <div class="user__item-input">
+            <label asp-for="Phone" for="user-number"></label>
+            <input asp-for="Phone" id="user-number" type="number">
+        </div>
         <span asp-validation-for="Phone"></span>
     </div>
     <div class="user__item">
