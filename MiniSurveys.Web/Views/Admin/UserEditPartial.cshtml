@@ -8,6 +8,7 @@
     <span class="user__title">Редактирование</span>
 </div>
 <form class="user__body" asp-action="UserEditPartial" enctype="multipart/form-data" onsubmit="return jQueryAjaxPost(this);">
+    <input asp-for="Id" id="user-id" class="display-none" type="text">
     <div class="user__item">
         <div class="user__item-input">
         <label asp-for="Name" for="user-name"></label>

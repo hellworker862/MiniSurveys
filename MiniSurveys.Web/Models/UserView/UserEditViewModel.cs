@@ -20,6 +20,7 @@ namespace MiniSurveys.Web.Models.UserView
 
         public UserEditViewModel(User user)
         {
+            Id = user.Id;
             UserName = user.UserName;
             Name = user.Name;
             Surname = user.Surname;
@@ -66,6 +67,8 @@ namespace MiniSurveys.Web.Models.UserView
                 DepartmentsSelectList.Add(new SelectListItem(item.Name, item.Id.ToString()));
             }
         }
+
+        public int Id { get; set; }
 
         [DisplayName("Логин")]
         [Required(ErrorMessage = "Не указан логин")]
