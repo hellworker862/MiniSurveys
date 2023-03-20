@@ -167,14 +167,12 @@ namespace MiniSurveys.Web.Controllers
         [Route("[controller]/{action}")]
         public async Task<ActionResult> UserCreatePartial(UserCreateViewModel model)
         {
-            var t = await _userManager.FindByEmailAsync(model.Email);
-
-            if (await _userManager.FindByEmailAsync(model.Email) != null)
+            if (model.Email != null && await _userManager.FindByEmailAsync(model.Email) != null)
             {
                 ModelState.AddModelError("Email", "Эл.почта уже используется");
             }
 
-            if (await _userManager.FindByNameAsync(model.UserName) != null)
+            if (model.UserName != null && await _userManager.FindByNameAsync(model.UserName) != null)
             {
                 ModelState.AddModelError("UserName", "Логин уже используется");
             }
