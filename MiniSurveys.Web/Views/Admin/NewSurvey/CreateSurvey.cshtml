@@ -9,16 +9,6 @@
         <label for="">Название опроса</label>
         <input asp-for="Title" type="text" placeholder="Введите название">
     </div>
-
-    <div class="create-survey__period-survey">
-        <label for="">Период</label>
-        <div class="create-survey__period-survey-period">
-            <label for="">От</label>
-            <input asp-for="Title" type="datetime-local">
-            <label for="">До</label>
-            <input asp-for="Title" type="datetime-local">
-        </div>
-    </div>
     <button class="create-survey__add" id="addQuestion">Добавить вопрос</button>
     <div class="create-survey__list" id="questionList">
         @foreach (NewQuestionViewModel item in @Model.Questions)

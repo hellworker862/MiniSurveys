@@ -1202,7 +1202,7 @@ td.td__img {
 }
 
 .create-survey__add {
-    margin-top: 20px;
+    margin-top: 10px;
     background-color: var(--tomato-color);
     padding: 8px 15px;
     color: var(--button-text-color);
@@ -1250,15 +1250,6 @@ td.td__img {
 .create-survey__header span {
     margin: 0px 24px;
 }
-
-    .create-survey__header button {
-        padding: 5px 10px;
-        color: var(--button-text-color);
-        background-color: var(--red-color);
-        font-style: normal;
-        font-weight: 527;
-        font-size: 14px;
-    }
 
 .create-survey__body {
     margin-top: 5px;
@@ -1413,20 +1404,11 @@ td.td__img {
     flex: 1 1 70%;
 }
 
-    .create-survey__body-body-item-body-answer img {
-        height: 20px;
-    }
-
-.create-survey__body-body-item-body-answer button{
-    background-color: #E9ECEE;
-    margin-left: 10px;
+.create-survey__body-body-item-body-link {
+    margin-top: 7px;
+    display: flex;
+    align-items: center;
 }
-
-    .create-survey__body-body-item-body-link {
-        margin-top: 7px;
-        display: flex;
-        align-items: center;
-    }
 
 .create-survey__body-body-item-body-link input[type=text], .create-survey__body-body-item-body-link select {
     margin-right: 10px;
@@ -1469,45 +1451,10 @@ td.td__img {
     padding: 5px 10px;
 }
 
-.create-survey__period-survey {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-}
-
-    .create-survey__period-survey label {
-        font-style: normal;
-        font-weight: bold;
-        font-size: 16px;
-    }
-
-.create-survey__period-survey-period {
-    margin-top: 10px;
+.create-survey__body-body-item-body-checkbox {
     display: flex;
     align-items: center;
 }
-
-    .create-survey__period-survey-period input {
-        margin-left: 10px;
-        background-color: #d5d7d7;
-        padding: 5px 10px;
-    }
-
-    .create-survey__period-survey-period label {
-        font-style: normal;
-        font-weight: 755;
-        font-size: 13px;
-    }
-
-    .create-survey__period-survey-period label:not(:first-child) {
-        margin-left: 30px;
-    }
-
-    .create-survey__body-body-item-body-checkbox {
-        display: flex;
-        align-items: center;
-    }
 
     .create-survey__body-body-item-body-checkbox input {
         margin-left: 7px;

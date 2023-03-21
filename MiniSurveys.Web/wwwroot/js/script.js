@@ -586,8 +586,9 @@ $("#addQuestion").click(function () {
                     <div class="create-survey__item-header-div">
                         <div class=""></div>
                         <div class="create-survey__header">
+                            <button><img src="../img/strelka_left.svg" alt=""></button>
                             <span id="${numberQuestionId}">Вопрос ${questionCount + 1}</span>
-                            <button>Удалить</button>
+                            <button><img src="../img/strelka_right.svg" alt=""></button>
                         </div>
                     </div>
                     <div class="create-survey__body">
@@ -707,7 +708,6 @@ function addAnswer(id) {
                         <div class="create-survey__body-body-item-body-answer">
                             <span id="${numberAnswerId}">${countAnswers + 1}</span>
                             <input id="${titleAnswerId}" name="Questions[${id}].Answers[${countAnswers}].Title" type="text" placeholder="Введите текст ответа">
-                            <button><img src="../img/ilusha.svg" alt=""></button>
                         </div>
                         <div class="create-survey__body-body-item-body-link">
                             <input id="${signatureAnswerId}" name="Questions[${id}].Answers[${countAnswers}].Media.Signature" type="text" placeholder="Подпись мультимедия">
