@@ -9,7 +9,7 @@ namespace MiniSurveys.Domain.Modals
 
         public string? Title { get; set; }
 
-        public TypeMediaEnum Type { get; set; }
+        public TypeMedia Type { get; set; }
 
         public int? QuestionId { get; set; }
 

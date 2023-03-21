@@ -7,7 +7,8 @@
       "wwwroot/js/survey.js",
       "wwwroot/js/popup.js",
       "wwwroot/js/users.js",
-      "wwwroot/js/results.js"
+      "wwwroot/js/results.js",
+      "wwwroot/js/create-survey.js"
     ]
   }
 ]

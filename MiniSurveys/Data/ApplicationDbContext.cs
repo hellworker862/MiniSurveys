@@ -29,7 +29,7 @@ namespace MiniSurveys.Domain.Data
                 {
                     Id = 1,
                     QuestionId = 3,
-                    Type = TypeMediaEnum.Video,
+                    Type = TypeMedia.Video,
                     Url = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/6gS1Bp4LZLc\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>",
                     Title = "Ёжик в тумане. Мультфильм HD (1975г.)"
                 },
@@ -37,7 +37,7 @@ namespace MiniSurveys.Domain.Data
                 {
                     Id = 2,
                     QuestionId = 3,
-                    Type = TypeMediaEnum.Image,
+                    Type = TypeMedia.Image,
                     Url = "https://proprikol.ru/wp-content/uploads/2021/12/kartinki-ezhika-na-avu-32.jpg",
                     Title = "Фото ёжика 1"
                 },
@@ -45,14 +45,14 @@ namespace MiniSurveys.Domain.Data
                 {
                     Id = 3,
                     QuestionId = 3,
-                    Type = TypeMediaEnum.Image,
+                    Type = TypeMedia.Image,
                     Url = "https://bugaga.ru/uploads/posts/2016-04/1461680876_ezhik-vampir-11.jpg",
                     Title = "Фото ёжика 2"
                 },
                 new Media
                 {
                     Id = 4,
-                    Type = TypeMediaEnum.Image,
+                    Type = TypeMedia.Image,
                     Url = "https://www.b17.ru/foto/uploaded/upl_1637170559_396979_p74dn.jpg",
                     Title = "С коллегами"
                 }

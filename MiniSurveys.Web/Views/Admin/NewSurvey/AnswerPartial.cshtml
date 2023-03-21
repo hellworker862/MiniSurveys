@@ -1,0 +1,20 @@
+﻿@using MiniSurveys.Web.Models.Survey.NewSurvey
+@model NewAnswerViewModel
+
+<div class="create-survey__body-body-item">
+    <div class="create-survey__body-body-item-body">
+        <div class="create-survey__body-body-item-body-answer">
+            <span id="_number_a_">1</span>
+            <input asp-for="Title" type="text" placeholder="Введите текст ответа">
+        </div>
+        <div class="create-survey__body-body-item-body-link">
+            <input asp-for="Media.Signature" type="text" placeholder="Подпись мультимедия">
+            <select asp-for="Media.SelectedType.Value" asp-items="@Model.Media.TypeSelectedList"></select>
+            <input asp-for="Media.Link" type="text" placeholder="Вставьте ссылку">
+            <div class="create-survey__body-body-item-body-checkbox">
+                <label for="">Использовать?</label>
+                <input asp-for="IsActive" type="checkbox" name="" id="">
+            </div>
+        </div>
+    </div>
+</div>

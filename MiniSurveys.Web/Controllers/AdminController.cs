@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
 using MiniSurveys.Web.Helpers;
+using MiniSurveys.Web.Models.Survey.NewSurvey;
 using MiniSurveys.Web.Models.UserView;
 using System.Data;
 
@@ -42,7 +43,34 @@ namespace MiniSurveys.Web.Controllers
         [HttpGet]
         public ActionResult CreateSurvey()
         {
-            return View();
+            var model = new NewSurveyViewModel();
+
+            return View("~/Views/Admin/NewSurvey/CreateSurvey.cshtml", model);
+        }
+
+        [HttpPost]
+        public ActionResult CreateSurvey(NewSurveyViewModel model)
+        {
+
+            return Json(false);
+        }
+
+        [HttpGet]
+        public ActionResult BlankAnswer()
+        {
+            return PartialView("~/Views/Admin/NewSurvey/AnswerPartial.cshtml", new NewAnswerViewModel());
+        }
+
+        [HttpGet]
+        public ActionResult BlankMedia()
+        {
+            return PartialView("~/Views/Admin/NewSurvey/MediaPartial.cshtml", new NewMediaViewModel());
+        }
+
+        [HttpGet]
+        public ActionResult BlankQuestion()
+        {
+            return PartialView("~/Views/Admin/NewSurvey/QuestionPartial.cshtml", new NewQuestionViewModel());
         }
 
         [HttpGet]

@@ -16,10 +16,10 @@
                 @if(Model.IsMedia)
                 {
                     switch(Model.Media.Type){
-                        case TypeMediaEnum.Image:
+                        case TypeMedia.Image:
                             <img class="answer__img" src="@Model.Media!.Url" alt="@Model.Media.Title">
                             break;
-                        case TypeMediaEnum.Video:
+                        case TypeMedia.Video:
                             @Model.Media!.Url
                             break;
                     }

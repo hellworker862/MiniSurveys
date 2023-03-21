@@ -1,0 +1,48 @@
+﻿@using MiniSurveys.Web.Models.Survey.NewSurvey
+@model NewQuestionViewModel
+
+<div class="create-survey__item" id="_q_">
+    <div class="create-survey__item-header-div">
+        <div class=""></div>
+        <div class="create-survey__header">
+            <button><img src="../img/strelka_left.svg" alt=""></button>
+            <span id="_number_q_">Вопрос 1</span>
+            <button><img src="../img/strelka_right.svg" alt=""></button>
+        </div>
+    </div>
+    <div class="create-survey__body">
+        <div class="create-survey__body-header">
+            <div class="create-survey__body-header-title">
+                <span class="create-survey__body-title3">Текст вопроса</span>
+                <input asp-for="Title" type="text" placeholder="Введите текст вопроса">
+            </div>
+            <div class="create-survey__body-header-download" id="addMedia">
+                <button id="addMedia_">Добавить мультимедия</button>
+            </div>
+            <div class="create-survey__body-header-list" id="mediaList_">
+                @foreach (NewMediaViewModel item in Model.Medias)
+                {
+                    @await Html.PartialAsync("~/Views/Admin/NewSurvey/MediaPartial.cshtml", item)
+                }
+            </div>
+        </div>
+        <div class="create-survey__body-body">
+            <div class="create-survey__body-header-title">
+                <span class="create-survey__body-title3">Варианты ответов</span>
+            </div>
+            <div class="create-survey__body-header-download create-survey__body-header-add-answer">
+                <button id="addAnswer_">Добавить ответ</button>
+            </div>
+            <div class="create-survey__body-header-item-title">
+                <span>№</span>
+                <span>Текст варианта ответа</span>
+            </div>
+            <div class="create-survey__body-body-list" id="answerList_">
+                @foreach (NewAnswerViewModel item in Model.Answers)
+                {
+                    @await Html.PartialAsync("~/Views/Admin/NewSurvey/AnswerPartial.cshtml", item)
+                }
+            </div>
+        </div>
+    </div>
+</div>

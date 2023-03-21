@@ -1406,10 +1406,12 @@ td.td__img {
 
 .create-survey__body-body-item-body-link {
     margin-top: 7px;
+    display: flex;
+    align-items: center;
 }
 
-.create-survey__body-body-item-body-link input,
-.create-survey__body-body-item-body-link select {
+.create-survey__body-body-item-body-link input[type=text], .create-survey__body-body-item-body-link select {
+    margin-right: 10px;
     height: 26px;
     padding: 5px 10px;
     background-color: #d5d7d7;
@@ -1428,6 +1430,35 @@ td.td__img {
     font-weight: bold;
     font-size: 17px;
 }
+
+.create-survey__name-survey {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.create-survey__name-survey label {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.create-survey__name-survey input {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #d5d7d7;
+    padding: 5px 10px;
+}
+
+.create-survey__body-body-item-body-checkbox {
+    display: flex;
+    align-items: center;
+}
+
+    .create-survey__body-body-item-body-checkbox input {
+        margin-left: 7px;
+    }
 
 .create-survey__body-save:hover {
     background-color: var(--red-color);

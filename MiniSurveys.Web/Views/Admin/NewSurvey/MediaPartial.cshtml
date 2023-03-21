@@ -1,0 +1,9 @@
+﻿@using MiniSurveys.Web.Models.Survey.NewSurvey
+@model NewMediaViewModel
+
+<div class="create-survey__body-header-item">
+    <input asp-for="Signature" type="text" placeholder="Подпись мультимедия">
+    <select asp-for="SelectedType.Value" asp-items="@Model.TypeSelectedList"></select>
+    <input asp-for="Link" type="text" placeholder="Вставьте ссылку">
+    <button><img src="../img/ilusha.svg" alt=""></button>
+</div>

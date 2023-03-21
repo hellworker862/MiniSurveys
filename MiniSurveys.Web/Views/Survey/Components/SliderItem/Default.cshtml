@@ -9,11 +9,11 @@
     <div class="numbertext">@Model.Number / @Model.MaxNumber</div>
     @switch(Model.Type)
     {
-        case TypeMediaEnum.Image:
+        case TypeMedia.Image:
             <img src="@Model.Url" title="@Model.Title">
             <div class="text">@Model.Title</div>
             break;
-        case TypeMediaEnum.Video:
+        case TypeMedia.Video:
             @Html.Raw(Model.Url)
             break;
     }

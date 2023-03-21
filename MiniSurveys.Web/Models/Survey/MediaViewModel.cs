@@ -33,7 +33,7 @@ namespace MiniSurveys.Web.Models.Survey
 
         public string? Title { get; init; }
 
-        public TypeMediaEnum Type { get; set; }
+        public TypeMedia Type { get; set; }
 
         public int? Number { get; init; }
 
