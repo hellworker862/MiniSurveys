@@ -6,24 +6,30 @@
         <h1>Создание нового опроса</h1>
     </div>
     <div class="create-survey__name-survey">
-        <label for="">Название опроса</label>
+        <label asp-for="Title">Название опроса</label>
         <input asp-for="Title" type="text" placeholder="Введите название">
+        <span asp-validation-for="Title"></span>
     </div>
 
     <div class="create-survey__period-survey">
         <label for="">Период</label>
         <div class="create-survey__period-survey-period">
-            <label for="">От</label>
-            <input asp-for="Title" type="datetime-local">
-            <label for="">До</label>
-            <input asp-for="Title" type="datetime-local">
+            <label asp-for="Start">От</label>
+            <input asp-for="Start" type="datetime-local">
+            <label asp-for="End">До</label>
+            <input asp-for="End" type="datetime-local">
         </div>
+        <span asp-validation-for="Start"></span>
+        <span asp-validation-for="End"></span>
     </div>
     <button class="create-survey__add" id="addQuestion">Добавить вопрос</button>
     <div class="create-survey__list" id="questionList">
-        @foreach (NewQuestionViewModel item in @Model.Questions)
-        {
-            @await Html.PartialAsync("~/Views/Admin/NewSurvey/QuestionPartial.cshtml", item)
+        @{
+            for (int i = 0; i < Model.Questions.Count; i++)
+            {
+                ViewData["QuestionId"] = i;
+                @await Html.PartialAsync("~/Views/Admin/NewSurvey/QuestionPartial.cshtml", Model.Questions.ElementAt(i), ViewData)
+            }
         }
     </div>
     <input type="submit" class="create-survey__body-save" value="Сохранить опрос">

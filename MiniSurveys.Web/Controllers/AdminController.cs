@@ -44,6 +44,12 @@ namespace MiniSurveys.Web.Controllers
         public ActionResult CreateSurvey()
         {
             var model = new NewSurveyViewModel();
+            model.Questions.Add(new NewQuestionViewModel());
+            model.Questions.Add(new NewQuestionViewModel());
+            model.Questions.ElementAt(0).Answers.Add(new NewAnswerViewModel());
+            model.Questions.ElementAt(0).Answers.Add(new NewAnswerViewModel());
+            model.Questions.ElementAt(1).Answers.Add(new NewAnswerViewModel());
+
 
             return View("~/Views/Admin/NewSurvey/CreateSurvey.cshtml", model);
         }
@@ -51,26 +57,17 @@ namespace MiniSurveys.Web.Controllers
         [HttpPost]
         public ActionResult CreateSurvey(NewSurveyViewModel model)
         {
+            if (model.Start >= model.End)
+            {
+                ModelState.AddModelError("Start", "Дата начала не может быть больше или равна дате окончания");
+            }
 
-            return Json(false);
-        }
+            if (ModelState.IsValid)
+            {
+                return Json(false);
+            }
 
-        [HttpGet]
-        public ActionResult BlankAnswer()
-        {
-            return PartialView("~/Views/Admin/NewSurvey/AnswerPartial.cshtml", new NewAnswerViewModel());
-        }
-
-        [HttpGet]
-        public ActionResult BlankMedia()
-        {
-            return PartialView("~/Views/Admin/NewSurvey/MediaPartial.cshtml", new NewMediaViewModel());
-        }
-
-        [HttpGet]
-        public ActionResult BlankQuestion()
-        {
-            return PartialView("~/Views/Admin/NewSurvey/QuestionPartial.cshtml", new NewQuestionViewModel());
+            return View("~/Views/Admin/NewSurvey/CreateSurvey.cshtml", model);
         }
 
         [HttpGet]

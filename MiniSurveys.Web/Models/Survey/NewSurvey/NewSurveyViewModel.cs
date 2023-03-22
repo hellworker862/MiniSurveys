@@ -13,5 +13,9 @@ namespace MiniSurveys.Web.Models.Survey.NewSurvey
         public string Title { get; set; }
         [Required(ErrorMessage = "Колличество вопросов должно быть больше 0")]
         public ICollection<NewQuestionViewModel> Questions { get; set; }
+        [Required(ErrorMessage = "Не указана дата начала")]
+        public  DateTime Start { get; set; }
+        [Required(ErrorMessage = "Не указана дата начала")]
+        public DateTime End { get; set; }
     }
 }

@@ -556,8 +556,13 @@ function renderChartBar(ctx, data, barGraph, number) {
     return barGraph;
 }
 // наименования id
+const question = 'q_';
+const answer = '_a_';
 const buttonAddMedia = 'addMedia_';
 const buttonAddAnswer = 'addAnswer_';
+const buttonDeleteMedia = '_deleteMedia_';
+const buttonDeleteAnswer = '_deleteAnswer_';
+const buttonDeleteQuestion = 'deleteQuestion_';
 const mediaList = 'mediaList_';
 const answerList = 'answerList_';
 const numberQuestion = 'number_q_';
@@ -574,27 +579,29 @@ const linkMedia = '_link_m_';
 const isActiveAnswer = '_active_a_';
 
 $("#addQuestion").click(function () {
-    const questionCount = $('[id^=q_]').length;
+    const questionCount = $('[id^=' + question + ']').length;
+    const questionId = question + questionCount;
     const buttonAddMediaId = buttonAddMedia + questionCount;
     const buttonAddAnswerId = buttonAddAnswer + questionCount;
     const mediaListId = mediaList + questionCount;
     const answerListId = answerList + questionCount;
     const numberQuestionId = numberQuestion + questionCount;
     const titleQuestionId = titleQuestion + questionCount;
+    const buttonDeleteQuestionId = buttonDeleteQuestion + questionCount;
 
-    var html = `<div class="create-survey__item" id="q_${questionCount}">
+    var html = `<div class="create-survey__item" id="${questionId}">
                     <div class="create-survey__item-header-div">
                         <div class=""></div>
                         <div class="create-survey__header">
                             <span id="${numberQuestionId}">Вопрос ${questionCount + 1}</span>
-                            <button>Удалить</button>
+                            <button id="${buttonDeleteQuestionId}">Удалить</button>
                         </div>
                     </div>
                     <div class="create-survey__body">
                         <div class="create-survey__body-header">
                             <div class="create-survey__body-header-title">
                                 <span class="create-survey__body-title3">Текст вопроса</span>
-                                <input id="${titleQuestionId}" name="Questions[${questionCount}].Title" type="text" placeholder="Введите текст вопроса">
+                                <input id="${titleQuestionId}" name="Questions[${questionCount}].QuestionTitle" type="text" placeholder="Введите текст вопроса">
                             </div>
                             <div class="create-survey__body-header-download" id="addMedia">
                                 <button id="${buttonAddMediaId}">Добавить мультимедия</button>
@@ -622,6 +629,7 @@ $("#addQuestion").click(function () {
                 </div>`;
 
     $("#questionList").append(html);
+    addAnswer(questionCount);
 
     $('#' + buttonAddAnswerId).click(function (even) {
         const id = even.target.id.replace(buttonAddAnswer, '');
@@ -635,87 +643,73 @@ $("#addQuestion").click(function () {
 
         return false;
     });
+    $('#' + buttonDeleteQuestionId).click(function (even) {
+        const id = even.target.id.replace(buttonDeleteQuestion, '');
+        deleteQuestion(id);
+
+        return false;
+    });
 
     return false;
 });
 
+$('[id*=' + buttonDeleteQuestion + ']').click(function (even) {
+    const id = even.target.id.replace(buttonDeleteQuestion, '');
+    deleteQuestion(id);
 
-//    /////другой вариант//////
+    return false;
+});
+$('[id*=' + buttonAddAnswer + ']').click(function (even) {
+    const id = even.target.id.replace(buttonAddAnswer, '');
+    addAnswer(id);
 
-//    //$.ajax({
-//    //    type: "GET",
-//    //    url: "/Admin/BlankQuestion",
-//    //    cache: false,
-//    //    success: function (html)
-//    //    {
-//    //        const questionCount = $('[id*=q_]').length + 1;
-//    //        const addMediaId = 'addMedia_' + questionCount;
-//    //        const mediaListId = 'mediaList_' + questionCount;
-//    //        const addAnswerId = 'addAnswer_' + questionCount;
-//    //        const answerListId = 'answerList_' + questionCount;
+    return false;
+});
+$('[id*=' + buttonAddMedia + ']').click(function (even) {
+    const id = even.target.id.replace(buttonAddMedia, '');
+    addMedia(id);
 
-//    //        $("#questionList").append(html);
-//    //        $('#_q_').attr('id', 'q_' + questionCount == null ? 1 : questionCount);
-//    //        $("#_number_q_").attr('id', 'number_q_' + questionCount).text('Вопрос ' + questionCount);
-//    //        $("#addMedia_").attr('id', addMediaId);
-//    //        $("#mediaList_").attr('id', mediaListId);
-//    //        $("#addAnswer_").attr('id', addAnswerId);
-//    //        $("#answerList_").attr('id', answerListId);
+    return false;
+});
+$('[id*=' + buttonDeleteMedia + ']').click(function (even) {
+    const idArr = even.target.id.split(buttonDeleteMedia);
+    deleteMedia(idArr);
 
-//    //        $('#' + addAnswerId).click(function (even) {
-//    //            $.ajax({
-//    //                type: "GET",
-//    //                url: "/Admin/BlankAnswer",
-//    //                cache: false,
-//    //                success: function (html)
-//    //                {
-//    //                    const id = even.target.id.replace('addAnswer_');
-//    //                    $('#' + answerListId).append(html);
-//    //                    const countAnswers = $('[id*=number_a_' + id + ']').length + 1;
-//    //                    $('#_number_a_').text(countAnswers);
-//    //                    $('#_number_a_').attr('id', 'number_a_' + id + '_' + countAnswers);
-//    //                }
-//    //            });
-//    //            return false;
-//    //        });
+    return false;
+});
+$('[id*=' + buttonDeleteAnswer + ']').click(function (even) {
+    const idArr = even.target.id.split(buttonDeleteAnswer);
+    deleteAnswer(idArr);
 
-//    //        $('#' + addMediaId).click(function () {
-//    //            $.ajax({
-//    //                type: "GET",
-//    //                url: "/Admin/BlankMedia",
-//    //                cache: false,
-//    //                success: function (html) { $('#' + mediaListId).append(html); }
-//    //            });
-//    //            return false;
-//    //        });
-//    //    }
-//    //});
-//    //return false;
-//});
+    return false;
+});
 
 function addAnswer(id) {
     const countAnswers = $('[id*=' + id + numberAnswer + ']').length;
+    const answerId = id + answer + countAnswers;
     const numberAnswerId = id + numberAnswer + countAnswers;
+    const buttonDeleteAnswerId = id + buttonDeleteAnswer + countAnswers;
     const titleAnswerId = id + titleAnswer + countAnswers;
     const signatureAnswerId = id + signatureMediaAnswer + countAnswers;
     const typeMediaAnswerId = id + typeMediaAnswer + countAnswers;
     const linkMediaAnswerId = id + linkMediaAnswer + countAnswers;
     const isActiveAnswerId = id + isActiveAnswer + countAnswers;
 
-    var html = `<div class="create-survey__body-body-item">
+    var html = `<div id="${answerId}" class="create-survey__body-body-item">
                     <div class="create-survey__body-body-item-body">
                         <div class="create-survey__body-body-item-body-answer">
                             <span id="${numberAnswerId}">${countAnswers + 1}</span>
-                            <input id="${titleAnswerId}" name="Questions[${id}].Answers[${countAnswers}].Title" type="text" placeholder="Введите текст ответа">
-                            <button><img src="../img/ilusha.svg" alt=""></button>
+                            <input id="${titleAnswerId}" name="Questions[${id}].Answers[${countAnswers}].AnswerTitle" type="text" placeholder="Введите текст ответа">
+                            <span class="field-validation-valid" data-valmsg-for="Questions[${id}].Answers[${countAnswers}].AnswerTitle" data-valmsg-replace="true"></span>
+                            <button><img id="${buttonDeleteAnswerId}" src="../img/ilusha.svg" alt=""></button>
                         </div>
                         <div class="create-survey__body-body-item-body-link">
-                            <input id="${signatureAnswerId}" name="Questions[${id}].Answers[${countAnswers}].Media.Signature" type="text" placeholder="Подпись мультимедия">
-                            <select id="${typeMediaAnswerId}" name="Questions[${id}].Answers[${countAnswers}].Media.SelectedType.Value">
+                            <input id="${signatureAnswerId}" name="Questions[${id}].Answers[${countAnswers}].SignatureMedia" type="text" placeholder="Подпись мультимедия">
+                            <select id="${typeMediaAnswerId}" name="Questions[${id}].Answers[${countAnswers}].SelectedTypeMedia.Value">
                                 <option value="1">Картинка</option>
                                 <option value="2">Видео</option>
                             </select>
-                            <input id="${linkMediaAnswerId}" name="Questions[${id}].Answers[${countAnswers}].Media.Link" type="text" placeholder="Вставьте ссылку">
+                            <input id="${linkMediaAnswerId}" name="Questions[${id}].Answers[${countAnswers}].LinkMedia" type="text" placeholder="Вставьте ссылку">
                             <div class="create-survey__body-body-item-body-checkbox">
                                 <label>Использовать?</label>
                                 <input id="${isActiveAnswerId}" name="Questions[${id}].Answers[${countAnswers}].IsActive" type="checkbox" value="true">
@@ -725,6 +719,12 @@ function addAnswer(id) {
                 </div>`;
 
     $('#' + answerList + id).append(html);
+    $('#' + buttonDeleteAnswerId).click(function (even) {
+        const idArr = even.target.id.split(buttonDeleteAnswer);
+        deleteAnswer(idArr);
+
+        return false;
+    });
 }
 
 function addMedia(id) {
@@ -733,6 +733,7 @@ function addMedia(id) {
     const signatureMediaId = id + signatureMedia + countMedias;
     const typeMediaId = id + typeMedia + countMedias;
     const linkMediaId = id + linkMedia + countMedias;
+    const buttonDeleteMediaId = id + buttonDeleteMedia + countMedias;
 
     var html = `<div id="${numberMediaId}" class="create-survey__body-header-item">
                     <input id="${signatureMediaId}" name="Questions[${id}].Medias[${countMedias}].Signature" type="text" placeholder="Подпись мультимедия">
@@ -741,10 +742,82 @@ function addMedia(id) {
                         <option value="2">Видео</option>                    
                     </select>
                     <input id="${linkMediaId}" name="Questions[${id}].Medias[${countMedias}].Link" type="text" placeholder="Вставьте ссылку">
-                    <button><img src="../img/ilusha.svg" alt=""></button>
+                    <button><img id="${buttonDeleteMediaId}" src="../img/ilusha.svg" alt=""></button>
                 </div>`;
 
     $('#' + mediaList + id).append(html);
+    $('#' + buttonDeleteMediaId).click(function (even) {
+        const idArr = even.target.id.split(buttonDeleteMedia);
+        deleteMedia(idArr);
+
+        return false;
+    });
 }
 
-$("#addQuestion").click();
+function deleteQuestion(id) {
+    $('#' + question + id).remove();
+    const questionCount = $('[id^=' + question + ']').length;
+
+    for (var i = Number(id) + 1; i <= questionCount; i++) {
+        $('#' + question + i).attr('id', question + (i - 1));
+        $('#' + numberQuestion + i).attr('id', numberQuestion + (i - 1)).text('Вопрос ' + i);
+        $('#' + buttonDeleteQuestion + i).attr('id', buttonDeleteQuestion + (i - 1));
+        $('#' + buttonAddMedia + i).attr('id', buttonAddMedia + (i - 1));
+        $('#' + buttonAddAnswer + i).attr('id', buttonAddAnswer + (i - 1));
+        $('#' + titleQuestion + i).attr('id', titleQuestion + (i - 1)).attr('name', `Questions[${(i - 1)}].QuestionTitle`);
+        $('#' + mediaList + i).attr('id', mediaList + (i - 1));
+        $('#' + answerList + i).attr('id', answerList + (i - 1));
+        const mediaCount = $('[id^=' + i + numberMedia + ']').length;
+
+        for (var j = 0; j < mediaCount; j++) {
+            $('#' + i + numberMedia + j).attr('id', (i - 1) + numberMedia + j);
+            $('#' + i + buttonDeleteMedia + j).attr('id', (i - 1) + buttonDeleteMedia + j);
+            $('#' + i + signatureMedia + j).attr('id', (i - 1) + signatureMedia + j).attr('name', `Questions[${i - 1}].Medias[${j}].Signature`);
+            $('#' + i + typeMedia + j).attr('id', (i - 1) + typeMedia + j).attr('name', `Questions[${i - 1}].Medias[${j}].SelectedType.Value`);
+            $('#' + i + linkMedia + j).attr('id', (i - 1) + linkMedia + j).attr('name', `Questions[${i - 1}].Medias[${j}].Link`);
+        }
+        const answerCount = $('[id^=' + i + numberAnswer + ']').length;
+
+        for (var j = 0; j < answerCount; j++) {
+            $('#' + i + answer + j).attr('id', (i - 1) + answer + j);
+            $('#' + i + numberAnswer + j).attr('id', (i - 1) + numberAnswer + j);
+            $('#' + i + buttonDeleteAnswer + j).attr('id', (i - 1) + buttonDeleteAnswer + j);
+            $('#' + i + titleAnswer + j).attr('id', (i - 1) + titleAnswer + j).attr('name', `Questions[${i - 1}].Answers[${j}].AnswerTitle`);
+            $('#' + i + signatureMediaAnswer + j).attr('id', (i - 1) + signatureMediaAnswer + j).attr('name', `Questions[${i - 1}].Answers[${j}].SignatureMedia`);
+            $('#' + i + typeMediaAnswer + j).attr('id', (i - 1) + typeMediaAnswer + j).attr('name', `Questions[${i - 1}].Answers[${j}].SelectedTypeMedia.Value`);
+            $('#' + i + linkMediaAnswer + j).attr('id', (i - 1) + linkMediaAnswer + j).attr('name', `Questions[${i - 1}].Answers[${j}].LinkMedia`);
+            $('#' + i + isActiveAnswer + j).attr('id', (i - 1) + isActiveAnswer + j).attr('name', `Questions[${i - 1}].Answers[${j}].IsActive`);
+        }
+    }
+}
+
+function deleteMedia(idArr) {
+    $('#' + idArr[0] + numberMedia + idArr[1]).remove();
+    const mediaCount = $('[id^=' + idArr[0] + numberMedia + ']').length;
+    const index = Number(idArr[1]) + 1;
+
+    for (var i = index; i <= mediaCount; i++) {
+        $('#' + idArr[0] + numberMedia + i).attr('id', idArr[0] + numberMedia + (i - 1));
+        $('#' + idArr[0] + buttonDeleteMedia + i).attr('id', idArr[0] + buttonDeleteMedia + (i - 1));
+        $('#' + idArr[0] + signatureMedia + i).attr('id', idArr[0] + signatureMedia + (i - 1)).attr('name', `Questions[${idArr[0]}].Medias[${i - 1}].Signature`);
+        $('#' + idArr[0] + typeMedia + i).attr('id', idArr[0] + typeMedia + (i - 1)).attr('name', `Questions[${idArr[0]}].Medias[${i - 1}].SelectedType.Value`);
+        $('#' + idArr[0] + linkMedia + i).attr('id', idArr[0] + linkMedia + (i - 1)).attr('name', `Questions[${idArr[0]}].Medias[${i - 1}].Link`);
+    }
+}
+
+function deleteAnswer(idArr) {
+    $('#' + idArr[0] + answer + idArr[1]).remove();
+    const answerCount = $('[id^=' + idArr[0] + numberAnswer + ']').length;
+    const index = Number(idArr[1]) + 1;
+
+    for (var i = index; i <= answerCount; i++) {
+        $('#' + idArr[0] + answer + i).attr('id', idArr[0] + answer + (i - 1));
+        $('#' + idArr[0] + numberAnswer + i).attr('id', idArr[0] + numberAnswer + (i - 1)).text(i);
+        $('#' + idArr[0] + buttonDeleteAnswer + i).attr('id', (idArr[0]) + buttonDeleteAnswer + (i - 1));
+        $('#' + idArr[0] + titleAnswer + i).attr('id', (idArr[0]) + titleAnswer + (i - 1)).attr('name', `Questions[${idArr[0]}].Answers[${i - 1}].AnswerTitle`);
+        $('#' + idArr[0] + signatureMediaAnswer + i).attr('id', (idArr[0]) + signatureMediaAnswer + (i - 1)).attr('name', `Questions[${idArr[0]}].Answers[${i - 1}].SignatureMedia`);
+        $('#' + idArr[0] + typeMediaAnswer + i).attr('id', (idArr[0]) + typeMediaAnswer + (i - 1)).attr('name', `Questions[${idArr[0]}].Answers[${i - 1}].SelectedTypeMedia.Value`);
+        $('#' + idArr[0] + linkMediaAnswer + i).attr('id', (idArr[0]) + linkMediaAnswer + (i - 1)).attr('name', `Questions[${idArr[0]}].Answers[${i - 1}].LinkMedia`);
+        $('#' + idArr[0] + isActiveAnswer + i).attr('id', (idArr[0]) + isActiveAnswer + (i - 1)).attr('name', `Questions[${idArr[0]}].Answers[${i - 1}].IsActive`);
+    }
+}

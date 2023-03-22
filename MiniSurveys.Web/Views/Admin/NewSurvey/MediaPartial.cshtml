@@ -1,9 +1,9 @@
 ﻿@using MiniSurveys.Web.Models.Survey.NewSurvey
 @model NewMediaViewModel
 
-<div class="create-survey__body-header-item">
-    <input asp-for="Signature" type="text" placeholder="Подпись мультимедия">
-    <select asp-for="SelectedType.Value" asp-items="@Model.TypeSelectedList"></select>
-    <input asp-for="Link" type="text" placeholder="Вставьте ссылку">
-    <button><img src="../img/ilusha.svg" alt=""></button>
+<div id="@ViewData["QuestionId"]_number_m_@ViewData["MediaId"]" class="create-survey__body-header-item">
+    <input id="@ViewData["QuestionId"]_signature_m_@ViewData["MediaId"]" name="Questions[@ViewData["QuestionId"]].Medias[@ViewData["MediaId"]].Signature" asp-for="Signature" type="text" placeholder="Подпись мультимедия">
+    <select id="@ViewData["QuestionId"]_type_m_@ViewData["MediaId"]" name="Questions[@ViewData["QuestionId"]].Medias[@ViewData["MediaId"]].SelectedType.Value" asp-for="SelectedType.Value" asp-items="@Model.TypeSelectedList"></select>
+    <input id="@ViewData["QuestionId"]_link_m_@ViewData["MediaId"]" name="Questions[@ViewData["QuestionId"]].Medias[@ViewData["MediaId"]].Link" asp-for="Link" type="text" placeholder="Вставьте ссылку">
+    <button><img id="@ViewData["QuestionId"]_deleteMedia_@ViewData["MediaId"]" src="../img/ilusha.svg" alt=""></button>
 </div>

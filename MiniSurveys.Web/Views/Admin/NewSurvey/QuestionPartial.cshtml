@@ -1,27 +1,33 @@
 ﻿@using MiniSurveys.Web.Models.Survey.NewSurvey
 @model NewQuestionViewModel
 
-<div class="create-survey__item" id="_q_">
+@{
+    int number = (int)ViewData["QuestionId"] + 1;
+}
+
+<div class="create-survey__item" id="q_@ViewData["QuestionId"]">
     <div class="create-survey__item-header-div">
         <div class=""></div>
         <div class="create-survey__header">
-            <span id="_number_q_">Вопрос 1</span>
-            <button>Удалить</button>
+            <span id="number_q_@ViewData["QuestionId"]">Вопрос @number </span>
+            <button id="deleteQuestion_@ViewData["QuestionId"]">Удалить</button>
         </div>
     </div>
     <div class="create-survey__body">
         <div class="create-survey__body-header">
             <div class="create-survey__body-header-title">
                 <span class="create-survey__body-title3">Текст вопроса</span>
-                <input asp-for="Title" type="text" placeholder="Введите текст вопроса">
+                <input id="title_q_@ViewData["QuestionId"]" name="Questions[@ViewData["QuestionId"]].QuestionTitle" data-val="true" data-val-required="" type="text" placeholder="Введите текст вопроса" asp-for="QuestionTitle">
+                <span class="field-validation-valid" data-valmsg-for="Questions[@ViewData["QuestionId"]].QuestionTitle" data-valmsg-replace="true"></span>
             </div>
             <div class="create-survey__body-header-download" id="addMedia">
-                <button id="addMedia_">Добавить мультимедия</button>
+                <button id="addMedia_@ViewData["QuestionId"]">Добавить мультимедия</button>
             </div>
-            <div class="create-survey__body-header-list" id="mediaList_">
-                @foreach (NewMediaViewModel item in Model.Medias)
+            <div class="create-survey__body-header-list" id="mediaList_@ViewData["QuestionId"]">
+                @for (int i = 0; i < Model.Medias.Count; i++)
                 {
-                    @await Html.PartialAsync("~/Views/Admin/NewSurvey/MediaPartial.cshtml", item)
+                    ViewData["MediaId"] = i;
+                    @await Html.PartialAsync("~/Views/Admin/NewSurvey/MediaPartial.cshtml", Model.Medias.ElementAt(i), ViewData)
                 }
             </div>
         </div>
@@ -30,16 +36,17 @@
                 <span class="create-survey__body-title3">Варианты ответов</span>
             </div>
             <div class="create-survey__body-header-download create-survey__body-header-add-answer">
-                <button id="addAnswer_">Добавить ответ</button>
+                <button id="addAnswer_@ViewData["QuestionId"]">Добавить ответ</button>
             </div>
             <div class="create-survey__body-header-item-title">
                 <span>№</span>
                 <span>Текст варианта ответа</span>
             </div>
-            <div class="create-survey__body-body-list" id="answerList_">
-                @foreach (NewAnswerViewModel item in Model.Answers)
+            <div class="create-survey__body-body-list" id="answerList_@ViewData["QuestionId"]">
+                @for (int i = 0; i < Model.Answers.Count; i++)
                 {
-                    @await Html.PartialAsync("~/Views/Admin/NewSurvey/AnswerPartial.cshtml", item)
+                    ViewData["AnswerId"] = i;
+                    @await Html.PartialAsync("~/Views/Admin/NewSurvey/AnswerPartial.cshtml", Model.Answers.ElementAt(i), ViewData)
                 }
             </div>
         </div>
