@@ -9,16 +9,14 @@
     <div class="create-survey__body-body-item-body">
         <div class="create-survey__body-body-item-body-answer">
             <span id="@ViewData["QuestionId"]_number_a_@ViewData["AnswerId"]">@number</span>
-            <input id="@ViewData["QuestionId"]_title_a_@ViewData["AnswerId"]" asp-for="AnswerTitle" name="Questions[@ViewData["QuestionId"]].Answers[@ViewData["AnswerId"]].AnswerTitle" type="text" placeholder="Введите текст ответа">
-            <span class="field-validation-valid" data-valmsg-for="Questions[@ViewData["QuestionId"]].Answers[@ViewData["AnswerId"]].AnswerTitle" data-valmsg-replace="true"></span>
+            <input id="@ViewData["QuestionId"]_title_a_@ViewData["AnswerId"]" asp-for="AnswerTitle" type="text" placeholder="Введите текст ответа">
+            <span asp-validation-for="AnswerTitle"></span>
             <button><img id="@ViewData["QuestionId"]_deleteAnswer_@ViewData["AnswerId"]" src="../img/ilusha.svg" alt=""></button>
         </div>
         <div class="create-survey__body-body-item-body-link">
             <input id="@ViewData["QuestionId"]_signature_a_m_@ViewData["AnswerId"]" name="Questions[@ViewData["QuestionId"]].Answers[@ViewData["AnswerId"]].SignatureMedia" asp-for="SignatureMedia" type="text" placeholder="Подпись мультимедия">
-            <span class="field-validation-valid" data-valmsg-for="Questions[@ViewData["QuestionId"]].Answers[@ViewData["AnswerId"]].SignatureMedia" data-valmsg-replace="true"></span>
             <select id="@ViewData["QuestionId"]_type_a_m_@ViewData["AnswerId"]" name="Questions[@ViewData["QuestionId"]].Answers[@ViewData["AnswerId"]].SelectedTypeMedia.Value" asp-for="SelectedTypeMedia.Value" asp-items="@Model.TypeSelectedListMedia"></select>
             <input id="@ViewData["QuestionId"]_link_a_m_@ViewData["AnswerId"]" name="Questions[@ViewData["QuestionId"]].Answers[@ViewData["AnswerId"]].LinkMedia" asp-for="LinkMedia" type="text" placeholder="Вставьте ссылку">
-            <span class="field-validation-valid" data-valmsg-for="Questions[@ViewData["QuestionId"]].Answers[@ViewData["AnswerId"]].LinkMedia" asp-for="LinkMedia" data-valmsg-replace="true"></span>
             <div class="create-survey__body-body-item-body-checkbox">
                 <label asp-for="IsActive">Использовать?</label>
                 <input id="@ViewData["QuestionId"]_active_a_@ViewData["AnswerId"]" name="Questions[@ViewData["QuestionId"]].Answers[@ViewData["AnswerId"]].IsActive" asp-for="IsActive" type="checkbox" value="true">

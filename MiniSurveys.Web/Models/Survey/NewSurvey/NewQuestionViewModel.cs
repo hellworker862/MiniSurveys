@@ -12,7 +12,7 @@ namespace MiniSurveys.Web.Models.Survey.NewSurvey
 
         [Required(ErrorMessage = "Не указан текст вопроса")]
         public string QuestionTitle { get; set; }
-        public ICollection<NewMediaViewModel> Medias { get; set; }
-        public ICollection<NewAnswerViewModel> Answers { get; set; }
+        public IList<NewMediaViewModel> Medias { get; set; }
+        public IList<NewAnswerViewModel> Answers { get; set; }
     }
 }
