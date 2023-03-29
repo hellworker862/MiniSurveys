@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MiniSurveys.Domain.Modals.Enums
 {
-    public enum TypeMedia : int
+    public enum TypeMedia : byte
     {
         [Display(Name = "Картинка")]
         Image = 1,

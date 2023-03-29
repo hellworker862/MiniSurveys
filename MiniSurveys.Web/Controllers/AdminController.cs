@@ -76,7 +76,7 @@ namespace MiniSurveys.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                return Json(false);
+                return RedirectToAction("Index", "Admin");
             }
 
             return View("~/Views/Admin/NewSurvey/CreateSurvey.cshtml", model);

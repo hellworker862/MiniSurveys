@@ -8,6 +8,7 @@ namespace MiniSurveys.Web.Models.Survey.NewSurvey
         {
             Questions = new List<NewQuestionViewModel>();
             Start = DateTime.Now.AddHours(1);
+            End = DateTime.Now.AddHours(1);
         }
 
         [Required(ErrorMessage = "Не указано название опроса")]
