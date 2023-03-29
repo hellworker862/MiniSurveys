@@ -42,6 +42,8 @@
                             <div class="create-survey__body-header-title">
                                 <span class="create-survey__body-title3">Текст вопроса</span>
                                 <input id="title_q_@ViewData["QuestionId"]" type="text" placeholder="Введите текст вопроса" asp-for="Questions[i].QuestionTitle">
+                            </div>
+                            <div class="create-survey__body-header-title-validation">
                                 <span asp-validation-for="Questions[i].QuestionTitle"></span>
                             </div>
                             <div class="create-survey__body-header-download" id="addMedia">
@@ -54,11 +56,17 @@
 
                                     <div id="@ViewData["QuestionId"]_number_m_@ViewData["MediaId"]" class="create-survey__body-header-item">
                                         <input id="@ViewData["QuestionId"]_signature_m_@ViewData["MediaId"]" asp-for="Questions[i].Medias[j].Signature" type="text" placeholder="Подпись мультимедия">
-                                        <span asp-validation-for="Questions[i].Medias[j].Signature"></span>
+                                        
                                         <select id="@ViewData["QuestionId"]_type_m_@ViewData["MediaId"]" asp-for="Questions[i].Medias[j].SelectedType.Value" asp-items="@Model.Questions[i].Medias[j].TypeSelectedList"></select>
                                         <input id="@ViewData["QuestionId"]_link_m_@ViewData["MediaId"]" asp-for="Questions[i].Medias[j].Link" type="text" placeholder="Вставьте ссылку">
-                                        <span asp-validation-for="Questions[i].Medias[j].Link"></span>
+                                        
                                         <button><img id="@ViewData["QuestionId"]_deleteMedia_@ViewData["MediaId"]" src="../img/ilusha.svg" alt=""></button>
+                                    </div>
+                                    <div class="create-survey__body-header-item-validation">
+                                        <span asp-validation-for="Questions[i].Medias[j].Signature"></span>
+                                        <label></label>
+                                        <span asp-validation-for="Questions[i].Medias[j].Link"></span>
+                                        <div></div>
                                     </div>
                                 }
                             </div>
@@ -85,19 +93,28 @@
                                             <div class="create-survey__body-body-item-body-answer">
                                                 <span id="@ViewData["QuestionId"]_number_a_@ViewData["AnswerId"]">@numberAsnwer</span>
                                                 <input id="@ViewData["QuestionId"]_title_a_@ViewData["AnswerId"]" asp-for="Questions[i].Answers[j].AnswerTitle" type="text" placeholder="Введите текст ответа">
-                                                <span asp-validation-for="Questions[i].Answers[j].AnswerTitle"></span>
+                                                
                                                 <button><img id="@ViewData["QuestionId"]_deleteAnswer_@ViewData["AnswerId"]" src="../img/ilusha.svg" alt=""></button>
+                                            </div>
+                                            <div class="create-survey__body-body-item-body-answer-validation">
+                                                <span asp-validation-for="Questions[i].Answers[j].AnswerTitle"></span>
                                             </div>
                                             <div class="create-survey__body-body-item-body-link">
                                                 <input id="@ViewData["QuestionId"]_signature_a_m_@ViewData["AnswerId"]" asp-for="Questions[i].Answers[j].SignatureMedia" type="text" placeholder="Подпись мультимедия">
-                                                <span asp-validation-for="Questions[i].Answers[j].SignatureMedia"></span>
+                                                
                                                 <select id="@ViewData["QuestionId"]_type_a_m_@ViewData["AnswerId"]" asp-for="Questions[i].Answers[j].SelectedTypeMedia.Value" asp-items="Model.Questions[i].Answers[j].TypeSelectedListMedia"></select>
                                                 <input id="@ViewData["QuestionId"]_link_a_m_@ViewData["AnswerId"]" asp-for="Questions[i].Answers[j].LinkMedia" type="text" placeholder="Вставьте ссылку">
-                                                <span asp-validation-for="Questions[i].Answers[j].LinkMedia"></span>
+                                                
                                                 <div class="create-survey__body-body-item-body-checkbox">
                                                     <label asp-for="Questions[i].Answers[j].IsActive">Использовать?</label>
                                                     <input id="@ViewData["QuestionId"]_active_a_@ViewData["AnswerId"]" asp-for="Questions[i].Answers[j].IsActive" type="checkbox" value="true">
                                                 </div>
+                                            </div>
+                                            <div class="create-survey__body-body-item-body-link-validation">
+                                                <span asp-validation-for="Questions[i].Answers[j].SignatureMedia"></span>
+                                                <label></label>
+                                                <span asp-validation-for="Questions[i].Answers[j].LinkMedia"></span>
+                                                <div></div>
                                             </div>
                                         </div>
                                     </div>
