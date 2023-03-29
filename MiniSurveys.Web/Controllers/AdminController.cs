@@ -56,7 +56,7 @@ namespace MiniSurveys.Web.Controllers
         [HttpPost]
         public ActionResult CreateSurvey(NewSurveyViewModel model)
         {
-            if(model.Start < DateTime.Now)
+            if (model.Start < DateTime.Now)
                 ModelState.AddModelError("Start", "Дата начала не может быть меньше текущего времени");
 
             if (model.Start >= model.End)

@@ -43,7 +43,6 @@
                                 <span class="create-survey__body-title3">Текст вопроса</span>
                                 <input id="title_q_@ViewData["QuestionId"]" type="text" placeholder="Введите текст вопроса" asp-for="Questions[i].QuestionTitle">
                                 <span asp-validation-for="Questions[i].QuestionTitle"></span>
-                                <span class="field-validation-valid" data-valmsg-for="Questions[@ViewData["QuestionId"]].QuestionTitle" data-valmsg-replace="true"></span>
                             </div>
                             <div class="create-survey__body-header-download" id="addMedia">
                                 <button id="addMedia_@ViewData["QuestionId"]">Добавить мультимедия</button>
