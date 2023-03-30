@@ -700,7 +700,6 @@ function addAnswer(id) {
                         <div class="create-survey__body-body-item-body-answer">
                             <span id="${numberAnswerId}">${countAnswers + 1}</span>
                             <input id="${titleAnswerId}" name="Questions[${id}].Answers[${countAnswers}].AnswerTitle" type="text" placeholder="Введите текст ответа">
-                            <span class="field-validation-valid" data-valmsg-for="Questions[${id}].Answers[${countAnswers}].AnswerTitle" data-valmsg-replace="true"></span>
                             <button><img id="${buttonDeleteAnswerId}" src="../img/ilusha.svg" alt=""></button>
                         </div>
                         <div class="create-survey__body-body-item-body-link">

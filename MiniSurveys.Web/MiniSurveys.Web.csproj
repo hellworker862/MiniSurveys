@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Base\**" />
+    <Content Remove="Models\Base\**" />
+    <EmbeddedResource Remove="Models\Base\**" />
+    <None Remove="Models\Base\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="web.config" />
   </ItemGroup>
@@ -29,7 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Base\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
