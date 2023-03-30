@@ -13,7 +13,6 @@ namespace MiniSurveys.Web.Models.Survey.NewSurvey
 
         [Required(ErrorMessage = "Не указано название опроса")]
         public string Title { get; set; }
-        [Required(ErrorMessage = "Колличество вопросов должно быть больше 0")]
         public IList<NewQuestionViewModel> Questions { get; set; }
         [Required(ErrorMessage = "Не указана дата начала")]
         public  DateTime Start { get; set; }
