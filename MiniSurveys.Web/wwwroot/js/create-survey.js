@@ -20,6 +20,7 @@ const typeMedia = '_type_m_';
 const linkMediaAnswer = '_link_a_m_';
 const linkMedia = '_link_m_';
 const isActiveAnswer = '_active_a_';
+const validateMedia = '_v_m_';
 
 $("#addQuestion").click(function () {
     const questionCount = $('[id^=' + question + ']').length;
@@ -44,7 +45,10 @@ $("#addQuestion").click(function () {
                         <div class="create-survey__body-header">
                             <div class="create-survey__body-header-title">
                                 <span class="create-survey__body-title3">Текст вопроса</span>
-                                <input id="${titleQuestionId}" name="Questions[${questionCount}].QuestionTitle" type="text" placeholder="Введите текст вопроса">
+                                <input id="${titleQuestionId}" name="Questions[${questionCount}].QuestionTitle" data-val="true" data-val-required="Не указан текст вопроса" type="text" placeholder="Введите текст вопроса">
+                            </div>
+                            <div class="create-survey__body-header-title-validation">
+                                <span class="field-validation-valid" data-valmsg-for="Questions[${questionCount}].QuestionTitle" data-valmsg-replace="true"></span>
                             </div>
                             <div class="create-survey__body-header-download" id="addMedia">
                                 <button id="${buttonAddMediaId}">Добавить мультимедия</button>
@@ -73,6 +77,8 @@ $("#addQuestion").click(function () {
 
     $("#questionList").append(html);
     addAnswer(questionCount);
+    updateValidatorForm();
+    
 
     $('#' + buttonAddAnswerId).click(function (even) {
         const id = even.target.id.replace(buttonAddAnswer, '');
@@ -127,6 +133,13 @@ $('[id*=' + buttonDeleteAnswer + ']').click(function (even) {
     return false;
 });
 
+$('[id*=' + isActiveAnswer + ']').change(function (even) {
+    const idArr = even.target.id.split(isActiveAnswer);
+    changeIsActive(idArr);
+
+    return false;
+});
+
 function addAnswer(id) {
     const countAnswers = $('[id*=' + id + numberAnswer + ']').length;
     const answerId = id + answer + countAnswers;
@@ -142,20 +155,29 @@ function addAnswer(id) {
                     <div class="create-survey__body-body-item-body">
                         <div class="create-survey__body-body-item-body-answer">
                             <span id="${numberAnswerId}">${countAnswers + 1}</span>
-                            <input id="${titleAnswerId}" name="Questions[${id}].Answers[${countAnswers}].AnswerTitle" type="text" placeholder="Введите текст ответа">
+                            <input id="${titleAnswerId}" name="Questions[${id}].Answers[${countAnswers}].AnswerTitle" data-val="true" data-val-required="Не указан текст ответа" type="text" placeholder="Введите текст ответа">
                             <button><img id="${buttonDeleteAnswerId}" src="../img/ilusha.svg" alt=""></button>
                         </div>
+                        <div class="create-survey__body-body-item-body-answer-validation">
+                            <span class="field-validation-valid" data-valmsg-for="Questions[${id}].Answers[${countAnswers}].AnswerTitle" data-valmsg-replace="true"></span>
+                        </div>
                         <div class="create-survey__body-body-item-body-link">
-                            <input id="${signatureAnswerId}" name="Questions[${id}].Answers[${countAnswers}].SignatureMedia" type="text" placeholder="Подпись мультимедия">
+                            <input id="${signatureAnswerId}" name="Questions[${id}].Answers[${countAnswers}].SignatureMedia" data-val="false" data-val-required="Не указана подпись мультимедиа" type="text" placeholder="Подпись мультимедия">
                             <select id="${typeMediaAnswerId}" name="Questions[${id}].Answers[${countAnswers}].SelectedTypeMedia.Value">
                                 <option value="1">Картинка</option>
                                 <option value="2">Видео</option>
                             </select>
-                            <input id="${linkMediaAnswerId}" name="Questions[${id}].Answers[${countAnswers}].LinkMedia" type="text" placeholder="Вставьте ссылку">
+                            <input id="${linkMediaAnswerId}" name="Questions[${id}].Answers[${countAnswers}].LinkMedia" data-val="false" data-val-required="Не указана ссылка на мультимедиа" type="text" placeholder="Вставьте ссылку">
                             <div class="create-survey__body-body-item-body-checkbox">
                                 <label>Использовать?</label>
                                 <input id="${isActiveAnswerId}" name="Questions[${id}].Answers[${countAnswers}].IsActive" type="checkbox" value="true">
                             </div>
+                        </div>
+                        <div class="create-survey__body-body-item-body-link-validation">
+                            <span asp-validation-for="Questions[${id}].Answers[${countAnswers}].SignatureMedia"></span>
+                            <label></label>
+                            <span asp-validation-for="Questions[${id}].Answers[${countAnswers}].LinkMedia"></span>
+                            <div></div>
                         </div>
                     </div>
                 </div>`;
@@ -167,6 +189,13 @@ function addAnswer(id) {
 
         return false;
     });
+    $('#' + isActiveAnswerId).change(function (even) {
+        const idArr = even.target.id.split(isActiveAnswer);
+        changeIsActive(idArr);
+
+        return false;
+    });
+    updateValidatorForm();
 }
 
 function addMedia(id) {
@@ -176,15 +205,22 @@ function addMedia(id) {
     const typeMediaId = id + typeMedia + countMedias;
     const linkMediaId = id + linkMedia + countMedias;
     const buttonDeleteMediaId = id + buttonDeleteMedia + countMedias;
+    const validateMediaId = id + validateMedia + countMedias;
 
     var html = `<div id="${numberMediaId}" class="create-survey__body-header-item">
-                    <input id="${signatureMediaId}" name="Questions[${id}].Medias[${countMedias}].Signature" type="text" placeholder="Подпись мультимедия">
+                    <input id="${signatureMediaId}" name="Questions[${id}].Medias[${countMedias}].Signature" data-val="true" data-val-required="Не указана подпись мультимедия" type="text" placeholder="Подпись мультимедия">
                     <select id="${typeMediaId}" name="Questions[${id}].Medias[${countMedias}].SelectedType.Value">
                         <option value="1">Картинка</option>
                         <option value="2">Видео</option>                    
                     </select>
-                    <input id="${linkMediaId}" name="Questions[${id}].Medias[${countMedias}].Link" type="text" placeholder="Вставьте ссылку">
+                    <input id="${linkMediaId}" name="Questions[${id}].Medias[${countMedias}].Link" data-val="true" data-val-required="Укажите сcылку на мультимедия" type="text" placeholder="Вставьте ссылку">
                     <button><img id="${buttonDeleteMediaId}" src="../img/ilusha.svg" alt=""></button>
+                </div>
+                <div id="${validateMediaId}" class="create-survey__body-header-item-validation">
+                    <span class="field-validation-valid" data-valmsg-for="Questions[${id}].Medias[${countMedias}].Signature" data-valmsg-replace="true"></span>
+                    <label></label>                      
+                    <span class="field-validation-valid" data-valmsg-for="Questions[${id}].Medias[${countMedias}].Link" data-valmsg-replace="true"></span>
+                    <div></div>
                 </div>`;
 
     $('#' + mediaList + id).append(html);
@@ -194,10 +230,12 @@ function addMedia(id) {
 
         return false;
     });
+    updateValidatorForm();
 }
 
 function deleteQuestion(id) {
     $('#' + question + id).remove();
+    $(`input[name^="Questions[${id}].Answers["]`).remove();
     const questionCount = $('[id^=' + question + ']').length;
 
     for (var i = Number(id) + 1; i <= questionCount; i++) {
@@ -209,6 +247,7 @@ function deleteQuestion(id) {
         $('#' + titleQuestion + i).attr('id', titleQuestion + (i - 1)).attr('name', `Questions[${(i - 1)}].QuestionTitle`);
         $('#' + mediaList + i).attr('id', mediaList + (i - 1));
         $('#' + answerList + i).attr('id', answerList + (i - 1));
+        $(`span[data-valmsg-for="Questions[${i}].QuestionTitle"]`).attr('data-valmsg-for', `Questions[${(i - 1)}].QuestionTitle`);
         const mediaCount = $('[id^=' + i + numberMedia + ']').length;
 
         for (var j = 0; j < mediaCount; j++) {
@@ -217,6 +256,9 @@ function deleteQuestion(id) {
             $('#' + i + signatureMedia + j).attr('id', (i - 1) + signatureMedia + j).attr('name', `Questions[${i - 1}].Medias[${j}].Signature`);
             $('#' + i + typeMedia + j).attr('id', (i - 1) + typeMedia + j).attr('name', `Questions[${i - 1}].Medias[${j}].SelectedType.Value`);
             $('#' + i + linkMedia + j).attr('id', (i - 1) + linkMedia + j).attr('name', `Questions[${i - 1}].Medias[${j}].Link`);
+            $('#' + i + validateMedia + j).attr('id', (i - 1) + validateMedia + j);
+            $(`span[data-valmsg-for="Questions[${i}].Medias[${j}].Signature"]`).attr('data-valmsg-for', `Questions[${i - 1}].Medias[${j}].Signature`);
+            $(`span[data-valmsg-for="Questions[${i}].Medias[${j}].Link"]`).attr('data-valmsg-for', `Questions[${i - 1}].Medias[${j}].Link`);
         }
         const answerCount = $('[id^=' + i + numberAnswer + ']').length;
 
@@ -229,12 +271,16 @@ function deleteQuestion(id) {
             $('#' + i + typeMediaAnswer + j).attr('id', (i - 1) + typeMediaAnswer + j).attr('name', `Questions[${i - 1}].Answers[${j}].SelectedTypeMedia.Value`);
             $('#' + i + linkMediaAnswer + j).attr('id', (i - 1) + linkMediaAnswer + j).attr('name', `Questions[${i - 1}].Answers[${j}].LinkMedia`);
             $('#' + i + isActiveAnswer + j).attr('id', (i - 1) + isActiveAnswer + j).attr('name', `Questions[${i - 1}].Answers[${j}].IsActive`);
+            $(`span[data-valmsg-for="Questions[${i}].Answers[${j}].LinkMedia"]`).attr('data-valmsg-for', `Questions[${i - 1}].Answers[${j}].LinkMedia`);
+            $(`span[data-valmsg-for="Questions[${i}].Answers[${j}].SignatureMedia"]`).attr('data-valmsg-for', `Questions[${i - 1}].Answers[${j}].SignatureMedia`);
+            $(`span[data-valmsg-for="Questions[${i}].Answers[${j}].AnswerTitle"]`).attr('data-valmsg-for', `Questions[${i - 1}].Answers[${j}].AnswerTitle`);
         }
     }
 }
 
 function deleteMedia(idArr) {
     $('#' + idArr[0] + numberMedia + idArr[1]).remove();
+    $('#' + idArr[0] + validateMedia + idArr[1]).remove();
     const mediaCount = $('[id^=' + idArr[0] + numberMedia + ']').length;
     const index = Number(idArr[1]) + 1;
 
@@ -244,11 +290,15 @@ function deleteMedia(idArr) {
         $('#' + idArr[0] + signatureMedia + i).attr('id', idArr[0] + signatureMedia + (i - 1)).attr('name', `Questions[${idArr[0]}].Medias[${i - 1}].Signature`);
         $('#' + idArr[0] + typeMedia + i).attr('id', idArr[0] + typeMedia + (i - 1)).attr('name', `Questions[${idArr[0]}].Medias[${i - 1}].SelectedType.Value`);
         $('#' + idArr[0] + linkMedia + i).attr('id', idArr[0] + linkMedia + (i - 1)).attr('name', `Questions[${idArr[0]}].Medias[${i - 1}].Link`);
+        $('#' + idArr[0] + validateMedia + i).attr('id', idArr[0] + validateMedia + (i - 1));
+        $(`span[data-valmsg-for="Questions[${idArr[0]}].Medias[${i}].Signature"]`).attr('data-valmsg-for', `Questions[${idArr[0]}].Medias[${i - 1}].Signature`);
+        $(`span[data-valmsg-for="Questions[${idArr[0]}].Medias[${i}].Link"]`).attr('data-valmsg-for', `Questions[${idArr[0]}].Medias[${i - 1}].Link`);
     }
 }
 
 function deleteAnswer(idArr) {
     $('#' + idArr[0] + answer + idArr[1]).remove();
+    $(`input[name="Questions[${idArr[0]}].Answers[${idArr[1]}].IsActive"]`).remove();
     const answerCount = $('[id^=' + idArr[0] + numberAnswer + ']').length;
     const index = Number(idArr[1]) + 1;
 
@@ -261,5 +311,32 @@ function deleteAnswer(idArr) {
         $('#' + idArr[0] + typeMediaAnswer + i).attr('id', (idArr[0]) + typeMediaAnswer + (i - 1)).attr('name', `Questions[${idArr[0]}].Answers[${i - 1}].SelectedTypeMedia.Value`);
         $('#' + idArr[0] + linkMediaAnswer + i).attr('id', (idArr[0]) + linkMediaAnswer + (i - 1)).attr('name', `Questions[${idArr[0]}].Answers[${i - 1}].LinkMedia`);
         $('#' + idArr[0] + isActiveAnswer + i).attr('id', (idArr[0]) + isActiveAnswer + (i - 1)).attr('name', `Questions[${idArr[0]}].Answers[${i - 1}].IsActive`);
+        $(`input[name="Questions[${idArr[0]}].Answers[${i}].IsActive"]`).attr('name', `Questions[${idArr[0]}].Answers[${i - 1}].IsActive`);
+        $(`span[data-valmsg-for="Questions[${idArr[0]}].Answers[${i}].LinkMedia"]`).attr('data-valmsg-for', `Questions[${idArr[0]}].Answers[${i - 1}].LinkMedia`);
+        $(`span[data-valmsg-for="Questions[${idArr[0]}].Answers[${i}].SignatureMedia"]`).attr('data-valmsg-for', `Questions[${idArr[0]}].Answers[${i - 1}].SignatureMedia`);
+        $(`span[data-valmsg-for="Questions[${idArr[0]}].Answers[${i}].AnswerTitle"]`).attr('data-valmsg-for', `Questions[${idArr[0]}].Answers[${i - 1}].AnswerTitle`);
     }
+}
+
+function updateValidatorForm() {
+    var form = $("form")
+        .removeData("validator")
+        .removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse(form);
+}
+
+function changeIsActive(idArr) {
+    const changebox = $('#' + idArr[0] + isActiveAnswer + idArr[1]);
+
+    if (changebox.is(':checked')) {
+        $('#' + idArr[0] + signatureMediaAnswer + idArr[1]).attr('data-val', 'true');
+        $('#' + idArr[0] + linkMediaAnswer + idArr[1]).attr('data-val', 'true');
+    }
+    else {
+        $('#' + idArr[0] + signatureMediaAnswer + idArr[1]).attr('data-val', 'false').removeClass('input-validation-error');
+        $('#' + idArr[0] + linkMediaAnswer + idArr[1]).attr('data-val', 'false').removeClass('input-validation-error');
+        $(`span[data-valmsg-for="Questions[${idArr[0]}].Answers[${idArr[1]}].LinkMedia"]`).removeClass('field-validation-error').addClass('field-validation-valid').html('');
+        $(`span[data-valmsg-for="Questions[${idArr[0]}].Answers[${idArr[1]}].SignatureMedia"]`).removeClass('field-validation-error').addClass('field-validation-valid').html('');
+    }
+    updateValidatorForm();
 }

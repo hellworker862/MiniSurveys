@@ -14,7 +14,7 @@ namespace MiniSurveys.Web.Models.Survey.NewSurvey
         public SelectListItem SelectedType { get; set; }
         [ValidateNever]
         public ICollection<SelectListItem> TypeSelectedList { get; set; }
-        [Required(ErrorMessage = "Укажите сыллку на мультимедия")]
+        [Required(ErrorMessage = "Укажите cсылку на мультимедия")]
         public string Link { get; set; }
 
         public NewMediaViewModel()

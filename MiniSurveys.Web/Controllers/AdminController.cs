@@ -46,6 +46,8 @@ namespace MiniSurveys.Web.Controllers
             var model = new NewSurveyViewModel();
             model.Questions.Add(new NewQuestionViewModel());
             model.Questions.ElementAt(0).Answers.Add(new NewAnswerViewModel());
+            model.Questions.ElementAt(0).Answers.Add(new NewAnswerViewModel());
+            model.Questions.ElementAt(0).Answers.Add(new NewAnswerViewModel());
             model.Questions.ElementAt(0).Medias.Add(new NewMediaViewModel());
 
 
@@ -62,17 +64,17 @@ namespace MiniSurveys.Web.Controllers
             if (model.Start >= model.End)
                 ModelState.AddModelError("Start", "Дата начала не может быть больше или равна дате окончания");
 
-            for (int i = 0; i < model.Questions.Count; i++)
-            {
-                for (int j = 0; j < model.Questions[i].Answers.Count; j++)
-                {
-                    if (model.Questions[i].Answers[j].IsActive && string.IsNullOrWhiteSpace(model.Questions[i].Answers[j].SignatureMedia))
-                        ModelState.AddModelError($"Questions[{i}].Answers[{j}].SignatureMedia", "Подпись не может быть пустой");
+            //for (int i = 0; i < model.Questions.Count; i++)
+            //{
+            //    for (int j = 0; j < model.Questions[i].Answers.Count; j++)
+            //    {
+            //        if (model.Questions[i].Answers[j].IsActive && string.IsNullOrWhiteSpace(model.Questions[i].Answers[j].SignatureMedia))
+            //            ModelState.AddModelError($"Questions[{i}].Answers[{j}].SignatureMedia", "Подпись не может быть пустой");
 
-                    if (model.Questions[i].Answers[j].IsActive && string.IsNullOrWhiteSpace(model.Questions[i].Answers[j].LinkMedia))
-                        ModelState.AddModelError($"Questions[{i}].Answers[{j}].LinkMedia", "Ссылка не может быть пустой");
-                }
-            }
+            //        if (model.Questions[i].Answers[j].IsActive && string.IsNullOrWhiteSpace(model.Questions[i].Answers[j].LinkMedia))
+            //            ModelState.AddModelError($"Questions[{i}].Answers[{j}].LinkMedia", "Ссылка не может быть пустой");
+            //    }
+            //}
 
             if (ModelState.IsValid)
             {

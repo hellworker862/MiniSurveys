@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace MiniSurveys.Web.Models.Survey.NewSurvey
 {
@@ -13,6 +14,7 @@ namespace MiniSurveys.Web.Models.Survey.NewSurvey
 
         [Required(ErrorMessage = "Не указано название опроса")]
         public string Title { get; set; }
+        [MinLength(1, ErrorMessage = "Количество вопросов не может быть меньше 1")]
         public IList<NewQuestionViewModel> Questions { get; set; }
         [Required(ErrorMessage = "Не указана дата начала")]
         public  DateTime Start { get; set; }
