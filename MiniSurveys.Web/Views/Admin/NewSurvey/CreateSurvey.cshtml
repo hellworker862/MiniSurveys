@@ -93,7 +93,6 @@
                                             <div class="create-survey__body-body-item-body-answer">
                                                 <span id="@ViewData["QuestionId"]_number_a_@ViewData["AnswerId"]">@numberAsnwer</span>
                                                 <input id="@ViewData["QuestionId"]_title_a_@ViewData["AnswerId"]" asp-for="Questions[i].Answers[j].AnswerTitle" type="text" placeholder="Введите текст ответа">
-                                                
                                                 <button><img id="@ViewData["QuestionId"]_deleteAnswer_@ViewData["AnswerId"]" src="../img/ilusha.svg" alt=""></button>
                                             </div>
                                             <div class="create-survey__body-body-item-body-answer-validation">
@@ -101,10 +100,8 @@
                                             </div>
                                             <div class="create-survey__body-body-item-body-link">
                                                 <input id="@ViewData["QuestionId"]_signature_a_m_@ViewData["AnswerId"]" asp-for="Questions[i].Answers[j].SignatureMedia" type="text" placeholder="Подпись мультимедия">
-                                                
                                                 <select id="@ViewData["QuestionId"]_type_a_m_@ViewData["AnswerId"]" asp-for="Questions[i].Answers[j].SelectedTypeMedia.Value" asp-items="Model.Questions[i].Answers[j].TypeSelectedListMedia"></select>
                                                 <input id="@ViewData["QuestionId"]_link_a_m_@ViewData["AnswerId"]" asp-for="Questions[i].Answers[j].LinkMedia" type="text" placeholder="Вставьте ссылку">
-                                                
                                                 <div class="create-survey__body-body-item-body-checkbox">
                                                     <label asp-for="Questions[i].Answers[j].IsActive">Использовать?</label>
                                                     <input id="@ViewData["QuestionId"]_active_a_@ViewData["AnswerId"]" asp-for="Questions[i].Answers[j].IsActive" type="checkbox" value="true">
