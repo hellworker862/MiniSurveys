@@ -74,6 +74,7 @@
                             <div class="create-survey__body-header-title">
                                 <span class="create-survey__body-title3">Варианты ответов</span>
                             </div>
+                            <span asp-validation-for="Questions[i].Answers"></span>
                             <div class="create-survey__body-header-download create-survey__body-header-add-answer">
                                 <button id="addAnswer_@ViewData["QuestionId"]">Добавить ответ</button>
                             </div>

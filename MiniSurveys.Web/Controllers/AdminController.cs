@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
+using MiniSurveys.Domain.Modals.Enums;
+using MiniSurveys.Domain.Services;
 using MiniSurveys.Web.Helpers;
 using MiniSurveys.Web.Models.Survey.NewSurvey;
 using MiniSurveys.Web.Models.UserView;
@@ -64,20 +66,109 @@ namespace MiniSurveys.Web.Controllers
             if (model.Start >= model.End)
                 ModelState.AddModelError("Start", "Дата начала не может быть больше или равна дате окончания");
 
-            //for (int i = 0; i < model.Questions.Count; i++)
-            //{
-            //    for (int j = 0; j < model.Questions[i].Answers.Count; j++)
-            //    {
-            //        if (model.Questions[i].Answers[j].IsActive && string.IsNullOrWhiteSpace(model.Questions[i].Answers[j].SignatureMedia))
-            //            ModelState.AddModelError($"Questions[{i}].Answers[{j}].SignatureMedia", "Подпись не может быть пустой");
+            if (_context.Surveys.Any(s => model.Start < s.EndTime && s.StartTime < model.End))
+                ModelState.AddModelError("Start", "Этот промежуток времени занят");
 
-            //        if (model.Questions[i].Answers[j].IsActive && string.IsNullOrWhiteSpace(model.Questions[i].Answers[j].LinkMedia))
-            //            ModelState.AddModelError($"Questions[{i}].Answers[{j}].LinkMedia", "Ссылка не может быть пустой");
-            //    }
-            //}
+            if (model.Questions.Count < 1)
+                ModelState.AddModelError("Questions", "Вопросов не может быть меньше 1");
+
+            for (int i = 0; i < model.Questions.Count; i++)
+            {
+                if (model.Questions[i].Answers.Count < 1)
+                    ModelState.AddModelError($"Questions[{i}].Answers", "Ответов не может быть меньше 1");
+            }
 
             if (ModelState.IsValid)
             {
+                var survey = new Survey()
+                {
+                    StartTime = model.Start,
+                    EndTime = model.End,
+                    Title = model.Title,
+                    Questions = new List<Question>(),
+                };
+
+                for (int i = 0; i < model.Questions.Count; i++)
+                {
+                    var modelQuestion = model.Questions[i];
+
+                    var question = new Question()
+                    {
+                        Title = modelQuestion.QuestionTitle,
+                        Media = new List<Media>(),
+                        Answers = new List<Answer>(),
+                    };
+
+                    for (int j = 0; j < modelQuestion.Medias.Count; j++)
+                    {
+                        var modelmMedia = modelQuestion.Medias[j];
+                        var signature = modelmMedia.Signature;
+                        var type = (TypeMedia)int.Parse(modelmMedia.SelectedType.Value);
+                        var link = type switch 
+                        {
+                            TypeMedia.Image => modelmMedia.Link,
+                            TypeMedia.Video => YoutubeService.GetVideoId(modelmMedia.Link),
+                            _ => null
+                        };
+
+                        if (String.IsNullOrEmpty(link))
+                        {
+                            ModelState.AddModelError($"Questions[{i}].Medias[{j}].Link", "Некорректная ссылка");
+                            return View("~/Views/Admin/NewSurvey/CreateSurvey.cshtml", model);
+                        }
+
+                        var media = new Media()
+                        {
+                            Title = signature,
+                            Url = link,
+                            Type = type,
+                        };
+                        question.Media.Add(media);
+                    }
+
+                    for (int j = 0; j < modelQuestion.Answers.Count; j++)
+                    {
+                        var modelmAnswer = modelQuestion.Answers[j];
+                        var title = modelmAnswer.AnswerTitle;
+                        var answer = new Answer()
+                        {
+                            Title = title,
+                        };
+
+                        if (modelmAnswer.IsActive)
+                        {
+                            var signature = modelmAnswer.SignatureMedia;
+                            var type = (TypeMedia)int.Parse(modelmAnswer.SelectedTypeMedia.Value);
+                            var link = type switch
+                            {
+                                TypeMedia.Image => modelmAnswer.LinkMedia,
+                                TypeMedia.Video => YoutubeService.GetVideoId(modelmAnswer.LinkMedia),
+                                _ => null
+                            };
+
+                            if (String.IsNullOrEmpty(link))
+                            {
+                                ModelState.AddModelError($"Questions[{i}].Medias[{j}].Link", "Некорректная ссылка");
+                                return View("~/Views/Admin/NewSurvey/CreateSurvey.cshtml", model);
+                            }
+
+                            var media = new Media()
+                            {
+                                Title = signature,
+                                Url = link,
+                                Type = type,
+                            };
+                            answer.Media = media;
+                        }
+                        question.Answers.Add(answer);
+                    }
+
+                    survey.Questions.Add(question);
+                }
+
+                _context.Add(survey);
+                _context.SaveChanges();
+
                 return RedirectToAction("Index", "Admin");
             }
 

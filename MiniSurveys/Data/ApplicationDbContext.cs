@@ -30,7 +30,7 @@ namespace MiniSurveys.Domain.Data
                     Id = 1,
                     QuestionId = 3,
                     Type = TypeMedia.Video,
-                    Url = "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/6gS1Bp4LZLc\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>",
+                    Url = "6gS1Bp4LZLc",
                     Title = "Ёжик в тумане. Мультфильм HD (1975г.)"
                 },
                 new Media

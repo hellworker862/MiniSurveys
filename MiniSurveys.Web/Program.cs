@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MiniSurveys.Domain.Data;
 using MiniSurveys.Domain.Modals;
+using MiniSurveys.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString;

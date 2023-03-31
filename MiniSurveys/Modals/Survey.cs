@@ -12,6 +12,6 @@ namespace MiniSurveys.Domain.Modals
 
         public bool IsQuestionOrder { get; set; } = false;
 
-        public IEnumerable<Question> Questions { get; set; }
+        public ICollection<Question> Questions { get; set; }
     }
 }
